@@ -6,6 +6,7 @@ Medium for Podcasts
  * nice listening interface
  * App with great offline settings
  * No sort by user
+ * Transcriptions?
 
 ## Tech ideas
 
