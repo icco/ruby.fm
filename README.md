@@ -16,3 +16,7 @@ Medium for Podcasts
  * http://mediaelementjs.com/
  * http://www.createjs.com/#!/SoundJS
  * https://darrenderidder.github.io/bbplayer/
+
+## Product ideas
+ 
+ * https://twitter.com/destraynor/status/539865838720139265
