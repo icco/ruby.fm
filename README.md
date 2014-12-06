@@ -8,17 +8,5 @@ Medium for Podcasts
  * No sort by user
  * Transcriptions?
 
-## Tech ideas
+Lots of ideas are over in [ideas/](https://github.com/icco/squirrel/tree/master/ideas).
 
- * https://kolber.github.io/audiojs/
- * http://jplayer.org/
- * http://www.schillmania.com/projects/soundmanager2/
- * http://mediaelementjs.com/
- * http://www.createjs.com/#!/SoundJS
- * https://darrenderidder.github.io/bbplayer/
-
-## Product ideas
-
- * https://twitter.com/destraynor/status/539865838720139265
- * https://en.wikipedia.org/wiki/Odeo
- * https://www.podomatic.com/
