@@ -1,6 +1,6 @@
 # squirrel
 
-Medium for Podcasts 
+Medium for Podcasts
 
  * Collections of podcasts
  * nice listening interface
@@ -18,5 +18,6 @@ Medium for Podcasts
  * https://darrenderidder.github.io/bbplayer/
 
 ## Product ideas
- 
+
  * https://twitter.com/destraynor/status/539865838720139265
+ * https://en.wikipedia.org/wiki/Odeo
