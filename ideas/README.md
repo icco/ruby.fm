@@ -16,3 +16,8 @@ Just random links and photos as I try to figure out what this is.
  * https://twitter.com/destraynor/status/539865838720139265
  * https://en.wikipedia.org/wiki/Odeo
  * https://www.podomatic.com/
+ * Collections of podcasts
+ * nice listening interface
+ * App with great offline settings
+ * No sort by user
+ * Transcriptions?
