@@ -5,8 +5,11 @@ import (
 	"io"
 	"net/http"
 
-	"google.golang.org/appengine"
-	"google.golang.org/appengine/blobstore"
+	// Blobstore hasn't been ported to new App Engine API yet, so we can't use
+	// the fancy https://github.com/golang/appengine/ import paths yet (which is
+	// so lame).
+	"appengine"
+	"appengine/blobstore"
 )
 
 func serveError(c appengine.Context, w http.ResponseWriter, err error) {
