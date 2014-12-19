@@ -3,24 +3,16 @@ package server
 
 import (
 	"html/template"
-	"io"
 	"net/http"
 
 	// Blobstore hasn't been ported to new App Engine API yet, so we can't use
 	// the fancy https://github.com/golang/appengine/ import paths yet (which is
 	// so lame).
 	"appengine"
-	"appengine/blobstore"
 
 	"github.com/gorilla/mux"
+	"github.com/simplecasual/namefm/handlers"
 )
-
-func serveError(c appengine.Context, w http.ResponseWriter, err error) {
-	w.WriteHeader(http.StatusInternalServerError)
-	w.Header().Set("Content-Type", "text/plain")
-	io.WriteString(w, "Internal Server Error")
-	c.Errorf("%v", err)
-}
 
 var rootTemplate = template.Must(template.New("root").Parse(rootTemplateHTML))
 
@@ -49,28 +41,13 @@ func handleRoot(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func handleServe(w http.ResponseWriter, r *http.Request) {
-	blobstore.Send(w, appengine.BlobKey(r.FormValue("blobKey")))
-}
-
-func handleUpload(w http.ResponseWriter, r *http.Request) {
-	c := appengine.NewContext(r)
-	blobs, _, err := blobstore.ParseUpload(r)
-	if err != nil {
-		serveError(c, w, err)
-		return
-	}
-	file := blobs["file"]
-	if len(file) == 0 {
-		c.Errorf("no file uploaded")
-		http.Redirect(w, r, "/", http.StatusFound)
-		return
-	}
-	http.Redirect(w, r, "/serve/?blobKey="+string(file[0].BlobKey), http.StatusFound)
-}
-
 func init() {
-	http.HandleFunc("/", handleRoot)
-	http.HandleFunc("/serve/", handleServe)
-	http.HandleFunc("/upload", handleUpload)
+	r := mux.NewRouter()
+	r.HandleFunc("/", handleRoot)
+	r.HandleFunc("/serve/", handlers.handleServe).Methods("GET")
+	r.HandleFunc("/upload", handlers.handleUpload).Methods("POST")
+	r.HandleFunc("/settings", handlers.SettingsGetHandler).Methods("GET")
+	r.HandleFunc("/settings", handlers.SettingsPostHandler).Methods("POST")
+
+	http.Handle("/", r)
 }

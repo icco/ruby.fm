@@ -29,7 +29,7 @@ type SettingsPageData struct {
 	Xsrf                     string
 }
 
-func SettingsGetHandler(w traffic.ResponseWriter, r *traffic.Request) {
+func SettingsGetHandler(w http.ResponseWriter, r *http.Request) {
 	c := appengine.NewContext(r.Request)
 	u := user.Current(c)
 	if u == nil {
@@ -82,7 +82,7 @@ func SettingsGetHandler(w traffic.ResponseWriter, r *traffic.Request) {
 	}
 }
 
-func SettingsPostHandler(w traffic.ResponseWriter, r *traffic.Request) {
+func SettingsPostHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 
 	c := appengine.NewContext(r.Request)
