@@ -66,6 +66,18 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 	http.Redirect(w, r, "/serve/?blobKey="+string(file[0].BlobKey), http.StatusFound)
 }
 
+// Creates a random string that has "length" characters.
+func RandomString(length int) string {
+	buffer := bytes.NewBufferString("")
+
+	r := rand.New(rand.NewSource(time.Now().UnixNano()))
+	for _, v := range r.Perm(length) {
+		buffer.WriteString(fmt.Sprintf("%X", v))
+	}
+
+	return buffer.String()
+}
+
 func init() {
 	http.HandleFunc("/", handleRoot)
 	http.HandleFunc("/serve/", handleServe)
