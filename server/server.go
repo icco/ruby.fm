@@ -1,3 +1,4 @@
+// Contains the entry point for all web requests.
 package server
 
 import (
@@ -10,6 +11,8 @@ import (
 	// so lame).
 	"appengine"
 	"appengine/blobstore"
+
+	"github.com/gorilla/mux"
 )
 
 func serveError(c appengine.Context, w http.ResponseWriter, err error) {
@@ -64,18 +67,6 @@ func handleUpload(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	http.Redirect(w, r, "/serve/?blobKey="+string(file[0].BlobKey), http.StatusFound)
-}
-
-// Creates a random string that has "length" characters.
-func RandomString(length int) string {
-	buffer := bytes.NewBufferString("")
-
-	r := rand.New(rand.NewSource(time.Now().UnixNano()))
-	for _, v := range r.Perm(length) {
-		buffer.WriteString(fmt.Sprintf("%X", v))
-	}
-
-	return buffer.String()
 }
 
 func init() {
