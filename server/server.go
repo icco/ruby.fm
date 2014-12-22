@@ -1,5 +1,5 @@
 // Contains the entry point for all web requests.
-package server
+package main
 
 import (
 	"html/template"
