@@ -2,16 +2,12 @@
 
 all: run
 
-css:
-	scss --trace -t compressed public/scss/style.scss public/css/style.css
-
-run: css *.go
-	gcloud preview app run . --project=natwelch-writing
+run: server/*.go
+	gcloud preview app run server/ --project=inawordfm
 
 deploy:
-	gcloud preview app deploy . --project=natwelch-writing
 	git push
+	gcloud preview app deploy . --project=inawordfm
 
 update:
-	cd $(GOPATH)/src/github.com/icco/natnatnat/; git pull
 	goapp get -v -u ...
