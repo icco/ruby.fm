@@ -18,6 +18,10 @@ var rootTemplate = template.Must(template.New("root").Parse(rootTemplateHTML))
 
 const rootTemplateHTML = `
 <html>
+<head>
+<title>Name.FM</title>
+<link rel="stylesheet" type="text/css" href="/css/style.css">
+</head>
 <body>
 <form action="{{.}}" method="POST" enctype="multipart/form-data">
 Upload File: <input type="file" name="file"><br>
@@ -44,6 +48,8 @@ func handleRoot(w http.ResponseWriter, r *http.Request) {
 func init() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", handleRoot)
+	r.HandleFunc("/js", http.FileServer(http.Dir("public/js")))
+	r.HandleFunc("/css", http.FileServer(http.Dir("public/css")))
 	r.HandleFunc("/serve/", handlers.handleServe).Methods("GET")
 	r.HandleFunc("/upload", handlers.handleUpload).Methods("POST")
 	r.HandleFunc("/settings", handlers.SettingsGetHandler).Methods("GET")
