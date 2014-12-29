@@ -2,6 +2,7 @@
 package main
 
 import (
+	"encoding/json"
 	"html/template"
 	"net/http"
 
@@ -9,9 +10,9 @@ import (
 	// the fancy https://github.com/golang/appengine/ import paths yet (which is
 	// so lame).
 	"appengine"
+	"appengine/blobstore"
 
 	"github.com/gorilla/mux"
-	"github.com/simplecasual/namefm/handlers"
 )
 
 var rootTemplate = template.Must(template.New("root").Parse(rootTemplateHTML))
@@ -45,15 +46,26 @@ func handleRoot(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func Render(w http.ResponseWriter, data ...interface{}) {
+	rendered, err := json.Marshal(data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(rendered)
+}
+
 func init() {
 	r := mux.NewRouter()
 	r.HandleFunc("/", handleRoot)
-	r.HandleFunc("/js", http.FileServer(http.Dir("public/js")))
-	r.HandleFunc("/css", http.FileServer(http.Dir("public/css")))
-	r.HandleFunc("/serve/", handlers.handleServe).Methods("GET")
-	r.HandleFunc("/upload", handlers.handleUpload).Methods("POST")
-	r.HandleFunc("/settings", handlers.SettingsGetHandler).Methods("GET")
-	r.HandleFunc("/settings", handlers.SettingsPostHandler).Methods("POST")
+	r.Handle("/js", http.FileServer(http.Dir("public/js")))
+	r.Handle("/css", http.FileServer(http.Dir("public/css")))
+	r.HandleFunc("/serve/", handleServe).Methods("GET")
+	r.HandleFunc("/upload", handleUpload).Methods("POST")
+	r.HandleFunc("/settings", SettingsGetHandler).Methods("GET")
+	r.HandleFunc("/settings", SettingsPostHandler).Methods("POST")
 
 	http.Handle("/", r)
 }
