@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-  # root "dropbox/main"
+  root "dropbox#index"
 
   # Dropbox Integration
   get  "dropbox/main"

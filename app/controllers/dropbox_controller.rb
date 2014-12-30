@@ -12,6 +12,9 @@ APP_SECRET = "i93ugwid0g4emrl"
 
 class DropboxController < ApplicationController
 
+    def index
+    end
+
     def main
         client = get_dropbox_client
         unless client
@@ -42,9 +45,13 @@ class DropboxController < ApplicationController
           child['album'] = m.tag.album 
           child['artist'] = m.tag.artist
           child['length'] = m.length 
+          child['date'] = m.tag.year 
         end
 
-        render :inline =>
+        @child = child
+        @child_url = demo
+
+        # render :inline =>
             "#{account_info['email']}
             <br>
             #{demo}
