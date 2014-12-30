@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+
+  # root "dropbox/main"
+
+  # Dropbox Integration
+  get  "dropbox/main"
+  post "dropbox/upload"
+  get  "dropbox/auth_start"
+  get  "dropbox/auth_finish"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
