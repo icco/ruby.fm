@@ -1,27 +1,11 @@
-# ---------------------------------------------------------------------------------------
-# A Rails 3 controller that:
-# - Runs the through Dropbox's OAuth 2 flow, yielding a Dropbox API access token.
-# - Makes a Dropbox API call to upload a file.
-#
-# To set up:
-# 1. Create a Dropbox App key and secret to use the API. https://www.dropbox.com/developers
-# 2. Add http://localhost:3000/dropbox/auth_finish as a Redirect URI for your Dropbox app.
-# 3. Copy your App key and App secret into APP_KEY and APP_SECRET below.
-#
-# To run:
-# 1. You need a Rails 3 project (to create one, run: rails new <folder-name>)
-# 2. Copy dropbox_sdk.rb into <folder-name>/vendor
-# 3. Copy this file into <folder-name>/app/controllers/
-# 4. Add the following lines to <folder-name>/config/routes.rb
-#        get  "dropbox/main"
-#        post "dropbox/upload"
-#        get  "dropbox/auth_start"
-#        get  "dropbox/auth_finish"
-# 5. Run: rails server
-# 6. Point your browser at: https://localhost:3000/dropbox/main
-
 require 'dropbox_sdk'
 require 'securerandom'
+
+require 'open-uri'
+require 'stringio'
+require 'net/http'
+require 'uri'
+require 'mp3info'
 
 APP_KEY = "3da9yeowjg8366f"
 APP_SECRET = "i93ugwid0g4emrl"
@@ -42,11 +26,30 @@ class DropboxController < ApplicationController
         # Get a URL for the demo
         demo = client.media(files.first["path"])["url"]
 
-        # Show a file upload page
+        # url = URI.parse(demo.to_s) # turn the string into a URI
+        # url = URI.parse('http://www.maninblack.org/demos/WhereDoAllTheJunkiesComeFrom.mp3') # turn the string into a URI
+        url = URI.parse(demo.to_s) # turn the string into a URI
+        http = Net::HTTP.new(url.host, url.port) 
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE if http.use_ssl?
+        req = Net::HTTP::Get.new(url.path) # init a request with the url
+        req.range = (0..4096) # limit the load to only 4096 bytes
+        res = http.request(req) # load the mp3 file
+        child = {} # prepare an empty array to store the metadata we grab
+
+        Mp3Info.open( StringIO.open(res.body) ) do |m|  #do the parsing
+          child['title'] = m.tag.title 
+          child['album'] = m.tag.album 
+          child['artist'] = m.tag.artist
+          child['length'] = m.length 
+        end
+
         render :inline =>
             "#{account_info['email']}
             <br>
             #{demo}
+            <br>
+            #{child["title"]}
             "
     end
 
