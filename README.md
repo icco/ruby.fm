@@ -1,14 +1,14 @@
-# squirrel
+# Name.FM
 
-Medium for Podcasts
+Medium for Podcasts.
 
-Lots of ideas are over in [ideas/](https://github.com/icco/squirrel/tree/master/ideas).
+Lots of ideas are over in [ideas/](https://github.com/simplecasual/namefm/tree/master/ideas).
 
 # Design Doc
 
 ## Summary
 
-
+Make sharing and finding new podcasts super easy.
 
 ## Background
 
