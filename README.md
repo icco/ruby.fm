@@ -1,4 +1,4 @@
-# Name.FM
+# Ruby.fmRuby.fmRuby.fmRuby.fm
 
 Podcast hosting for Alex Baldwin, and maybe some other kids.
 
@@ -14,10 +14,10 @@ Make sharing new podcasts super easy.
 
 The basic features needed are:
 
+ - Create a show
  - Upload a music file greater than fifteen minutes in length (average size 120MB?).
- - Attach that file to a user
- - Sign in with twitter
- - Create a playlist containing works by 1 - N Users
+ - Check metadata
+ - Publish
 
 ## Detailed Design
 
