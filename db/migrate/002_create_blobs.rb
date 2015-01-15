@@ -1,7 +1,7 @@
 class CreateBlobs < ActiveRecord::Migration
   def self.up
     create_table :blobs do |t|
-      t.int :uploader
+      t.references :user
       t.string :location
       t.timestamps
     end
