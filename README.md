@@ -1,6 +1,6 @@
 # Name.FM
 
-Medium for Podcasts.
+Podcast hosting for Alex Baldwin, and maybe some other kids.
 
 Lots of ideas are over in [ideas/](https://github.com/simplecasual/namefm/tree/master/ideas).
 
@@ -8,11 +8,7 @@ Lots of ideas are over in [ideas/](https://github.com/simplecasual/namefm/tree/m
 
 ## Summary
 
-Make sharing and finding new podcasts super easy.
-
-## Background
-
-
+Make sharing new podcasts super easy.
 
 ## Overview
 
@@ -25,24 +21,8 @@ The basic features needed are:
 
 ## Detailed Design
 
-
-
-## Alternatives Considered
-
-
-
-## Implementation Plan
-
-
-
-## Dependencies
-
-
-
-## Security
-
-
-
-## Privacy
-
-
+ * `/` - Home page
+ * `/:showname` - Page for a show
+ * `/:showname/:title` - Page for a single episode
+ * `/login` - Signup and login page
+ * `/about` - Sexy about page
