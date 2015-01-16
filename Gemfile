@@ -1,5 +1,7 @@
 source 'https://rubygems.org'
 
+ruby '2.1.5'
+
 gem 'activerecord', '>= 4.1', :require => 'active_record'
 gem 'dropbox-sdk'
 gem 'erubis', '~> 2.7.0'
