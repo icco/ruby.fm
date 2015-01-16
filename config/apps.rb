@@ -27,9 +27,10 @@
 #
 Padrino.configure_apps do
   # enable :sessions
-  set :session_secret, 'a1eb9cd538766579b1279b6ce3a2fc11751a715344271213dfa90c1335978269'
+  set :session_secret, '4476f637dc635cddc0e986e30e2b9d742189d7b40edf2ec970334d9cbe5d5df2'
   set :protection, :except => :path_traversal
   set :protect_from_csrf, true
 end
 
 # Mounts the core application for this project
+Padrino.mount('RubyFm::App', :app_file => Padrino.root('app/app.rb')).to('/')
