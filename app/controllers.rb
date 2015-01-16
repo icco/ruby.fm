@@ -13,11 +13,11 @@ RubyFm::App.controllers  do
     "todo"
   end
 
-  get '/:showname' do
+  get '/listen/:showname' do
     "todo - #{params.inspect}"
   end
 
-  get '/:showname/:title' do
+  get '/listen/:showname/:title' do
     "todo - #{params.inspect}"
   end
 end
