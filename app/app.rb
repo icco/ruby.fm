@@ -7,6 +7,10 @@ module RubyFm
 
     enable :sessions
 
+    set :logging, true
+    set :css_asset_folder, 'css'
+    set :js_asset_folder, 'js'
+
     ##
     # Caching support.
     #

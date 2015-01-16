@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>ruby.fm</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+
+    <%= stylesheet_link_tag 'style' %>
+
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <%= yield %>
+    <%= javascript_include_tag  'application' %>
+    <!--
+    ENV: <%= Padrino.env %>
+    <%= ENV.inspect if Padrino.env.eql? :development %>
+    -->
+  </body>
+</html>

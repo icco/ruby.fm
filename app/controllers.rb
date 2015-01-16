@@ -1,4 +1,9 @@
 RubyFm::App.controllers  do
+  layout :main
+
+  get :index do
+    render :index
+  end
   
   # get :index, :map => '/foo/bar' do
   #   session[:foo] = 'bar'
