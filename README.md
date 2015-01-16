@@ -1,4 +1,4 @@
-# Ruby.fmRuby.fmRuby.fmRuby.fm
+# Ruby.fm
 
 Podcast hosting for Alex Baldwin, and maybe some other kids.
 
