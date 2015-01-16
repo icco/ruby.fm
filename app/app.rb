@@ -5,6 +5,10 @@ module RubyFm
     register Padrino::Mailer
     register Padrino::Helpers
 
+    if Padrino.env != :development
+      use Rack::SSL
+    end
+
     enable :sessions
 
     set :logging, true
