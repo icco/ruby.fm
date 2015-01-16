@@ -142,7 +142,7 @@ DEPENDENCIES
   padrino (= 0.12.4)
   pg
   rack-test
-  rake
+  rake (= 10.4.2)
   sass
   shotgun
   thin

@@ -9,7 +9,7 @@ gem 'omniauth-dropbox-oauth2'
 gem 'omniauth-twitter'
 gem 'padrino', '0.12.4'
 gem 'pg'
-gem 'rake'
+gem 'rake', '10.4.2'
 gem 'sass'
 gem 'thin'
 
