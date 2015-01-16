@@ -12,7 +12,6 @@ gem 'omniauth'
 gem 'omniauth-dropbox-oauth2'
 gem 'omniauth-twitter'
 gem 'pg'
-gem 'rack-ssl', :require => 'rack/ssl'
 gem 'rails', '4.2.0'
 gem 'sass-rails', '~> 5.0'
 gem 'sdoc', '~> 0.4.0', group: :doc

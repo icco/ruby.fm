@@ -105,8 +105,6 @@ GEM
       omniauth-oauth (~> 1.0)
     pg (0.18.1)
     rack (1.6.0)
-    rack-ssl (1.4.1)
-      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (4.2.0)
@@ -183,7 +181,6 @@ DEPENDENCIES
   omniauth-dropbox-oauth2
   omniauth-twitter
   pg
-  rack-ssl
   rails (= 4.2.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
