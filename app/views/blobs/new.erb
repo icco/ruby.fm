@@ -1,5 +1,4 @@
-<%= form_tag @url, method: 'post', multipart: true do %>
-  <%= hidden_field_tag :key, @path %>
+<%= s3_uploader_form post: blobs_url, as: "blob[location]" do %>
   <%= file_field_tag :file %>
   <%= submit_tag %>
 <% end %>
