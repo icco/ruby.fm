@@ -1,8 +1,5 @@
 <%= form_tag @url, method: 'post', multipart: true do %>
-  <% if @blob.errors.any? %>
-    <div id="error_explanation"><% @blob.errors.each do |e| %><p><%= e %><% end %></div>
-  <% end %>
-
+  <%= hidden_field_tag :key, @path %>
   <%= file_field_tag :file %>
   <%= submit_tag %>
 <% end %>
