@@ -2,6 +2,7 @@
 !vendor/gems/cache/
 .*.sw*
 .DS_Store
+.env
 .sass-cache/*
 /.bundle
 /db/*.sqlite3
