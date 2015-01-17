@@ -3,7 +3,6 @@ options = {
   :provider => 'AWS',
   :aws_access_key_id =>  ENV['AWS_ACCESS_KEY_ID'].strip.delete('"\''),
   :aws_secret_access_key => ENV['AWS_SECRET_ACCESS_KEY'].strip.delete('"\''),
-  :region => ENV['S3_REGION'].strip.delete('"\''),
 }
 S3 = Fog::Storage.new(options)
 S3_DIR = S3.directories.get(ENV['S3_BUCKET'].strip.delete('"\''))
