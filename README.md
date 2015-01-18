@@ -7,7 +7,10 @@ Lots of ideas are over in [ideas/](https://github.com/simplecasual/namefm/tree/m
 ## Setup
 
  * The following environment variables need to be set: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `S3_BUCKET`, `S3_REGION`
- * If you put them in a file, you can call `$ env &#96;cat iam.env&#96; rails s` to start a local rails server with those variables.
+ * If you put them in a file, you can call the following to start a local rails server with those variables: 
+```
+ $ env `cat iam.env` rails s
+```
 
 # Design Doc
 
