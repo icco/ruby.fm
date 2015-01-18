@@ -29,6 +29,7 @@ module UploadHelper
         method: "post",
         authenticity_token: false,
         multipart: true,
+        class: @options[:class],
         data: {
           post: @options[:post],
           as: @options[:as]
