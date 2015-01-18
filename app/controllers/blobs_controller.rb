@@ -1,6 +1,7 @@
 class BlobsController < ApplicationController
   def new
     @blob = Blob.new
+    @s3 = view_context.s3_uploader_form
   end
 
   def index

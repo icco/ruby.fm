@@ -1,15 +1,18 @@
 # From https://github.com/railscasts/383-uploading-to-amazon-s3/blob/master/gallery-jquery-fileupload/app/helpers/upload_helper.rb
 module UploadHelper
-  def s3_uploader_form(options = {}, &block)
+  def s3_uploader_form(options = {})
     uploader = S3Uploader.new(options)
-    form_tag(uploader.url, uploader.form_options) do
-      uploader.fields.map do |name, value|
-        hidden_field_tag(name, value)
-      end.join.html_safe + capture(&block)
-    end
   end
 
   class S3Uploader
+    def form(&block)
+      form_tag(self.url, self.form_options) do
+        self.fields.map do |name, value|
+          hidden_field_tag(name, value)
+        end.join.html_safe + capture(&block)
+      end
+    end
+
     def initialize(options)
       @options = options.reverse_merge(
         id: "fileupload",

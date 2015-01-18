@@ -1,4 +1,28 @@
-<%= s3_uploader_form post: blobs_url, as: "blob[location]", class: "directUpload" do %>
-  <%= file_field_tag :file %>
-  <%= submit_tag %>
+<%= form_for(@blob, html: {
+  class: "directUpload",
+  data: {
+    url: @s3.url,
+    frm: "'#{@s3.fields.to_json.html_safe}'",
+  }
+}) do |f| %>
+  <% if @blob.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@blob.errors.count, "error") %> prohibited this blob from being saved:</h2>
+
+      <ul>
+        <% @blob.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :location %><br>
+    <%= f.file_field :location %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
 <% end %>
