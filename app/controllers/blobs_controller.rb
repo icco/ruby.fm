@@ -1,10 +1,30 @@
 class BlobsController < ApplicationController
   def new
-    headers = {}
-    options = { path_style: true, acl: :public_read, success_action_status: 201 }
-    expires = Chronic.parse('in 10 minutes').to_i
-    @path = "/#{SecureRandom.hex(13)}/${filename}"
-    @url = S3.put_object_url(S3_DIR.key, @path, expires, headers, options)
     @blob = Blob.new
+  end
+
+  def index
+    @blobs = Blob.all
+  end
+
+  def show
+    @blob = Blob.find(params[:id])
+  end
+
+  def create
+    @blob = Blob.new(blob_params)
+
+    if @blob.save
+      redirect_to @blob, notice: 'Blob was successfully created.'
+    else
+      render :new
+    end
+  end
+
+  private
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def blob_params
+    params.require(:blob).permit(:location)
   end
 end
