@@ -66,7 +66,6 @@ module UploadHelper
       {
         expiration: @options[:expiration],
         conditions: [
-          ["starts-with", "$utf8", ""],
           ["starts-with", "$key", ""],
           ["content-length-range", 0, @options[:max_file_size]],
           {bucket: @options[:bucket]},

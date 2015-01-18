@@ -27,11 +27,12 @@ $(function() {
           css('background', 'green').
           css('display', 'block').
           css('width', '0%').
-          text("Loading...");
+          text("Uploading ...");
       },
       done: function(e, data) {
         submitButton.prop('disabled', false);
         progressBar.text("Uploading done");
+        console.log(data.jqXHR.getResponseHeader("Location"), data.jqXHR.getAllResponseHeaders());
 
         // extract key and generate URL from response
         var key = $(data.jqXHR.responseXML).find("Key").text();
