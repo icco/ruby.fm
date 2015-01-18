@@ -5,15 +5,16 @@ $(function() {
     var submitButton = form.find('input[type="submit"]');
     var progressBar = $("<div class='bar'></div>");
     var barContainer = $("<div class='progress'></div>").append(progressBar);
-    console.log(fileInput);
+    var formdata = form.attr('data-frm');
+    formdata = formdata.slice(1, formdata.length - 1);
     fileInput.after(barContainer);
     fileInput.fileupload({
       fileInput: fileInput,
       type:'POST',
-      url: fileInput.attr('data-url'),
-      formData: fileInput.attr('data-frm'),
+      url: form.attr('data-url'),
+      formData: JSON.parse(formdata),
       autoUpload: true,
-      paramName:'file', // S3 does not like nested name fields i.e. name="user[avatar_url]"
+      paramName: 'file', // S3 does not like nested name fields i.e. name="user[avatar_url]"
       dataType: 'XML',// S3 returns XML if success_action_status is set to 201
       replaceFileInput: false,
       progressall: function (e, data) {
@@ -34,10 +35,9 @@ $(function() {
 
         // extract key and generate URL from response
         var key = $(data.jqXHR.responseXML).find("Key").text();
-        var url = '//<%= @s3_direct_post.url.host %>/' + key;
 
         // create hidden field
-        var input = $("<input />", { type:'hidden', name: fileInput.attr('name'), value: url });
+        var input = $("<input />", { type:'hidden', name: fileInput.attr('name'), value: key });
         form.append(input);
       },
       fail: function(e, data) {
