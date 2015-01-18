@@ -42,11 +42,12 @@ module UploadHelper
 
     def fields
       {
-        :key => key,
+        "AWSAccessKeyId" => @options[:aws_access_key_id],
         :acl => @options[:acl],
+        :key => key,
         :policy => policy,
         :signature => signature,
-        "AWSAccessKeyId" => @options[:aws_access_key_id],
+        :success_action_status => 201,
       }
     end
 
@@ -66,7 +67,8 @@ module UploadHelper
       {
         expiration: @options[:expiration],
         conditions: [
-          ["starts-with", "$key", ""],
+          ["starts-with", "$key", "uploads/"],
+          {success_action_status: '201'},
           ["content-length-range", 0, @options[:max_file_size]],
           {bucket: @options[:bucket]},
           {acl: @options[:acl]}

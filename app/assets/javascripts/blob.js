@@ -32,10 +32,9 @@ $(function() {
       done: function(e, data) {
         submitButton.prop('disabled', false);
         progressBar.text("Uploading done");
-        console.log(data.jqXHR.getResponseHeader("Location"), data.jqXHR.getAllResponseHeaders());
+        console.log(data.jqXHR.responseXML);
 
-        // extract key and generate URL from response
-        var key = $(data.jqXHR.responseXML).find("Key").text();
+        var key = $(data.jqXHR.responseXML).find("Location").text();
 
         // create hidden field
         var input = $("<input />", { type:'hidden', name: fileInput.attr('name'), value: key });
