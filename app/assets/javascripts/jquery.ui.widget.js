@@ -2,17 +2,12 @@
  * jQuery UI Widget @VERSION
  * http://jqueryui.com
  *
- * Copyright jQuery Foundation and other contributors
+ * Copyright 2014 jQuery Foundation and other contributors
  * Released under the MIT license.
  * http://jquery.org/license
+ *
+ * http://api.jqueryui.com/jQuery.widget/
  */
-
-//>>label: Widget
-//>>group: UI Core
-//>>description: Provides a factory for creating stateful widgets with a common API.
-//>>docs: http://api.jqueryui.com/jQuery.widget/
-//>>demos: http://jqueryui.com/widget/
-
 (function( factory ) {
 	if ( typeof define === "function" && define.amd ) {
 
@@ -195,6 +190,11 @@ $.widget.bridge = function( name, object ) {
 			args = widget_slice.call( arguments, 1 ),
 			returnValue = this;
 
+		// allow multiple hashes to be passed on init
+		options = !isMethodCall && args.length ?
+			$.widget.extend.apply( null, [ options ].concat(args) ) :
+			options;
+
 		if ( isMethodCall ) {
 			this.each(function() {
 				var methodValue,
@@ -219,12 +219,6 @@ $.widget.bridge = function( name, object ) {
 				}
 			});
 		} else {
-
-			// Allow multiple hashes to be passed on init
-			if ( args.length ) {
-				options = $.widget.extend.apply( null, [ options ].concat(args) );
-			}
-
 			this.each(function() {
 				var instance = $.data( this, fullName );
 				if ( instance ) {
@@ -302,7 +296,10 @@ $.Widget.prototype = {
 		// all event bindings should go through this._on()
 		this.element
 			.unbind( this.eventNamespace )
-			.removeData( this.widgetFullName );
+			.removeData( this.widgetFullName )
+			// support: jquery <1.6.3
+			// http://bugs.jquery.com/ticket/9413
+			.removeData( $.camelCase( this.widgetFullName ) );
 		this.widget()
 			.unbind( this.eventNamespace )
 			.removeAttr( "aria-disabled" )
