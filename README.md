@@ -4,6 +4,11 @@ Podcast hosting for Alex Baldwin, and maybe some other kids.
 
 Lots of ideas are over in [ideas/](https://github.com/simplecasual/namefm/tree/master/ideas).
 
+## Setup
+
+ * The following environment variables need to be set: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `S3_BUCKET`, `S3_REGION`
+ * If you put them in a file, you can call `$ env &#96;cat iam.env&#96; rails s` to start a local rails server with those variables.
+
 # Design Doc
 
 ## Summary
@@ -22,6 +27,7 @@ The basic features needed are:
 ## Detailed Design
 
  * `/` - Home page
+ * `/upload` - Upload a new file
  * `/:showname` - Page for a show
  * `/:showname/:title` - Page for a single episode
  * `/login` - Signup and login page
