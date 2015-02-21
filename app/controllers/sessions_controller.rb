@@ -1,6 +1,10 @@
 class SessionsController < ApplicationController
   def create
     auth = request.env['rack.auth']
+
+    logger.debug "omniauth.identity = #{env['omniauth.identity'].inspect}"
+    logger.debug "rack.auth = #{auth.inspect}"
+
     unless @auth = Authorization.find_from_hash(auth)
       # Create a new user or add an auth to existing user, depending on
       # whether there is already a user signed in.
