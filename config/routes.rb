@@ -5,7 +5,11 @@ Rails.application.routes.draw do
   # http://guides.rubyonrails.org/routing.html
 
   root 'home#index'
-  resources :blobs
 
+  # For uploading files
+  resources :blobs
   get '/upload', to: 'blobs#new'
+
+  # For omniauth
+  match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
 end
