@@ -39,6 +39,8 @@ GEM
       tzinfo (~> 1.1)
     arel (6.0.0)
     bcrypt (3.1.10)
+    bcrypt-ruby (3.1.5)
+      bcrypt (>= 3.1.3)
     builder (3.2.2)
     chronic (0.10.2)
     coffee-rails (4.1.0)
@@ -183,6 +185,9 @@ GEM
       rack (~> 1.0)
     omniauth-dropbox-oauth2 (0.2.0)
       omniauth-oauth2
+    omniauth-identity (1.1.1)
+      bcrypt-ruby (~> 3.0)
+      omniauth (~> 1.0)
     omniauth-oauth (1.0.1)
       oauth
       omniauth (~> 1.0)
@@ -276,6 +281,7 @@ DEPENDENCIES
   oj
   omniauth
   omniauth-dropbox-oauth2
+  omniauth-identity
   omniauth-twitter
   pg
   rails (= 4.2.0)
