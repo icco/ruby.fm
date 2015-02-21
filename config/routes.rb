@@ -12,4 +12,5 @@ Rails.application.routes.draw do
 
   # For omniauth
   match '/auth/:provider/callback', to: 'sessions#create', via: [:get, :post]
+  resources :identities
 end
