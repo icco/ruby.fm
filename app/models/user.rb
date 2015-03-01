@@ -1,9 +1,8 @@
 class User < ActiveRecord::Base
-  has_many :authorizations
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable and :omniauthable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable,
+    :trackable, :validatable
 
-  # This method is fraught with all kinds of peril.
-  def self.create_from_hash!(hash)
-    name = "" || hash['user_info']['name']
-    create(:name => name)
-  end
+  validates :email, presence: true
 end
