@@ -1,11 +1,30 @@
 class TracksController < ApplicationController
-  before_action :set_track, except: [:index, :new]
+  before_action :set_track, except: [:index, :new, :create]
 
   # The index page provides a list of recently modified and published tracks by
   # all users.
   def index
     @tracks = Track.published.order(updated_at: :desc)
     render(:index)
+  end
+
+  # For uploading new Tracks.
+  def new
+    @track = Track.new
+  end
+
+  def create
+    @track = Track.new(track_params)
+
+    if @track.save
+      flash[:notice] = 'track was successfully created.'
+      redirect_to(@track)
+    else
+      redirect(:new, status: 400)
+    end
+  end
+
+  def show
   end
 
   def edit

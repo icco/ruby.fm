@@ -1,0 +1,21 @@
+<h1><%= @track.title %></h1>
+
+<p>
+  <strong>Notes:</strong>
+  <%= @track.notes %>
+</p>
+
+<p>
+  <strong>Published:</strong>
+  <%= @track.published ? 'yes' : 'no' %>
+</p>
+
+<p>
+  <strong>Audio:</strong>
+  <audio controls>
+    <source src="/<%= @track.audio %>" type="audio/mpeg">
+    Your browser does not support the audio element.
+  </audio>
+</p>
+
+<%= link_to 'Edit', edit_track_path(@track.id) %>
