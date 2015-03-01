@@ -13,12 +13,14 @@ gem 'pg',             '~> 0.18.1'
 gem 'puma',           '~> 2.11.1'
 gem 'pundit',         '~> 0.3.0'
 gem 'rails',          '~> 4.2.0'
+gem 'rails_12factor', '~> 0.0.3'
 gem 'sass-rails',     '~> 5.0'
 gem 'taglib-ruby',    '~> 0.7.0'
 gem 'uglifier',       '>= 1.3.0'
 
+# Try to put very little in here, we don't want production to be different than
+# dev in general.
 group :production do
-  gem 'rails_12factor', '~> 0.0.3'
 end
 
 group :development, :test do
