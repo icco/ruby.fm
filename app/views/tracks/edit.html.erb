@@ -1,0 +1,26 @@
+<h1>Editing Podcast</h1>
+
+<%= form_for(@podcast, url: podcast_path(@podcast.id)) do |f| %>
+  <% if @podcast.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@podcast.errors.count, "error") %> prohibited this podcast from being saved:</h2>
+      <ul>
+      <% @podcast.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :published %><br>
+    <%= f.check_box :published %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
+
+
+<%= link_to 'Show', channel_podcast_slug_path(@channel.slug, @podcast.slug) %>
