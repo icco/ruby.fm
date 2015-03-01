@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Channels</h1>
+<h1>Listing Shows</h1>
 
 <table>
   <thead>
@@ -13,14 +13,12 @@
   </thead>
 
   <tbody>
-    <% @channels.each do |channel| %>
+    <% @shows.each do |show| %>
       <tr>
-        <td><%= channel.title %></td>
-        <td><%= channel.link %></td>
-        <td><%= channel.author %></td>
-        <td><%= link_to 'Show', channel %></td>
-        <td><%= link_to 'Edit', edit_channel_path(channel) %></td>
-        <td><%= link_to 'Destroy', channel, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <td><%= show.name %></td>
+        <td><%= link_to 'Show', show %></td>
+        <td><%= link_to 'Edit', edit_show_path(show) %></td>
+        <td><%= link_to 'Destroy', show, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
     <% end %>
   </tbody>
@@ -28,4 +26,4 @@
 
 <br>
 
-<%= link_to 'New Channel', new_channel_path %>
+<%= link_to 'New Show', new_show_path %>

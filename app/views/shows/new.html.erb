@@ -1,12 +1,12 @@
-<h1>New Channel</h1>
+<h1>New Show</h1>
 
-<%= form_for(@channel) do |f| %>
-  <% if @channel.errors.any? %>
+<%= form_for(@show) do |f| %>
+  <% if @show.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@channel.errors.count, "error") %> prohibited this channel from being saved:</h2>
+      <h2><%= pluralize(@show.errors.count, "error") %> prohibited this show from being saved:</h2>
 
       <ul>
-      <% @channel.errors.full_messages.each do |message| %>
+      <% @show.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -14,18 +14,8 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-
-  <div class="field">
-    <%= f.label :link %><br>
-    <%= f.text_field :link %>
-  </div>
-
-  <div class="field">
-    <%= f.label :author %><br>
-    <%= f.text_field :author %>
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
   </div>
 
   <div class="actions">
@@ -34,4 +24,4 @@
 <% end %>
 
 
-<%= link_to 'Back', channels_path %>
+<%= link_to 'Back', shows_path %>

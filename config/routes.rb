@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :tracks
   get "/upload", to: "tracks#new"
 
+  # Shows
+  resources :shows
+
   # Authentication
   devise_for :users
   get "/login", to: redirect("/users/sign_in")

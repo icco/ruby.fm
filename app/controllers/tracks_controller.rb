@@ -29,8 +29,6 @@ class TracksController < ApplicationController
 
   def edit
     authorize(@track, :update?)
-    @channel = @track.channel
-
     respond_to do |format|
       format.html
     end
@@ -38,13 +36,12 @@ class TracksController < ApplicationController
 
   def update
     authorize(@track, :update?)
-    @channel = @track.channel
 
     respond_to do |format|
       if @track.update(track_params)
         format.html do
           flash[:notice] = 'track was successfully updated.'
-          redirect_to(channel_track_slug_path(@channel.slug, @track.slug))
+          redirect_to(@track)
         end
       else
         format.html do
@@ -58,12 +55,11 @@ class TracksController < ApplicationController
   # @return [void]
   def destroy
     authorize(@track, :destroy?)
-    @channel = @track.channel
     @track.destroy
     respond_to do |format|
       format.html do
         flash[:notice] = 'track was successfully destroyed.'
-        redirect_to(channel_slug_path(@channel.slug))
+        redirect_to("/tracks")
       end
     end
   end
