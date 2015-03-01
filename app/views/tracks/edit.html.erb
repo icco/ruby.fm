@@ -1,11 +1,11 @@
-<h1>Editing Podcast</h1>
+<h1>Editing track</h1>
 
-<%= form_for(@podcast, url: podcast_path(@podcast.id)) do |f| %>
-  <% if @podcast.errors.any? %>
+<%= form_for(@track, url: track_path(@track.id)) do |f| %>
+  <% if @track.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@podcast.errors.count, "error") %> prohibited this podcast from being saved:</h2>
+      <h2><%= pluralize(@track.errors.count, "error") %> prohibited this track from being saved:</h2>
       <ul>
-      <% @podcast.errors.full_messages.each do |message| %>
+      <% @track.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
       </ul>
@@ -23,4 +23,4 @@
 <% end %>
 
 
-<%= link_to 'Show', channel_podcast_slug_path(@channel.slug, @podcast.slug) %>
+<%= link_to 'Show', show_track_slug_path(@show.slug, @track.slug) %>
