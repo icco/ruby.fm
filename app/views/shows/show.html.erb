@@ -2,7 +2,7 @@
 
 <ul>
   <% @show.tracks.each do |t| %>
-    <li><%= link_for t %></li>
+    <li><%= link_to t.title, url_for(t) %></li>
   <% end %>
 </ul>
 

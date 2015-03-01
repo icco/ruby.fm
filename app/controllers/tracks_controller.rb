@@ -31,6 +31,8 @@ class TracksController < ApplicationController
 
   def edit
     authorize(@track, :update?)
+    # TODO: Just shows user can edit
+    @shows = Show.all
     respond_to do |format|
       format.html
     end
@@ -71,6 +73,6 @@ class TracksController < ApplicationController
   end
 
   def track_params
-    params.require(:track).permit(:title, :notes, :published, :audio, :length)
+    params.require(:track).permit(:title, :notes, :published, :audio, :length, :show_id)
   end
 end

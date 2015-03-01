@@ -13,8 +13,23 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :published %><br>
+    <%= f.label :published %>
     <%= f.check_box :published %>
+  </div>
+
+  <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+
+  <div class="field">
+    <%= f.label :notes %><br>
+    <%= f.text_area :notes %>
+  </div>
+
+  <div class="field">
+    <%= f.label :show %><br>
+    <%= f.select(:show_id, options_for_select(@shows.map {|s| [s.name, s.id] } + []), {:include_blank => 'None'}) %>
   </div>
 
   <div class="actions">
@@ -23,4 +38,4 @@
 <% end %>
 
 
-<%= link_to 'Show', show_track_slug_path(@show.slug, @track.slug) %>
+<%= link_to 'Show', track_path(@track) %>
