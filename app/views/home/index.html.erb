@@ -49,6 +49,12 @@
     </style>
   </head>
   <body class="cover-bg index">
+    <% if !user_signed_in? %>
+    <div style="float: right; padding: 20px;">
+      <a href="/login">Login</a>
+    </div>
+    <% end %>
+
     <section class='table'>
       <article class='table-cell'>
         <header class='header'>

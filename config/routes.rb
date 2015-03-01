@@ -10,5 +10,7 @@ Rails.application.routes.draw do
   resources :blobs
   get "/upload", to: "blobs#new"
 
+  # Authentication
   devise_for :users
+  get "/login", to: redirect("/users/sign_in")
 end
