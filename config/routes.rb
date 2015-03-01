@@ -7,8 +7,8 @@ Rails.application.routes.draw do
   root "home#index"
 
   # For uploading files
-  resources :blobs
-  get "/upload", to: "blobs#new"
+  resources :tracks
+  get "/upload", to: "tracks#new"
 
   # Authentication
   devise_for :users
