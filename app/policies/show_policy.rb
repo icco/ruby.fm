@@ -1,7 +1,7 @@
-class ChannelPolicy
-  def initialize(user, channel)
+class ShowPolicy
+  def initialize(user, show)
     @user = user
-    @channel = channel
+    @show = show
   end
 
   def create?
@@ -11,7 +11,7 @@ class ChannelPolicy
   end
 
   def read?
-    @channel.published? || owner?
+    @show.published? || owner?
   end
 
   def update?
@@ -23,6 +23,6 @@ class ChannelPolicy
   end
 
   def owner?
-    @channel.user_id == @user.id
+    @show.user_id == @user.id
   end
 end
