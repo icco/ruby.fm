@@ -26,6 +26,9 @@ class ShowsController < ApplicationController
   def show
     respond_to do |format|
       format.html
+      format.xml
+      # TODO: Why doesn't this work?
+      format.rss { render :xml }
     end
   end
 
