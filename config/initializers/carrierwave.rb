@@ -1,7 +1,5 @@
-# Check out app/uploaders, it modifies these configs at runtime.
 CarrierWave.configure do |config|
   if Rails.env.production? || ENV['USE_AWS']
-    config.storage = :fog
     config.fog_credentials = {
       provider: 'AWS',
       aws_access_key_id: ENV['AWS_ACCESS_KEY'],
@@ -9,6 +7,10 @@ CarrierWave.configure do |config|
     }
     config.fog_directory = ENV['S3_BUCKET']
   else
-    config.storage = :file
+    config.fog_credentials = {
+      provider: 'Local',
+      local_root: Rails.root
+    }
+    config.fog_directory = "#{Rails.root}/tmp/uploads"
   end
 end
