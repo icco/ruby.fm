@@ -1,5 +1,12 @@
 class TracksController < ApplicationController
-  before_action :set_track
+  before_action :set_track, except: [:index, :new]
+
+  # The index page provides a list of recently modified and published tracks by
+  # all users.
+  def index
+    @tracks = Track.published.order(updated_at: :desc)
+    render(:index)
+  end
 
   def edit
     authorize(@track, :update?)

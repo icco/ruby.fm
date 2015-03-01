@@ -9,6 +9,6 @@ class Track < ActiveRecord::Base
 
   # Adds helper methods for filtering
   scope :published, -> { where(published: true) }
-  scope :private, -> { where(published: false) }
+  scope :unpublished, -> { where(published: false) }
   alias_attribute :published?, :published
 end
