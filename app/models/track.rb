@@ -1,5 +1,6 @@
 class Track < ActiveRecord::Base
   belongs_to :show
+  belongs_to :user
 
   # Adds CarrierWave
   mount_uploader :audio, AudioUploader

@@ -5,6 +5,7 @@ class TracksController < ApplicationController
   # all users.
   def index
     @tracks = Track.published.order(updated_at: :desc)
+    @your_tracks = current_user.tracks
     render(:index)
   end
 
@@ -15,6 +16,7 @@ class TracksController < ApplicationController
 
   def create
     @track = Track.new(track_params)
+    @track.user = current_user
 
     if @track.save
       flash[:notice] = 'track was successfully created.'
