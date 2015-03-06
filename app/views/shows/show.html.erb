@@ -1,0 +1,9 @@
+<h1><%= @show.name %></h1>
+
+<ul>
+  <% @show.tracks.each do |t| %>
+    <li><%= link_to t.title, url_for(t) %></li>
+  <% end %>
+</ul>
+
+<%= link_to 'Edit', edit_show_path(@show) %>

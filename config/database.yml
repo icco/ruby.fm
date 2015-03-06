@@ -29,7 +29,7 @@ development:
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: ruby_fm
+  #username: rubyfm
 
   # The password associated with the postgres role (username).
   #password:
@@ -50,14 +50,14 @@ development:
   #   debug5, debug4, debug3, debug2, debug1,
   #   log, notice, warning, error, fatal, and panic
   # Defaults to warning.
-  min_messages: notice
+  #min_messages: notice
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: ruby_fm_test
+  database: rubyfm_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is
@@ -80,6 +80,6 @@ test:
 #
 production:
   <<: *default
-  database: ruby_fm_production
-  username: ruby_fm
-  password: <%= ENV['RUBY_FM_DATABASE_PASSWORD'] %>
+  database: rubyfm_production
+  username: rubyfm
+  password: <%= ENV['RUBYFM_DATABASE_PASSWORD'] %>

@@ -1,0 +1,15 @@
+<h1>Recent Tracks</h1>
+
+<h2>Yours</h2>
+<ul>
+  <% @your_tracks.each do |track| %>
+    <li><%= link_to track.id, track_path(track.id) %></li>
+  <% end %>
+</ul>
+
+<h2>All Tracks</h2>
+<ul>
+  <% @tracks.each do |track| %>
+    <li><%= link_to track.id, track_path(track.id) %></li>
+  <% end %>
+</ul>
