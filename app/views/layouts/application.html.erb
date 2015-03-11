@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Rubyfm</title>
+    <title>Ruby.fm</title>
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
@@ -9,8 +9,48 @@
   <body>
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
+    <header class="py3 px4">
+      <div class="flex">
+        <a href="#" class="button button-transparent bold h3">Ruby.fm</a>
+        <div class="flex-auto center">
+          <a href="#" class="button button-transparent h3 regular">Top Casts</a>
+          <a href="#" class="button button-transparent h3 regular">Recommendations</a>
+          <a href="#" class="button button-transparent h3 regular">Collections</a>
+          <a href="#" class="button button-transparent h3 regular">About</a>
+        </div>
+        <a href="#" class="button button-transparent h3 regular">Search</a>
+        <a href="#" class="button button-transparent h3 regular">+</a>
+      </div>
+    </header>
 
     <%= yield %>
 
-  </body>
+    <footer class="white bg-black mt4">
+      <div class="px2 py3">
+        <div class="clearfix mxn2">
+          <div class="col col-6 md-col-3 col-right">
+            <ul class="list-reset">
+              <li><a href="#" class="white h5 button block button-transparent">Twitter</a></li>
+              <li><a href="#" class="white h5 button block button-transparent">Facebook</a></li>
+              <li><a href="#" class="white h5 button block button-transparent">Instagram</a></li>
+              <li><a href="#" class="white h5 button block button-transparent">Pinterest</a></li>
+            </ul>
+          </div>
+          <div class="col col-6 md-col-3 col-right">
+            <ul class="list-reset">
+              <li><a href="#" class="white h5 button block button-transparent">Privacy Policy</a></li>
+              <li><a href="#" class="white h5 button block button-transparent">Terms of Service</a></li>
+              <li><a href="#" class="white h5 button block button-transparent">Help</a></li>
+              <li><a href="#" class="white h5 button block button-transparent">About</a></li>
+              <li><a href="#" class="white h5 button block button-transparent">Blog</a></li>
+              <br>
+              <li><a href="#" class="regular white h5 button block button-transparent">&copy; 2015 Simple Casual</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </footer>
+
+</body>
 </html>

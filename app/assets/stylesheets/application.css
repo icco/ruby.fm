@@ -10,6 +10,16 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
+ *= require_basscss
  *= require_tree .
  *= require_self
  */
+
+body, h1, h2, h3, h4, h5, h6, p, li {
+  font-family: Avenir;
+}
+
+.table-cell {
+  display: table-cell;
+  vertical-align: middle;
+}
