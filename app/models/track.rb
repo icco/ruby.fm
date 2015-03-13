@@ -21,7 +21,7 @@ class Track < ActiveRecord::Base
   def slugify
     unless self.title.blank?
       prmrizd = self.title.parameterize
-      if self.exists?(slug: prmrizd)
+      if self.class.exists?(slug: prmrizd)
         self.slug = "#{prmrizd}-#{SecureRandom.hex(4)}"
       else
         self.slug = prmrizd
