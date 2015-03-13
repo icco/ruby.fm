@@ -1,5 +1,10 @@
-<h1>Upload a new track.</h1>
-
+<div class="center container">
+  <h1 class="h1 mt4">Upload Track</h1>
+  <hr>
+</div>
+<div class="container mt4">
+  <div class="col-6 px2 mx-auto">
+    <p>Upload an MP3, we'll read any meta data from the ID3 tag and do the data entry for you. You'll be able to edit any informaion we find on the next screen.</p>
 <%= form_for(@track) do |f| %>
   <% if @track.errors.any? %>
     <div id="error_explanation">
@@ -12,11 +17,9 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.file_field :audio %>
-  </div>
+    <%= f.file_field :audio, class: "full-width block border border-light-gray py4" %>
 
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+    <%= f.submit "Upload track", class: ' mt2 button button-outline black mb2' %>
 <% end %>
+</div>
+</div>

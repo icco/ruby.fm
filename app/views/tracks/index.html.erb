@@ -1,15 +1,16 @@
-<h1>Recent Tracks</h1>
-
-<h2>Yours</h2>
-<ul>
+<div class="center container">
+  <h1 class="h1 mt4">My Casts</h1>
+  <hr>
+</div>
+<div class="clearfix px4">
   <% @your_tracks.each do |track| %>
-    <li><%= link_to track.id, track_path(track.id) %></li>
+    <div class="col col-12 sm-col-4 md-col-3 lg-col-3">
+      <div class="mb3 px2">
+        <%= link_to track.title, track_path(track.id), class: 'block bg-gray center white py4' %>
+      </div>
+    </div>
   <% end %>
-</ul>
-
-<h2>All Tracks</h2>
-<ul>
-  <% @tracks.each do |track| %>
-    <li><%= link_to track.id, track_path(track.id) %></li>
-  <% end %>
-</ul>
+</div>
+    <div class="center clearfix mt4">
+      <%= link_to 'Add another track', new_track_path, class: "button button-outline black" %>
+    </div>

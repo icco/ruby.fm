@@ -8,12 +8,12 @@
   </head>
   <body>
     <% if notice %>
-      <div class="h4 bold center p2 mb2 white bg-green">
+      <div class="h4 bold center p2 white bg-green">
         <%= notice %>
       </div>
     <% end %>
     <% if alert %>
-      <div class="h4 bold center p2 mb2 bg-yellow">
+      <div class="h4 bold center p2 bg-yellow">
         <%= alert %>
       </div>
     <% end %>
@@ -25,12 +25,10 @@
           <% if current_user %>
             <%= link_to 'My Casts', tracks_path, class: "button button-transparent h3 regular" %>
           <% end %>
-          <a href="#" class="button button-transparent h3 regular">Recommendations</a>
           <%= link_to 'Collections', shows_path, class: "button button-transparent h3 regular" %>
-          <a href="#" class="button button-transparent h3 regular">About</a>
         </div>
-        <a href="#" class="button button-transparent h3 regular">Search</a>
         <% if current_user %>
+          <%= link_to 'Account', edit_user_registration_path, class: "button button-transparent h3 regular" %>
           <%= link_to '+', upload_path, class: "button button-transparent h3 regular" %>
         <% else %>
           <%= link_to 'Sign In', user_session_path, class: "button button-transparent h3 regular" %>
