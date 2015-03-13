@@ -9,7 +9,7 @@ class Show < ActiveRecord::Base
   def slugify
     unless self.name.blank?
       prmrizd = self.name.parameterize
-      if self.exists?(slug: prmrizd)
+      if self.class.exists?(slug: prmrizd)
         self.slug = "#{prmrizd}-#{SecureRandom.hex(4)}"
       else
         self.slug = prmrizd
