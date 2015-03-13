@@ -1,5 +1,6 @@
 class Show < ActiveRecord::Base
   has_many :tracks
+  belongs_to :user
 
   # Slugs (urls)
   validates :slug, presence: true, uniqueness: true
