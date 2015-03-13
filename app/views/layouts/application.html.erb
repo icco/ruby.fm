@@ -18,7 +18,7 @@
       </div>
     <% end %>
 
-    <header class="py3 px4">
+    <header class="py3 px4 bg-light-gray">
       <div class="flex">
         <%= link_to 'Ruby.fm', root_path, class:"button button-transparent bold h3" %>
         <div class="flex-auto center">
@@ -30,7 +30,11 @@
           <a href="#" class="button button-transparent h3 regular">About</a>
         </div>
         <a href="#" class="button button-transparent h3 regular">Search</a>
-        <%= link_to '+', upload_path, class: "button button-transparent h3 regular" %>
+        <% if current_user %>
+          <%= link_to '+', upload_path, class: "button button-transparent h3 regular" %>
+        <% else %>
+          <%= link_to 'Sign In', user_session_path, class: "button button-transparent h3 regular" %>
+        <% end %>
       </div>
     </header>
 
