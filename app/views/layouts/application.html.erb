@@ -22,8 +22,9 @@
       <div class="flex">
         <%= link_to 'Ruby.fm', root_path, class:"button button-transparent bold h3" %>
         <div class="flex-auto center">
-          <a href="#" class="button button-transparent h3 regular">Top Casts</a>
-          <%= link_to 'Collections', tracks_path, class: "button button-transparent h3 regular" %>
+          <% if current_user %>
+            <%= link_to 'My Casts', tracks_path, class: "button button-transparent h3 regular" %>
+          <% end %>
           <a href="#" class="button button-transparent h3 regular">Recommendations</a>
           <%= link_to 'Collections', shows_path, class: "button button-transparent h3 regular" %>
           <a href="#" class="button button-transparent h3 regular">About</a>
