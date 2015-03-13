@@ -5,8 +5,17 @@ class TracksController < ApplicationController
   # all users.
   def index
     @tracks = Track.published.order(updated_at: :desc)
-    @your_tracks = current_user.tracks
+
+    @your_tracks = current_user_tracks
     render(:index)
+  end
+
+  def current_user_tracks
+    if user_signed_in?
+      current_user.tracks
+    else
+      []
+    end
   end
 
   # For uploading new Tracks.
