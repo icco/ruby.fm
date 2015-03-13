@@ -23,6 +23,6 @@ class ShowPolicy
   end
 
   def owner?
-    @show.user_id == @user.id
+    @user.present? && @show.user_id == @user.id
   end
 end

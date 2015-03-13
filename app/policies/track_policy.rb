@@ -23,6 +23,6 @@ class TrackPolicy
   end
 
   def owner?
-    @track.user_id == @user.id
+    @user.present? && @track.user_id == @user.id
   end
 end
