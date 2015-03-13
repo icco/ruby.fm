@@ -10,7 +10,8 @@ class ApplicationController < ActionController::Base
   def access_denied(error=nil)
     respond_to do |format|
       format.html do
-        render("shared/access_denied")
+        flash[:alert] = I18n.t('errors.access_denied')
+        redirect_to(root_url)
       end
     end
   end
