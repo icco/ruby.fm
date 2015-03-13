@@ -7,8 +7,17 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <p class="notice"><%= notice %></p>
-    <p class="alert"><%= alert %></p>
+    <% if notice %>
+      <div class="h4 bold center p2 mb2 white bg-green">
+        <%= notice %>
+      </div>
+    <% end %>
+    <% if alert %>
+      <div class="h4 bold center p2 mb2 bg-yellow">
+        <%= alert %>
+      </div>
+    <% end %>
+
     <header class="py3 px4">
       <div class="flex">
         <%= link_to 'Ruby.fm', root_path, class:"button button-transparent bold h3" %>

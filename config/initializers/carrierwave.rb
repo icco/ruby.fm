@@ -11,6 +11,6 @@ CarrierWave.configure do |config|
       provider: 'Local',
       local_root: Rails.root
     }
-    config.fog_directory = "#{Rails.root}/tmp/uploads"
+    config.fog_directory = '/tmp/uploads'
   end
 end
