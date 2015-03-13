@@ -1,19 +1,22 @@
 Rails.application.routes.draw do
-  # The priority is based upon order of creation: first created -> highest priority.
-  # See how all your routes lay out with "rake routes".
-  #
-  # http://guides.rubyonrails.org/routing.html
-
   root "home#index"
-
-  # For uploading files
-  resources :tracks
-  get "/upload", to: "tracks#new"
-
-  # Shows
-  resources :shows
 
   # Authentication
   devise_for :users
   get "/login", to: redirect("/users/sign_in")
+
+  namespace :my do
+    resources :channels, only: [:index]
+    resources :episodes, only: [:index]
+  end
+
+  resources :channels do
+    resources :episodes, only: [:new, :create], controller: 'channels/episodes'
+  end
+  resources :episodes
+
+  get '/:channel_id',     to: 'channels#show',          as: :slugged_channel
+  get '/:channel_id/:id', to: 'channels/episodes#show', as: :slugged_channel_episode
+
+  get "/upload", to: "tracks#new"
 end

@@ -1,0 +1,16 @@
+<div class="center container">
+  <h1 class="h1 mt4">My Episodes</h1>
+  <hr>
+</div>
+
+<div class="clearfix px4">
+  <% @episodes.each do |episode| %>
+    <%= render(partial: 'episodes/episode', locals: { episode: episode }) %>
+  <% end %>
+</div>
+
+<% if user_signed_in? %>
+  <div class="center clearfix mt4">
+    <%= link_to('Create a channel', new_channel_path, class: "button button-outline black") %>
+  </div>
+<% end %>

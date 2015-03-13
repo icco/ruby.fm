@@ -20,6 +20,22 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
   errors:
-    access_denied: 'Access denied'
+    bad_request: Bad request
+    access_denied: Access denied
+    server_error: Server error
+  success:
+    ok: Ok
+    created: Created
+    processing: Processing
+
+  channel:
+    create:
+      successful: Channel created
+      failed: Channel could not be created
+    update:
+      successful: Channel updated
+      failed: Channel could not be updated
+    destroy:
+      successful: Channel removed
+      failed: Channel could not be removed

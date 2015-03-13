@@ -23,7 +23,7 @@ ActiveRecord::Schema.define(version: 20150313022254) do
     t.string   "slug",                         null: false
     t.string   "link"
     t.string   "author"
-    t.boolean  "visible",    default: true,    null: false
+    t.boolean  "published",  default: false,   null: false
     t.datetime "created_at", default: "now()", null: false
     t.datetime "updated_at", default: "now()", null: false
   end
@@ -43,7 +43,7 @@ ActiveRecord::Schema.define(version: 20150313022254) do
     t.datetime "updated_at", default: "now()", null: false
   end
 
-  add_index "episodes", ["slug"], name: "episodes_slug_key", unique: true, using: :btree
+  add_index "episodes", ["channel_id", "slug"], name: "episodes_channel_id_slug_key", unique: true, using: :btree
 
   create_table "friendly_id_slugs", id: :uuid, default: "uuid_generate_v4()", force: :cascade do |t|
     t.string   "slug",                      null: false

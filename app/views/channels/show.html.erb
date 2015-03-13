@@ -1,0 +1,13 @@
+<h1><%= @channel.title %></h1>
+
+<ul>
+  <% @channel.episodes.each do |t| %>
+    <li><%= link_to(t.title, channel_episode_url(@channel.slug, t.slug)) %></li>
+  <% end %>
+</ul>
+
+<% if policy(@channel).update? %>
+  <%= link_to('Add Episode', new_channel_episode_path(@channel.slug)) %>
+  <br>
+  <%= link_to('Edit', edit_channel_path(@channel.slug)) %>
+<% end %>

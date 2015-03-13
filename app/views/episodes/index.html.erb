@@ -1,0 +1,11 @@
+<h1>Episodes</h1>
+
+<div class="clearfix px4">
+  <% @episodes.each do |episode| %>
+    <div class="col col-12 sm-col-4 md-col-3 lg-col-3">
+      <div class="mb3 px2">
+        <%= link_to episode.title, channel_episode_url(track.id), class: 'block bg-gray center white py4' %>
+      </div>
+    </div>
+  <% end %>
+</div>

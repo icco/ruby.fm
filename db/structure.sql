@@ -68,7 +68,7 @@ CREATE TABLE channels (
     slug character varying NOT NULL,
     link character varying,
     author character varying,
-    visible boolean DEFAULT true NOT NULL,
+    published boolean DEFAULT false NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );

@@ -8,7 +8,7 @@ CREATE TABLE "channels" (
   "slug"        CHARACTER VARYING NOT NULL,
   "link"        CHARACTER VARYING,
   "author"      CHARACTER VARYING,
-  "visible"     BOOLEAN DEFAULT true NOT NULL,
+  "published"   BOOLEAN DEFAULT false NOT NULL,
   "created_at"  TIMESTAMP NOT NULL DEFAULT now(),
   "updated_at"  TIMESTAMP NOT NULL DEFAULT now(),
   PRIMARY KEY ("id"),

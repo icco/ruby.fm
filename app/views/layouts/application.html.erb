@@ -23,9 +23,10 @@
         <%= link_to 'Ruby.fm', root_path, class:"button button-transparent bold h3" %>
         <div class="flex-auto center">
           <% if current_user %>
-            <%= link_to 'My Casts', tracks_path, class: "button button-transparent h3 regular" %>
+            <%= link_to 'My Episodes', my_episodes_path, class: "button button-transparent h3 regular" %>
+            <%= link_to 'My Channels', my_channels_path, class: "button button-transparent h3 regular" %>
           <% end %>
-          <%= link_to 'Collections', shows_path, class: "button button-transparent h3 regular" %>
+          <%= link_to 'Channels', channels_path, class: "button button-transparent h3 regular" %>
         </div>
         <% if current_user %>
           <%= link_to 'Account', edit_user_registration_path, class: "button button-transparent h3 regular" %>

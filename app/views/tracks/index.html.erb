@@ -2,6 +2,7 @@
   <h1 class="h1 mt4">My Casts</h1>
   <hr>
 </div>
+
 <div class="clearfix px4">
   <% @your_tracks.each do |track| %>
     <div class="col col-12 sm-col-4 md-col-3 lg-col-3">
@@ -11,6 +12,7 @@
     </div>
   <% end %>
 </div>
-    <div class="center clearfix mt4">
-      <%= link_to 'Add another track', new_track_path, class: "button button-outline black" %>
-    </div>
+
+<div class="center clearfix mt4">
+  <%= link_to 'Add another track', new_track_path, class: "button button-outline black" %>
+</div>
