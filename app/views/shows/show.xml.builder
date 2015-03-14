@@ -1,7 +1,7 @@
 # Needs to be specc'd against https://www.apple.com/itunes/podcasts/specs.html
 xml.instruct!
 xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/track-1.0.dtd', version: '2.0' do
-  xml.show do
+  xml.channel do
     xml.title @show.name
     xml.link show_url(@show)
     # Validate language codes http://www.loc.gov/standards/iso639-2/php/code_list.php
