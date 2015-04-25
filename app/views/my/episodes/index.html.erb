@@ -5,7 +5,7 @@
 
 <div class="clearfix px4">
   <% @episodes.each do |episode| %>
-    <%= render(partial: 'episodes/episode', locals: { episode: episode }) %>
+    <%= render(partial: 'episodes/episode', locals: { episode: episode, channel: episode.channel }) %>
   <% end %>
 </div>
 
