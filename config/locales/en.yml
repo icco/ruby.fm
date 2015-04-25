@@ -24,6 +24,7 @@ en:
     bad_request: Bad request
     access_denied: Access denied
     server_error: Server error
+    unknown_format: Unknown format
   success:
     ok: Ok
     created: Created
