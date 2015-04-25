@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   end
   resources :episodes
 
-  get '/:channel_id',     to: 'channels#show',          as: :slugged_channel
+  get '/:id',             to: 'channels#show',          as: :slugged_channel
   get '/:channel_id/:id', to: 'channels/episodes#show', as: :slugged_channel_episode
 
   get "/upload", to: "tracks#new"
