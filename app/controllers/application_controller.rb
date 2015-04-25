@@ -15,6 +15,7 @@ class ApplicationController < ActionController::Base
         flash[:alert] = I18n.t('errors.unknown_format')
         redirect_to(root_url)
       end
+      format.any { redirect_to(root_url) }
     end
   end
 
@@ -24,6 +25,7 @@ class ApplicationController < ActionController::Base
         flash[:alert] = I18n.t('errors.server_error')
         redirect_to(root_url)
       end
+      format.any { redirect_to(root_url) }
     end
   end
 
@@ -33,6 +35,7 @@ class ApplicationController < ActionController::Base
         flash[:alert] = I18n.t('errors.access_denied')
         redirect_to(root_url)
       end
+      format.any { redirect_to(root_url) }
     end
   end
 end
