@@ -2,6 +2,7 @@
 <html>
   <head>
     <title>Ruby.fm</title>
+    <link href="http://d2v52k3cl9vedd.cloudfront.net/basscss/6.1.6/basscss.min.css" rel="stylesheet">
     <%= stylesheet_link_tag    'application', media: 'all' %>
     <%= javascript_include_tag 'application' %>
     <%= csrf_meta_tags %>
@@ -18,53 +19,20 @@
       </div>
     <% end %>
 
-    <header class="py3 px4 bg-light-gray">
-      <div class="flex">
-        <%= link_to 'Ruby.fm', root_path, class:"button button-transparent bold h3" %>
-        <div class="flex-auto center">
-          <% if current_user %>
-            <%= link_to 'My Episodes', my_episodes_path, class: "button button-transparent h3 regular" %>
-            <%= link_to 'My Channels', my_channels_path, class: "button button-transparent h3 regular" %>
-          <% end %>
-          <%= link_to 'Channels', channels_path, class: "button button-transparent h3 regular" %>
-        </div>
+    <nav class="clearfix white bg-gray">
+      <div class="sm-col">
+        <%= link_to "ruby.fm", root_path, class:"button button-transparent py2 h3" %>
+      </div>
+      <div class="sm-col-right">
         <% if current_user %>
-          <%= link_to 'Account', edit_user_registration_path, class: "button button-transparent h3 regular" %>
-          <%= link_to '+', upload_path, class: "button button-transparent h3 regular" %>
+          <%= link_to 'Upload', upload_path, class: "button button-transparent py2 regular bg-green" %>
         <% else %>
-          <%= link_to 'Sign In', user_session_path, class: "button button-transparent h3 regular" %>
+          <%= link_to 'Login', user_session_path, class: "button button-transparent py2 regular" %>
+          <%= link_to 'Sign Up', new_user_registration_path, class: "button button-transparent py2 regular" %>
         <% end %>
       </div>
-    </header>
+    </nav>
 
     <%= yield %>
-
-    <footer class="white bg-black mt4">
-      <div class="px2 py3">
-        <div class="clearfix mxn2">
-          <div class="col col-6 md-col-3 col-right">
-            <ul class="list-reset">
-              <li><a href="#" class="white h5 button block button-transparent">Twitter</a></li>
-              <li><a href="#" class="white h5 button block button-transparent">Facebook</a></li>
-              <li><a href="#" class="white h5 button block button-transparent">Instagram</a></li>
-              <li><a href="#" class="white h5 button block button-transparent">Pinterest</a></li>
-            </ul>
-          </div>
-          <div class="col col-6 md-col-3 col-right">
-            <ul class="list-reset">
-              <li><a href="#" class="white h5 button block button-transparent">Privacy Policy</a></li>
-              <li><a href="#" class="white h5 button block button-transparent">Terms of Service</a></li>
-              <li><a href="#" class="white h5 button block button-transparent">Help</a></li>
-              <li><a href="#" class="white h5 button block button-transparent">About</a></li>
-              <li><a href="#" class="white h5 button block button-transparent">Blog</a></li>
-              <br>
-              <li><a href="#" class="regular white h5 button block button-transparent">&copy; 2015 Simple Casual</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </footer>
-  </footer>
-
 </body>
 </html>

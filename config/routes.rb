@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  authenticated :user do
+    root to: redirect("/my/episodes"), :as => :authenticated_root
+  end
   root "home#index"
 
   # Authentication

@@ -1,16 +1,20 @@
-<div class="center container">
-  <h1 class="h1 mt4">My Episodes</h1>
-  <hr>
+<div class="flex flex-column" style="min-height: 100vh;">
+  <div class="flex-auto sm-flex">
+    <main class="flex-auto p2 col-10">
+      <h1 class="h2 regular">You have <%= Channel.first.episodes.count %> episodes</h1>
+      <ul>
+        <% @episodes.each do |episode| %>
+          <li><%= render(partial: 'episodes/episode', locals: { episode: episode, channel: episode.channel }) %></li>
+        <% end %>
+      </ul>
+      </main>
+      <nav class="flex-first border-right border-gray col-2">
+        <ul class="list-reset mt2 mb2">
+          <li><%= link_to "Episodes", my_episodes_path, class: "mb1 h3 regular button block button-transparent" %></li>
+          <li><%= link_to "Drafts", my_episodes_path, class: "gray mb1 h3 regular button block button-transparent" %></li>
+          <li><%= link_to "Settings", edit_channel_path(Channel.first), class: "gray mb1 h3 regular button block button-transparent" %></li>
+          <li><%= link_to "Account", edit_user_registration_path, class: "gray mb1 h3 regular button block button-transparent" %></li>
+        </ul>
+      </nav>
+    </div>
 </div>
-
-<div class="clearfix px4">
-  <% @episodes.each do |episode| %>
-    <%= render(partial: 'episodes/episode', locals: { episode: episode, channel: episode.channel }) %>
-  <% end %>
-</div>
-
-<% if user_signed_in? %>
-  <div class="center clearfix mt4">
-    <%= link_to('Create a channel', new_channel_path, class: "button button-outline black") %>
-  </div>
-<% end %>
