@@ -9,7 +9,7 @@
 </header>
 
 <section class="clearfix">
-  <% @channel.episodes.each do |t| %>
+  <% @channel.episodes.visible.each do |t| %>
     <div class="flex flex-center mb3">
       <img src="http://www.drinkamara.com/wp-content/uploads/2015/03/bacon_blog_post.jpg"
       width="200" height="200"
