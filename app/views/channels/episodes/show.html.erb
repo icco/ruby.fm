@@ -1,5 +1,5 @@
-<header class="center">
-  <h1>
+<header class="center py3">
+  <h1 class="m0">
     <%= @episode.title %>
     <span class="regular"><%= @episode.visible? ? '' : '(Not Visible)' %></span>
     <%= link_to 'Edit', edit_episode_path(@episode.id)  %>

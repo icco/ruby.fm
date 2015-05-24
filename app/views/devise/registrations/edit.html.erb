@@ -20,4 +20,5 @@
   <%= f.password_field :password_confirmation, class: "block full-width mb1 field-light", autocomplete: "off" %>
 
   <%= f.submit "Update your account", class: "regular button full-width mt3" %>
+  <%= link_to "Logout", :destroy_user_session, method: :delete, class: "gray mt2 block" %>
 <% end %>

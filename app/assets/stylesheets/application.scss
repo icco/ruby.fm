@@ -14,8 +14,13 @@
  *= require_self
  */
 
-body, h1, h2, h3, h4, h5, h6, p, li {
-  font-family: 'San Francisco Display', 'Helvetica Neue', helvetica;
+body, h1, h2, h3, h4, h5, h6, p, li, .regular, input, .button {
+  font-family: 'Ideal Sans SSm A', 'Ideal Sans SSm B', 'Helvetica Neue', helvetica;
+  font-weight: 300;
+}
+
+.strong, strong, h1, h2, h3, h4, h5, h6 {
+  font-weight: 500;
 }
 
 .table-cell {

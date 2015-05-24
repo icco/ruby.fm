@@ -3,44 +3,52 @@
   <head>
     <title>Ruby.fm</title>
     <link href="http://d2v52k3cl9vedd.cloudfront.net/basscss/6.1.6/basscss.min.css" rel="stylesheet">
-    <%= stylesheet_link_tag    'application', media: 'all' %>
-    <%= javascript_include_tag 'application' %>
+    <%= stylesheet_link_tag "//cloud.typography.com/6326032/647188/css/fonts.css", "application", media: "all" %>
+    <%= javascript_include_tag "application" %>
     <%= csrf_meta_tags %>
   </head>
   <body>
-    <% if notice %>
-      <div class="h4 bold center p2 white bg-green">
-        <%= notice %>
-      </div>
-    <% end %>
-    <% if alert %>
-      <div class="h4 bold center p2 bg-yellow">
-        <%= alert %>
-      </div>
-    <% end %>
+    <div class="flex flex-column" style="min-height:100vh">
+      <% if notice %>
+        <div class="h4 bold center p2 white bg-green">
+          <%= notice %>
+        </div>
+      <% end %>
+      <% if alert %>
+        <div class="h4 bold center p2 bg-yellow">
+          <%= alert %>
+        </div>
+      <% end %>
 
-    <nav class="clearfix white bg-gray">
-      <div class="sm-col">
-        <%= link_to "ruby.fm", root_path, class:"button button-transparent py2 h3" %>
-      </div>
-      <div class="sm-col-right">
-        <% if current_user %>
-          <%= link_to "View Channel", channel_path(Channel.first), class: "button button-transparent py2 regular" %>
-          <%= link_to "Manage Episodes", my_episodes_path, class: "button button-transparent py2 regular" %>
-          <%= link_to "Settings", edit_channel_path(Channel.first), class: "button button-transparent py2 regular" %>
-          <%= link_to "Account", edit_user_registration_path, class: "button button-transparent py2 regular" %>
-          <%= link_to '+ Upload', upload_path, class: "button py2 regular" %>
-        <% else %>
-          <%= link_to 'Login', user_session_path, class: "button button-transparent py2 regular" %>
-          <%= link_to 'Sign Up', new_user_registration_path, class: "button button-transparent py2 regular" %>
-        <% end %>
-      </div>
-    </nav>
+      <nav class="clearfix white bg-gray">
+        <div class="sm-col">
+          <%= link_to "ruby.fm", root_path, class:"strong button button-transparent py2 h3" %>
+        </div>
+        <div class="sm-col-right">
+          <% if current_user %>
+            <%= link_to "View Channel", channel_path(Channel.first), class: "button button-transparent py2 regular" %>
+            <%= link_to "Manage Episodes", my_episodes_path, class: "button button-transparent py2 regular" %>
+            <%= link_to "Settings", edit_channel_path(Channel.first), class: "button button-transparent py2 regular" %>
+            <%= link_to "Account", edit_user_registration_path, class: "button button-transparent py2 regular" %>
+            <%= link_to '+ Upload', upload_path, class: "button py2 regular" %>
+          <% else %>
+            <%= link_to 'Login', user_session_path, class: "button button-transparent py2 regular" %>
+            <%= link_to 'Sign Up', new_user_registration_path, class: "button button-transparent py2 regular" %>
+          <% end %>
+        </div>
+      </nav>
 
-    <main class="container">
-      <div class="col-8 mx-auto">
-        <%= yield %>
+      <div class="flex-auto">
+        <main class="flex-auto">
+          <div class="col-8 mx-auto">
+            <%= yield %>
+          </div>
+        </main>
       </div>
-    </main>
-</body>
+
+      <footer class="p2 center">
+        <p class="gray small">&copy; 2015 Simple Casual LLC.</p>
+      </footer>
+    </div>
+  </body>
 </html>
