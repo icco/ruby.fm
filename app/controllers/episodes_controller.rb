@@ -1,6 +1,6 @@
 class EpisodesController < ApplicationController
   def index
-    @episodes = Episode.published.recent.includes(:channel)
+    @episodes = Episode.published.recent.includes(:channel).order(created_at: :desc)
 
     respond_to do |format|
       format.html

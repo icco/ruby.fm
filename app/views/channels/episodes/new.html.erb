@@ -1,25 +1,27 @@
+<% meta title: "Upload to #{@channel.title}" %>
+
 <header class="center">
   <h1>Upload</h1>
 </header>
 
-    <p>
-      Upload an MP3, we'll read any meta data from the ID3 tag and do the data
-      entry for you. You'll be able to edit any informaion we find on the next
-      screen.
-    </p>
+<p>
+  Upload an MP3, we'll read any meta data from the ID3 tag and do the data
+  entry for you. You'll be able to edit any informaion we find on the next
+  screen.
+</p>
 
-    <%= form_for(@episode, url: channel_episodes_path(@channel.slug)) do |f| %>
-      <% if @episode.errors.any? %>
-        <div id="error_explanation">
-          <h2><%= pluralize(@episode.errors.count, "error") %> prohibited this episode from being saved:</h2>
-          <ul>
-            <% @episode.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
-      <% end %>
+<%= form_for(@episode, url: channel_episodes_path(@channel.slug)) do |f| %>
+  <% if @episode.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@episode.errors.count, "error") %> prohibited this episode from being saved:</h2>
+      <ul>
+        <% @episode.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
-      <%= f.file_field(:audio, class: 'full-width block border border-light-gray py4') %>
-      <%= f.submit('Upload episode', class: ' mt2 button button-outline black mb2') %>
-    <% end %>
+  <%= f.file_field(:audio, class: 'full-width block border border-light-gray py4') %>
+  <%= f.submit('Upload episode', class: ' mt2 button full-width mb2') %>
+<% end %>
