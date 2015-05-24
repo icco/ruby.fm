@@ -1,10 +1,12 @@
-<header class="center py3">
+<header class="center py2 border-bottom mb3 mt3">
   <h1 class="m0">
     <%= @episode.title %>
     <span class="regular"><%= @episode.visible? ? '' : '(Not Visible)' %></span>
-    <%= link_to 'Edit', edit_episode_path(@episode.id)  %>
   </h1>
   <p><%= link_to(@channel.title, channel_path(@channel), class: "gray") %></p>
+  <% if current_user.id = @episode.channel.user_id %>
+    <%= link_to 'Edit', edit_episode_path(@episode.id), class: "button button-outline inline-block"  %>
+  <% end %>
 </header>
 
 <img src="http://www.drinkamara.com/wp-content/uploads/2015/03/bacon_blog_post.jpg"

@@ -1,6 +1,11 @@
-<header class="center py3">
-  <h1 class="m0"><%= @channel.title %></h1>
+<header class="center py2 border-bottom mb3 mt3">
+  <h1 class="m0">
+    <%= @channel.title %>
+  </h1>
   <p class="gray"><%= @channel.author %></p>
+  <% if current_user.id = @channel.user_id %>
+    <%= link_to 'Edit', edit_channel_path(@channel.id), class: "button button-outline inline-block"  %>
+  <% end %>
 </header>
 
 <section class="clearfix">
