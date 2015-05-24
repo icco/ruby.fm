@@ -26,9 +26,13 @@
         </div>
         <div class="sm-col-right">
           <% if current_user %>
-            <%= link_to "View Channel", channel_path(Channel.first), class: "button button-transparent py2 regular" %>
+            <% unless current_user.channels.empty? %>
+              <%= link_to "View Channel", channel_path(current_user.channels.first), class: "button button-transparent py2 regular" %>
+            <% end %>
             <%= link_to "Manage Episodes", my_episodes_path, class: "button button-transparent py2 regular" %>
-            <%= link_to "Settings", edit_channel_path(Channel.first), class: "button button-transparent py2 regular" %>
+            <% unless current_user.channels.empty? %>
+              <%= link_to "Settings", edit_channel_path(current_user.channels.first), class: "button button-transparent py2 regular" %>
+            <% end %>
             <%= link_to "Account", edit_user_registration_path, class: "button button-transparent py2 regular" %>
             <%= link_to '+ Upload', upload_path, class: "button py2 regular" %>
           <% else %>
