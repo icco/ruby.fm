@@ -14,6 +14,21 @@
  *= require_self
  */
 
+body {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern";
+  -webkit-font-feature-settings: "kern";
+  -moz-font-feature-settings: "kern";
+  -moz-font-feature-settings: "kern=1";
+  -webkit-font-smoothing: antialiased;
+  font-variant-ligatures: common-ligatures;
+  -webkit-font-variant-ligatures: common-ligatures;
+}
+
+@media and (max-device-width : 480px) {
+  body { text-rendering: optimizeSpeed; }
+}
+
 body, h1, h2, h3, h4, h5, h6, p, li, .regular, input, .button, textarea {
   font-family: 'Ideal Sans SSm A', 'Ideal Sans SSm B', 'Helvetica Neue', helvetica;
   font-weight: 300;
