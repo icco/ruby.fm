@@ -16,13 +16,15 @@
       class="flex-none mr2" />
       <div class="flex-auto">
         <h2 class="m0"><%= link_to(t.title, slugged_channel_episode_path(@channel.slug, t.slug)) %></h2>
-        <p class="gray">
-          <%= "#{time_ago_in_words(t.created_at)} ago" %>
-        </p>
-        <p class="m0">
-          <%= t.notes.truncate(240) %>
-        </p>
-      </div>
+          <p class="gray">
+            <%= "#{time_ago_in_words(t.created_at)} ago" %>
+          </p>
+          <% if t.notes %>
+            <p class="m0">
+              <%= t.notes.truncate(240) %>
+            </p>
+          <% end %>
+        </div>
     </div>
   <% end %>
 </section>
