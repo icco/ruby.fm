@@ -5,7 +5,8 @@ Rails.application.routes.draw do
   root "home#index"
 
   # Authentication
-  devise_for :users
+  devise_for :users, controllers: { registrations: 'registrations' }
+
   get "/login", to: redirect("/users/sign_in")
 
   namespace :my do

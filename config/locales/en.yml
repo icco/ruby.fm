@@ -30,7 +30,18 @@ en:
     created: Created
     processing: Processing
 
+  user:
+    email:
+      taken: Email is already taken
+  signup:
+    email: Email
+    full_name: Full Name
+    channel_name: Channel Name
+    password: Password
+
   channel:
+    name:
+      taken: Channel is already taken
     create:
       successful: Channel created
       failed: Channel could not be created

@@ -78,7 +78,7 @@ class ChannelsController < ApplicationController
     authorize(@channel, :destroy?)
 
     respond_to do |format|
-      if @channel.destroy
+      if destroy_channel? && @channel.destroy
         format.html do
           flash[:notice] = I18n.t('channel.destroy.successful')
           redirect_to(channels_url)
@@ -93,6 +93,10 @@ class ChannelsController < ApplicationController
   end
 
   private
+
+  def destroy_channel?
+    current_user.channels.count > 1
+  end
 
   def channel_params
     params.fetch(:channel, {}).permit(:title, :author, :slug, :published)

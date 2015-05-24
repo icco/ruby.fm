@@ -3,12 +3,17 @@
     <h1 class="m0">Sign Up</h1>
     <p>You're 30 seconds away from publishing super dope things. Good luck.</p>
   </header>
-  <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-    <%= devise_error_messages! %>
-
-    <%#= f.text_field :name, autofocus: true, placeholder: 'Full Name', class: 'block full-width field-light' %>
+  <%= form_for(@signup, url: user_registration_path) do |f| %>
+    <% unless @signup.errors.empty? %>
+      <% @signup.errors.messages.each do |field, messages| %>
+      <p><%= I18n.t("signup.#{field}") %>: <%= messages.join(', ') %></p>
+      <% end %>
+    <% end %>
+    <%= f.text_field :full_name, autofocus: true, placeholder: 'Full Name', class: 'block full-width field-light' %>
     <%= f.email_field :email, placeholder: 'E-mail', class: 'block full-width field-light' %>
     <%= f.password_field :password, autocomplete: "off", placeholder: 'Password', class: 'block full-width field-light' %>
+    <%= f.text_field :channel_name, placeholder: 'Channel Name', class: 'block full-width field-light' %>
+
     <% if @validatable %>
       <p class="h6 gray">(<%= @minimum_password_length %> characters minimum)</p>
     <% end %>
