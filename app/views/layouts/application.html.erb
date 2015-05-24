@@ -40,14 +40,14 @@
 
       <div class="flex-auto">
         <main class="flex-auto">
-          <div class="col-8 mx-auto">
+          <div class="col-6 mx-auto">
             <%= yield %>
           </div>
         </main>
       </div>
 
       <footer class="p2 center">
-        <p class="gray small">&copy; 2015 Simple Casual LLC.</p>
+        <p class="gray small">&copy; <%= Time.now.year %> Simple Casual LLC.</p>
       </footer>
     </div>
   </body>
