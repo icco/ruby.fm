@@ -68,7 +68,7 @@ CREATE TABLE channels (
     slug character varying NOT NULL,
     link character varying,
     author character varying,
-    published boolean DEFAULT false NOT NULL,
+    published boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
@@ -305,3 +305,5 @@ INSERT INTO schema_migrations (version) VALUES ('20150104000000');
 INSERT INTO schema_migrations (version) VALUES ('20150105000000');
 
 INSERT INTO schema_migrations (version) VALUES ('20150313022254');
+
+INSERT INTO schema_migrations (version) VALUES ('20150524210447');
