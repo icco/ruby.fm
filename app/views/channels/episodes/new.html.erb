@@ -1,10 +1,7 @@
-<div class="center container">
-  <h1 class="h1 mt4">Upload Episode</h1>
-  <hr>
-</div>
+<header class="center">
+  <h1>Upload</h1>
+</header>
 
-<div class="container mt4">
-  <div class="col-6 px2 mx-auto">
     <p>
       Upload an MP3, we'll read any meta data from the ID3 tag and do the data
       entry for you. You'll be able to edit any informaion we find on the next
@@ -26,6 +23,3 @@
       <%= f.file_field(:audio, class: 'full-width block border border-light-gray py4') %>
       <%= f.submit('Upload episode', class: ' mt2 button button-outline black mb2') %>
     <% end %>
-
-  </div>
-</div>
