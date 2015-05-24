@@ -34,7 +34,7 @@
               <%= link_to "Settings", edit_channel_path(current_user.channels.first), class: "button button-transparent py2 regular" %>
             <% end %>
             <%= link_to "Account", edit_user_registration_path, class: "button button-transparent py2 regular" %>
-            <%= link_to '+ Upload', upload_path, class: "button py2 regular" %>
+            <%= link_to "+ Upload", new_channel_episode_path(current_user.channels.first), class: "button py2 regular" %>
           <% else %>
             <%= link_to 'Login', user_session_path, class: "button button-transparent py2 regular" %>
             <%= link_to 'Sign Up', new_user_registration_path, class: "button button-transparent py2 regular" %>
