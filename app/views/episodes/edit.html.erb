@@ -1,4 +1,6 @@
-<h1>Editing Episode</h1>
+<header class="center">
+  <h1>Edit <%= @episode.title %></h1>
+</header>
 
 <%= form_for(@episode, url: episode_path(@episode.id)) do |f| %>
   <% if @episode.errors.any? %>
@@ -12,25 +14,27 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label :visible %>
-    <%= f.check_box :visible %>
+  <div class="py2 border-bottom">
+      <label class="block full-width">
+      <%= f.check_box :visible %>
+      <span class="bold">Published</span>
+    </label>
   </div>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
+  <div class="py2 border-bottom">
+    <%= f.label :title, class: "bold" %>
+    <%= f.text_field :title, class: "block full-width field-light" %>
   </div>
 
-  <div class="field">
-    <%= f.label :notes %><br>
-    <%= f.text_area :notes %>
+  <div class="py2">
+    <%= f.label "Show Notes", class: "bold" %>
+    <%= f.text_area :notes, class: "block full-width field-light", style: "min-height: 200px;" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit %>
+  <div class="mt1">
+    <%= f.submit "Update Episode", class: "button full-width" %>
   </div>
 <% end %>
 
 
-<%= link_to 'Episode', slugged_channel_episode_path(@channel.slug, @episode.slug) %>
+<%= link_to "View Episode", slugged_channel_episode_path(@channel.slug, @episode.slug), class: "mt1 gray block" %>
