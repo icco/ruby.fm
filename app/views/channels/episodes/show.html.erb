@@ -1,61 +1,21 @@
-<div class="bg-gray py4">
-  <div class="container center white">
-    <h1 class="py4 h1">
-      <%= @episode.title %>
-      <span class="regular"><%= @episode.visible? ? '' : '(Not Visible)' %></span>
-    </h1>
-    <%= link_to 'Edit', edit_episode_path(@episode.id), class: 'button button-outline white' %>
-  </div>
-</div>
+<header class="center">
+  <h1>
+    <%= @episode.title %>
+    <span class="regular"><%= @episode.visible? ? '' : '(Not Visible)' %></span>
+    <%= link_to 'Edit', edit_episode_path(@episode.id)  %>
+  </h1>
+  <p><%= link_to(@channel.title, channel_path(@channel), class: "gray") %></p>
+</header>
 
-<progress class="full-width bg-light-gray bg-darken-1 white block" max="100" value="20"></progress>
+<img src="http://www.drinkamara.com/wp-content/uploads/2015/03/bacon_blog_post.jpg"
+width="400" height="400" class="block mb2 mx-auto" />
 
-<div class="bg-light-gray px4 py2 clearfix">
-  <source src="<%= @episode.audio %>" type="audio/mpeg">
-  <audio controls class="left">
-    Your browser does not support the audio element.
-  </audio>
-  <nav class="right">
-    <%= link_to 'Subscribe', '#', class: "px2 h3 black" %>
-    |
-    <%= link_to 'Recommend', '#', class: "ml2 h3 black" %>
-  </nav>
-</div>
+<audio src="<%= @episode.audio %>" type="audio/mpeg" preload="auto" controls
+  class="mx-auto block">
+  Your browser does not support the audio element.
+</audio>
 
-<div class="container mt4">
-  <h2 class="h1 center">Show Notes</h2>
-  <hr>
-</div>
+<h3 class="center">Show Notes</h3>
+<p class="h3 px4"><%= @episode.notes %></p>
 
-<div class="clearfix px4">
-  <div class="col col-3 center">
-    <div class="bg-light-gray p2">
-      <h3 class="h3">Guests featured
-on this episode</h3>
-      <hr>
-      <p>Natalie Armendariz</p>
-      <p>Andre Jurgensen</p>
-    </div>
-    <div class="p2">
-      <h3 class="h3 regular">Share this cast</h3>
-      <%= link_to 'Twitter', '#', class: 'block' %>
-      <%= link_to 'Facebook', '#', class: 'block' %>
-      <%= link_to 'Tumblr', '#', class: 'block' %>
-      <%= link_to 'Pinterest', '#', class: 'block' %>
-      <%= link_to 'Google Plus', '#', class: 'block' %>
-    </div>
-  </div>
-  <div class="col col-6">
-    <p class="h3 px4"><%= @episode.notes %></p>
-  </div>
-  <div class="col col-3">
-    <div class="border-light-gray border p2">
-      <h3 class="h3 m0 mb2">Sponsored by</h3>
-      <div class="p2 bg-light-gray center">
-        <h5 class="h3">Ebola</h5>
-        <p>Disrupting your next trip
-          to JFK airport</p>
-      </div>
-    </div>
-  </div>
-</div>
+<%= render 'channels/subscribe' %>

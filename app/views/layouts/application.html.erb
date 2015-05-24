@@ -25,7 +25,11 @@
       </div>
       <div class="sm-col-right">
         <% if current_user %>
-          <%= link_to 'Upload', upload_path, class: "button button-transparent py2 regular bg-green" %>
+          <%= link_to "View Channel", channel_path(Channel.first), class: "button button-transparent py2 regular" %>
+          <%= link_to "Manage Episodes", my_episodes_path, class: "button button-transparent py2 regular" %>
+          <%= link_to "Settings", edit_channel_path(Channel.first), class: "button button-transparent py2 regular" %>
+          <%= link_to "Account", edit_user_registration_path, class: "button button-transparent py2 regular" %>
+          <%= link_to '+ Upload', upload_path, class: "button py2 regular" %>
         <% else %>
           <%= link_to 'Login', user_session_path, class: "button button-transparent py2 regular" %>
           <%= link_to 'Sign Up', new_user_registration_path, class: "button button-transparent py2 regular" %>
@@ -33,6 +37,10 @@
       </div>
     </nav>
 
-    <%= yield %>
+    <main class="container">
+      <div class="col-8 mx-auto">
+        <%= yield %>
+      </div>
+    </main>
 </body>
 </html>

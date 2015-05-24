@@ -1,13 +1,27 @@
-<h1><%= @channel.title %></h1>
+<header class="center">
+  <h1><%= @channel.title %></h1>
+  <p class="gray"><%= @channel.author %></p>
+</header>
 
-<ul>
-  <% @channel.episodes.each do |t| %>
-    <li><%= link_to(t.title, slugged_channel_episode_path(@channel.slug, t.slug)) %></li>
+<section class="clearfix">
+  <% 4.times do %>
+    <% @channel.episodes.each do |t| %>
+      <div class="flex flex-center mb3">
+        <img src="http://www.drinkamara.com/wp-content/uploads/2015/03/bacon_blog_post.jpg"
+        width="200" height="200"
+        class="flex-none mr2" />
+        <div class="flex-auto">
+          <h2 class="m0"><%= link_to(t.title, slugged_channel_episode_path(@channel.slug, t.slug)) %></h2>
+          <p class="gray">
+            <%= "#{time_ago_in_words(t.created_at)} ago" %>
+          </p>
+          <p class="m0">
+            <%= t.notes.truncate(240) %>
+          </p>
+        </div>
+      </div>
+    <% end %>
   <% end %>
-</ul>
+</section>
 
-<% if policy(@channel).update? %>
-  <%= link_to('Add Episode', new_channel_episode_path(@channel.slug)) %>
-  <br>
-  <%= link_to('Edit Channel', edit_channel_path(@channel.slug)) %>
-<% end %>
+<%= render 'subscribe' %>

@@ -1,0 +1,12 @@
+<aside class="border-top center py3 mt3">
+  <h3>Get the latest episodes from <%= @channel.title %></h3>
+  <div class="flex mb2 mx-auto">
+    <label for="email-subscribe-input" class="hide">Email subscribe</label>
+    <input
+      type="text"
+      id="email-subscribe-input"
+      class="flex-auto m0 field-light rounded-left"
+      placeholder="your@email.com">
+      <button class="button regular rounded-right border-left black bg-silver">Subscribe to <%= @channel.title %></button>
+  </div>
+</aside>

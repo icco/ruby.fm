@@ -1,4 +1,6 @@
-<h1>Edit Channel</h1>
+<header class="center">
+  <h1>Settings</h1>
+</header>
 
 <%= form_for(@channel) do |f| %>
   <% if @channel.errors.any? %>
@@ -13,29 +15,25 @@
     </div>
   <% end %>
 
-  <div class="field">
-    <%= f.label(:title) %><br>
-    <%= f.text_field(:title) %>
+  <div class="py2 border-bottom">
+    <%= f.label :title, class: "bold" %>
+    <%= f.text_field :title, class: "block full-width mb1 field-light" %>
   </div>
 
-  <div class="field">
-    <%= f.label(:slug) %><br>
-    <%= f.text_field(:slug) %>
+  <div class="py2 border-bottom">
+    <%= f.label "Subdomain", class: "bold block" %>
+    <div class="flex mb2">
+      <%= f.text_field :slug, class: "col-6 m0 field-light rounded-left"  %>
+      <p class="col-6 button rounded-right border-left black bg-silver">.ruby.fm</p>
+    </div>
   </div>
 
-  <div class="field">
-    <%= f.label(:author) %><br>
-    <%= f.text_field(:author) %>
-  </div>
-
-  <div class="field">
-    <%= f.label(:published) %><br>
-    <%= f.check_box(:published) %>
+  <div class="py2">
+    <%= f.label :author, class: "bold" %>
+    <%= f.text_field :author, class: "block full-width mb1 field-light"  %>
   </div>
 
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit "Update your settings", class: "mt2 regular button button-blue full-width" %>
   </div>
 <% end %>
-
-<%= link_to 'Back', channels_path %>
