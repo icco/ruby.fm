@@ -1,5 +1,5 @@
 module Channels
-  class EpisodesController < AuthorizedController
+  class EpisodesController < ApplicationController
     # GET - /channels/{slug_or_id}/episodes/new
     def new
       @channel = Channel.friendly.find(params[:channel_id])
