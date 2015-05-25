@@ -21,6 +21,4 @@ Rails.application.routes.draw do
 
   get '/:id',             to: 'channels#show',          as: :slugged_channel
   get '/:channel_id/:id', to: 'channels/episodes#show', as: :slugged_channel_episode
-
-  get "/upload", to: "tracks#new"
 end
