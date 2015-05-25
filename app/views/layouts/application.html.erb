@@ -20,7 +20,7 @@
         </div>
       <% end %>
 
-      <nav class="clearfix white bg-gray">
+      <nav class="clearfix white bg-dark-gray">
         <div class="sm-col">
           <%= link_to "ruby.fm", root_path, class:"strong button button-transparent py2 h3" %>
         </div>
@@ -54,5 +54,13 @@
         <p class="gray small">&copy; <%= Time.now.year %> <%= link_to "Simple Casual", "http://simplecasual.com", class: "gray" %> LLC.</p>
       </footer>
     </div>
+    <script>
+      (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+      function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
+      e=o.createElement(i);r=o.getElementsByTagName(i)[0];
+      e.src='https://www.google-analytics.com/analytics.js';
+      r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
+      ga('create','UA-24725855-10','auto');ga('send','pageview');
+    </script>
   </body>
 </html>

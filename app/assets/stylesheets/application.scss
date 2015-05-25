@@ -25,10 +25,6 @@ body {
   -webkit-font-variant-ligatures: common-ligatures;
 }
 
-@media and (max-device-width : 480px) {
-  body { text-rendering: optimizeSpeed; }
-}
-
 body, h1, h2, h3, h4, h5, h6, p, li, .regular, input, .button, textarea {
   font-family: 'Ideal Sans SSm A', 'Ideal Sans SSm B', 'Helvetica Neue', helvetica;
   font-weight: 300;
@@ -36,36 +32,4 @@ body, h1, h2, h3, h4, h5, h6, p, li, .regular, input, .button, textarea {
 
 .strong, strong, h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
-}
-
-.table-cell {
-  display: table-cell;
-  vertical-align: middle;
-}
-
-progress[value] {
-  vertical-align: 0;
-  height: 2rem;
-  appearance: none;
-    -webkit-appearance: none;
-
-  &::-webkit-progress-bar {
-    background-color: #9F9F9F;
-  }
-
-  &::-webkit-progress-value {
-    background-color: #C1C1C1;
-  }
-}
-
-.bg-gray {
-  background-color: #444444;
-}
-
-.bg-mid-gray {
-  background-color: #9F9F9F;
-}
-
-.bg-light-gray {
-  background-color: #E8E8E8;
 }
