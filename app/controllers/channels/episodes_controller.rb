@@ -40,7 +40,7 @@ module Channels
     end
 
     def episode_params
-      params.fetch(:episode, {}).permit(:title, :notes, :audio, :length)
+      params.fetch(:episode, {}).permit(:title, :image, :notes, :audio, :length)
     end
   end
 end

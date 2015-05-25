@@ -40,6 +40,6 @@ class EpisodesController < ApplicationController
   end
 
   def episode_params
-    params.fetch(:episode, {}).permit(:title, :notes, :visible, :length)
+    params.fetch(:episode, {}).permit(:title, :image, :notes, :visible, :length)
   end
 end
