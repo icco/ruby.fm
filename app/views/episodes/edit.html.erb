@@ -15,8 +15,14 @@
   <% end %>
 
   <div class="py2 border-bottom">
+    <%= f.label :title, class: "bold" %>
+    <%= f.text_field :title, class: "block full-width field-light" %>
+  </div>
+
+  <div class="py2 border-bottom">
       <label class="block bold">Cover Art</label>
       <p class="gray">Must be square and >= 1400px</p>
+      <%= image_tag(@episode.image_url, width: 200, height: 200) if @episode.image? %>
       <%= f.file_field :image, multiple: true %>
   </div>
 
@@ -25,11 +31,6 @@
       <%= f.check_box :visible %>
       <span class="bold">Published</span>
     </label>
-  </div>
-
-  <div class="py2 border-bottom">
-    <%= f.label :title, class: "bold" %>
-    <%= f.text_field :title, class: "block full-width field-light" %>
   </div>
 
   <div class="py2">
