@@ -17,34 +17,6 @@ class ChannelsController < ApplicationController
     end
   end
 
-  def new
-    @channel = Channel.new
-    authorize(@channel, :create?)
-
-    respond_to do |format|
-      format.html
-    end
-  end
-
-  def create
-    @channel = Channel.new(channel_params.merge(user_id: current_user.id))
-    authorize(@channel, :create?)
-
-    respond_to do |format|
-      if @channel.save
-        format.html do
-          flash[:alert] = I18n.t('channel.create.successful')
-          redirect_to(channel_url(@channel.slug))
-        end
-      else
-        format.html do
-          flash[:alert] = I18n.t('channel.create.failed')
-          render(action: 'new', status: 400)
-        end
-      end
-    end
-  end
-
   def edit
     @channel = Channel.friendly.find(params[:id])
     authorize(@channel, :update?)

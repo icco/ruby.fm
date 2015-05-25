@@ -14,7 +14,7 @@ Rails.application.routes.draw do
     resources :episodes, only: [:index]
   end
 
-  resources :channels do
+  resources :channels, except: [:new, :create] do
     resources :episodes, only: [:new, :create], controller: 'channels/episodes'
   end
   resources :episodes

@@ -8,9 +8,3 @@
     <%= render(partial: 'channels/channel', locals: { channel: channel }) %>
   <% end %>
 </div>
-
-<% if user_signed_in? %>
-  <div class="center clearfix mt4">
-    <%= link_to('Create your own channel', new_channel_path, class: "button button-outline black") %>
-  </div>
-<% end %>
