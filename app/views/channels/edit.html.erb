@@ -23,7 +23,10 @@
   </div>
 
   <div class="py2 border-bottom">
-    <%= f.label "Subdomain", class: "bold block" %>
+    <label class="bold block">
+      Subdomain
+      <span class="h6 inline-block px1 white bg-red rounded">WIP</span>
+    </label>
     <div class="flex mb1">
       <%= f.text_field :slug, class: "col-6 m0 field-light rounded-left"  %>
       <p class="col-6 button rounded-right border-left black bg-silver">.ruby.fm</p>
@@ -46,7 +49,10 @@
 </header>
 
 <div class="py2 border-top mb2">
-  <label class="bold block">RSS</label>
+  <label class="bold block">
+    RSS
+    <span class="h6 inline-block px1 white bg-red rounded">WIP</span>
+  </label>
       <p>You can submit your podcast to other directories, list on your website, or <%= link_to "submit to in iTunes", "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/publishPodcast" %>.</p>
   <code class="block p1">
     <%= link_to(slugged_channel_url(@channel.slug, format: 'xml'), slugged_channel_url(@channel.slug, format: 'xml')) %>
