@@ -26,6 +26,6 @@ width="400" height="400" class="block mb2 mx-auto" />
 </audio>
 
 <h3 class="center">Show Notes</h3>
-<p class="px4"><%= @episode.notes %></p>
+<p class="px4"><%= markdown(@episode.notes) %></p>
 
 <%= render 'channels/subscribe' %>
