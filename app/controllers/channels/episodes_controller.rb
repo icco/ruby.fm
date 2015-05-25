@@ -29,6 +29,7 @@ module Channels
       authorize(@channel, :update?)
 
       @episode = @channel.episodes.build(episode_params)
+      @episode.visible = true
 
       respond_to do |format|
         if @episode.save
@@ -40,7 +41,7 @@ module Channels
     end
 
     def episode_params
-      params.fetch(:episode, {}).permit(:title, :notes, :visible, :audio, :length)
+      params.fetch(:episode, {}).permit(:title, :notes, :audio, :length)
     end
   end
 end
