@@ -15,7 +15,7 @@
     <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
   <% end %>
 
-  <%= f.label "Change your password", class: "bold" %> <em>(leave blank if you don't want to change it)</em>
+  <%= f.label "Change your password", class: "bold" %> <em>- leave blank if you don't want to change it</em>
   <%= f.password_field :password, class: "block full-width mb1 field-light", autocomplete: "off" %>
 
   <%= f.label :password_confirmation, class: "bold" %>
