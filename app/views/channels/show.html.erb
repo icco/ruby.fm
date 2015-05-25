@@ -35,7 +35,7 @@
           </p>
           <% if t.notes %>
             <p class="m0">
-              <%= t.notes.truncate(240) %>
+              <%= markdown(t.notes.truncate(140)) %>
             </p>
           <% end %>
         </div>
