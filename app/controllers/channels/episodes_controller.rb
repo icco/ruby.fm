@@ -15,7 +15,6 @@ module Channels
     # GET - /channels/{slug_or_id}/episodes
     def show
       @channel = Channel.friendly.find(params[:channel_id])
-      authorize(@channel, :read?)
       @episode = @channel.episodes.friendly.find(params[:id])
 
       respond_to do |format|
