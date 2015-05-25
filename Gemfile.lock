@@ -299,7 +299,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails (~> 4.0.3)
   lograge
-  metamagic
+  metamagic (~> 3.1.7)
   minitest-rails (~> 2.1.1)
   mocha (~> 1.1.0)
   oj (~> 2.12.4)
@@ -308,7 +308,7 @@ DEPENDENCIES
   pundit (~> 1.0.0)
   rails (~> 4.2.0)
   rails_12factor (~> 0.0.3)
-  redcarpet
+  redcarpet (~> 3.2.3)
   rollbar (~> 1.4.4)
   sass-rails (~> 5.0)
   spring
