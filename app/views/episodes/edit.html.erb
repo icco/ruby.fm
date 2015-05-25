@@ -15,6 +15,12 @@
   <% end %>
 
   <div class="py2 border-bottom">
+      <label class="block bold">Cover Art</label>
+      <p class="gray">Must be square and >= 1400px</p>
+      <%= f.file_field :image, multiple: true %>
+  </div>
+
+  <div class="py2 border-bottom">
       <label class="block full-width">
       <%= f.check_box :visible %>
       <span class="bold">Published</span>
@@ -30,13 +36,13 @@
     <label class="block bold">
       Show Notes
       <%= link_to "http://daringfireball.net/projects/markdown/basics" do %>
-        <%= image_tag("data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyMDgiIGhlaWdodD0iMTI4IiB2aWV3Qm94PSIwIDAgMjA4IDEyOCI+PHJlY3Qgd2lkdGg9IjE5OCIgaGVpZ2h0PSIxMTgiIHg9IjUiIHk9IjUiIHJ5PSIxMCIgc3Ryb2tlPSIjMDAwIiBzdHJva2Utd2lkdGg9IjEwIiBmaWxsPSJub25lIi8+PHBhdGggZD0iTTMwIDk4di02OGgyMGwyMCAyNSAyMC0yNWgyMHY2OGgtMjB2LTM5bC0yMCAyNS0yMC0yNXYzOXpNMTU1IDk4bC0zMC0zM2gyMHYtMzVoMjB2MzVoMjB6Ii8+PC9zdmc+", height: 16, class: "ml1") %>
+        <%= image_tag("markdown-mark.svg", height: 16, class: "ml1") %>
     <% end %>
     </label>
-    <%= f.text_area :notes, class: "block full-width field-light", style: "min-height: 200px;" %>
-    <small class="gray block mt1">
+    <p class="gray">
       Basic Markdown included for links, bold, italics, lists, and breaks.
-    </small>
+    </p>
+    <%= f.text_area :notes, class: "block full-width field-light", style: "min-height: 200px;" %>
   </div>
 
   <div class="mt1">
