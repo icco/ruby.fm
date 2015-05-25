@@ -17,7 +17,7 @@
     </div>
   <% end %>
 
-  <div class="py2 border-bottom">
+  <div class="py2 border-top border-bottom">
     <%= f.label :title, class: "bold" %>
     <%= f.text_field :title, class: "block full-width mb1 field-light" %>
   </div>
@@ -32,10 +32,23 @@
 
   <div class="py2">
     <%= f.label :author, class: "bold" %>
-    <%= f.text_field :author, class: "block full-width mb1 field-light"  %>
+    <%= f.text_field :author, class: "block full-width field-light"  %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Update your settings", class: "mt2 regular button button-blue full-width" %>
+  <div class="mb2 py2">
+    <%= f.submit "Update your settings", class: "regular button button-blue full-width" %>
   </div>
 <% end %>
+
+
+<header class="center mt4">
+  <h2>Integrations</h2>
+</header>
+
+<div class="py2 border-top mb2">
+  <label class="bold block">RSS</label>
+      <p>You can submit your podcast to other directories, list on your website, or <%= link_to "submit to in iTunes", "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/publishPodcast" %>.</p>
+  <code class="block p1">
+    <%= link_to(slugged_channel_url(@channel.slug, format: 'xml'), slugged_channel_url(@channel.slug, format: 'xml')) %>
+  </code>
+</div>
