@@ -14,6 +14,7 @@ class Episode < ActiveRecord::Base
   scope(:recent, -> { order(:created_at) })
 
   mount_uploader(:audio, AudioUploader)
+  mount_uploader(:image, ImageUploader)
 
   friendly_id(:slug_candidates, use: :scoped, scope: :channel)
 

@@ -20,6 +20,7 @@ gem 'taglib-ruby',    '~> 0.7.0'
 gem 'uglifier',       '>= 1.3.0'
 gem 'friendly_id',    '~> 5.1.0'
 gem 'virtus',         '~> 1.0.0'
+gem 'mini_magick',    '~> 4.2.4'
 
 # Try to put very little in here, we don't want production to be different than
 # dev in general.
