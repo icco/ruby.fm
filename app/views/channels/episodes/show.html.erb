@@ -19,7 +19,7 @@
   <% end %>
 </header>
 
-<img src="http://www.drinkamara.com/wp-content/uploads/2015/03/bacon_blog_post.jpg"
+<img src="//www.drinkamara.com/wp-content/uploads/2015/03/bacon_blog_post.jpg"
 width="400" height="400" class="block mb2 mx-auto" />
 
 <audio src="<%= @episode.audio %>" type="audio/mpeg" preload="auto" controls
@@ -27,7 +27,9 @@ width="400" height="400" class="block mb2 mx-auto" />
   Your browser does not support the audio element.
 </audio>
 
-<h3 class="center">Show Notes</h3>
-<p class="px4"><%= markdown(@episode.notes) %></p>
+<% if @episode.notes %>
+  <h3 class="center">Show Notes</h3>
+  <p class="px4"><%= markdown(@episode.notes) %></p>
+<% end %>
 
 <%= render 'channels/subscribe' %>
