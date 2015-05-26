@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { registrations: 'registrations' }
 
   get "/login", to: redirect("/users/sign_in")
+  get "/about", to: "home#about"
 
   namespace :my do
     resources :channels, only: [:index]
