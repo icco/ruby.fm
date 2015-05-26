@@ -12,7 +12,7 @@ class RegistrationsController < Devise::RegistrationsController
         format.html do
           sign_in(:user, @signup.user)
           flash[:notice] = I18n.t('devise.registrations.signed_up')
-          redirect_to(my_channels_url)
+          redirect_to(my_episodes_url)
         end
       else
         format.html do
