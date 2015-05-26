@@ -23,9 +23,7 @@
 <section class="clearfix">
   <% @channel.episodes.visible.each do |t| %>
     <div class="flex flex-center mb3">
-      <img src="//www.drinkamara.com/wp-content/uploads/2015/03/bacon_blog_post.jpg"
-      width="200" height="200"
-      class="flex-none mr2" />
+      <%= image_tag("bacon.jpg", width: 200, height: 200, class: "flex-none mr2") %>
       <div class="flex-auto">
         <h2 class="m0"><%= link_to(t.title, slugged_channel_episode_path(@channel.slug, t.slug)) %></h2>
           <p class="gray">

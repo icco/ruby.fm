@@ -19,8 +19,7 @@
   <% end %>
 </header>
 
-<img src="//www.drinkamara.com/wp-content/uploads/2015/03/bacon_blog_post.jpg"
-width="400" height="400" class="block mb2 mx-auto" />
+<%= image_tag("bacon.jpg", width: 400, height: 400, class: "block mb2 mx-auto") %>
 
 <audio src="<%= @episode.audio %>" type="audio/mpeg" preload="auto" controls
   class="mx-auto block">
