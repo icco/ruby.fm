@@ -1,12 +1,18 @@
 <%
-    meta title: "#{@episode.title} — #{@channel.title}",
- description: @episode.notes,
- twitter: {
-  card: "player",
-  site: "@simple_casual",
-  player: @episode.audio,
-  player: @episode.audio,
- }
+  meta title: "#{@episode.title} — #{@channel.title}",
+  description: @episode.notes,
+  og: {
+    title: "#{@episode.title} — #{@channel.title}",
+    image: @episode.image_url,
+    audio: {
+      secure_url: root_url + @episode.audio_url,
+      type: "audio/mpeg"
+    },
+    url: episode_url(@episode),
+    site_name: "Ruby.fm"
+  },
+  twitter: {
+  }
 %>
 <header class="center py2 border-bottom mb3 mt3">
   <h1 class="m0">
