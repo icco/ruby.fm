@@ -4,10 +4,12 @@ class Channel < ActiveRecord::Base
   has_many(:episodes)
   belongs_to(:user)
 
-  validates(:title,   presence: true)
+  validates(:title,   presence: true, length: { maximum: 255 })
   validates(:user_id, presence: true)
-  validates(:slug,    presence: true, uniqueness: true)
+  validates(:slug,    presence: true, uniqueness: true, length: { maximum: 64 })
   validates(:website_url, url: { allow_blank: true, no_local: true })
+
+  validates(:summary, length: { maximum: 4000 })
 
   friendly_id(:slug_candidates, use: :slugged)
 

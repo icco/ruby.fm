@@ -17,6 +17,7 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
     xml.copyright("&#xA9; #{Time.now.year} #{@channel.author}")
     xml.itunes(:author, @channel.author)
     xml.itunes(:explicit, (@channel.episodes.any? { |p| p.explicit }) ? 'yes' : 'no')
+    xml.itunes(:summary, @channel.summary) unless @channel.summary.blank?
 
     # Single category https://www.apple.com/itunes/podcasts/specs.html#category
     xml.itunes(:category, :text => 'Music')
