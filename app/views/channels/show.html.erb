@@ -15,6 +15,7 @@
     <%= @channel.title %>
   </h1>
   <p class="gray"><%= @channel.author %></p>
+  <%= link_to(@channel.website_url, @channel.website_url, class: "block mb2") if @channel.website_url %>
   <% if current_user && current_user.id == @channel.user_id %>
     <%= link_to 'Edit', edit_channel_path(@channel.id), class: "button button-outline inline-block"  %>
   <% end %>
