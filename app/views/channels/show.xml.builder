@@ -42,10 +42,10 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
         # JPEG or PNG, RGB color space, minimum size of 1400 x 1400 pixels and
         # a maximum size of 2048 x 2048 pixels
         # https://www.apple.com/itunes/podcasts/specs.html#image
-        xml.itunes(:image, :href => 'https://ruby.fm/brunch-club.jpg')
+        xml.itunes(:image, :href => podcast.image_url)
 
         # Valid formats are M4A, MP3, MOV, MP4, M4V, PDF, and EPUB
-        xml.enclosure(url: podcast.audio, length: podcast.audio.size, type: 'audio/mpeg')
+        xml.enclosure(url: podcast.audio, length: podcast.audio.size, type: "audio/mpeg")
         xml.guid(podcast.id)
         xml.pubDate(podcast.created_at.rfc2822)
         xml.itunes(:duration, Time.at(podcast.length).utc.strftime("%H:%M:%S"))

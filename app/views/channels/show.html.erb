@@ -23,7 +23,7 @@
 <section class="clearfix">
   <% @channel.episodes.visible.each do |t| %>
     <div class="flex flex-center mb3">
-      <%= image_tag("bacon.jpg", width: 200, height: 200, class: "flex-none mr2") %>
+      <%= image_tag(t.image_url, width: 200, height: 200, class: "flex-none mr2") if t.image? %>
       <div class="flex-auto">
         <h2 class="m0"><%= link_to(t.title, slugged_channel_episode_path(@channel.slug, t.slug)) %></h2>
           <p class="gray">
