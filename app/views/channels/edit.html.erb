@@ -33,9 +33,14 @@
     </div>
   </div>
 
-  <div class="py2">
+  <div class="py2 border-bottom">
     <%= f.label :author, class: "bold" %>
     <%= f.text_field :author, class: "block full-width field-light"  %>
+  </div>
+
+  <div class="py2 border-bottom">
+    <label class="bold block">Summary</label>
+    <%= f.text_area :summary, class: "block full-width field-light", style: "min-height: 200px;" %>
   </div>
 
   <div class="py2">
