@@ -11,7 +11,7 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
     # Need to do valid XML character matching http://www.xml.com/axml/target.html#sec-references
     xml.copyright("&#xA9; #{Time.now.year} #{@channel.author}")
     xml.itunes(:author, @channel.author)
-    xml.itunes(:explicit, 'yes')
+    xml.itunes(:explicit, (@channel.episodes.any? { |p| p.explicit }) ? 'yes' : 'no')
 
     # Single category https://www.apple.com/itunes/podcasts/specs.html#category
     xml.itunes(:category, :text => 'Music')
@@ -43,6 +43,8 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
         # a maximum size of 2048 x 2048 pixels
         # https://www.apple.com/itunes/podcasts/specs.html#image
         xml.itunes(:image, :href => podcast.image_url)
+
+        xml.itunes(:explicit, podcast.explicit ? 'yes' : 'no')
 
         # Valid formats are M4A, MP3, MOV, MP4, M4V, PDF, and EPUB
         xml.enclosure(url: podcast.audio, length: podcast.audio.size, type: "audio/mpeg")
