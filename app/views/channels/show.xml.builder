@@ -36,7 +36,7 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
       xml.item do
         xml.title(podcast.title)
         xml.itunes(:author, @channel.author)
-        # xml.itunes :subtitle, 'Hello'
+        xml.itunes(:subtitle, truncate(podcast.notes, length: 100, separator: ' '))
 
         unless podcast.notes.blank?
           xml.itunes(:summary) do
