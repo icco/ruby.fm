@@ -21,7 +21,7 @@
 </header>
 
 <section class="clearfix">
-  <% @channel.episodes.visible.each do |t| %>
+  <% @channel.episodes.visible.order('created_at DESC').each do |t| %>
     <div class="flex flex-center mb3">
       <%= image_tag(t.image_url, width: 200, height: 200, class: "flex-none mr2") if t.image? %>
       <div class="flex-auto">
