@@ -90,7 +90,12 @@ CREATE TABLE episodes (
     visible boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
+<<<<<<< HEAD
     image character varying
+=======
+    image character varying,
+    explicit boolean DEFAULT false NOT NULL
+>>>>>>> added explicit field to episodes
 );
 
 
