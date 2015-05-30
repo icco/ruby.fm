@@ -40,7 +40,7 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
         unless podcast.notes.blank?
           xml.itunes(:summary) do
             # Needs to be able to escape <a>s
-            xml.cdata!(truncate(podcast.notes, length: 4000))
+            xml.cdata!(truncate(strip_tags(markdown(podcast.notes)), length: 4000))
           end
         end
 
