@@ -71,6 +71,6 @@ class ChannelsController < ApplicationController
   end
 
   def channel_params
-    params.fetch(:channel, {}).permit(:title, :author, :slug, :published)
+    params.fetch(:channel, {}).permit(:title, :author, :slug, :published, :website_url)
   end
 end
