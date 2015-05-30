@@ -23,7 +23,7 @@
       <label class="block bold">Cover Art</label>
       <p class="gray">Must be square and >= 1400px</p>
       <%= image_tag(@episode.image_url, width: 200, height: 200) if @episode.image? %>
-      <%= f.file_field :image, multiple: true %>
+      <%= f.file_field :image %>
       <%= f.hidden_field :image_cache %>
   </div>
 
