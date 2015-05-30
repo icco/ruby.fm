@@ -3,7 +3,12 @@ xml.instruct!
 xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version: '2.0' do
   xml.channel do
     xml.title(@channel.title)
-    xml.link(channel_url(@channel.slug))
+
+    if @channel.website_url.blank?
+      xml.link(channel_url(@channel.slug))
+    else
+      xml.link(@channel.website_url)
+    end
 
     # Validate language codes http://www.loc.gov/standards/iso639-2/php/code_list.php
     xml.language('en-us')
