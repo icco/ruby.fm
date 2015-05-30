@@ -23,7 +23,7 @@ class Episode < ActiveRecord::Base
   friendly_id(:slug_candidates, use: :scoped, scope: :channel)
 
   def validate_minimum_dimensions
-    return true unless image.try(:file)
+    return true unless image_changed? && image.try(:file)
 
     path = image.file.path
     image = MiniMagick::Image.open(path)
