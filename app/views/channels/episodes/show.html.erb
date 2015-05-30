@@ -1,12 +1,18 @@
 <%
-    meta title: "#{@episode.title} — #{@channel.title}",
- description: @episode.notes,
- twitter: {
-  card: "player",
-  site: "@simple_casual",
-  player: @episode.audio,
-  player: @episode.audio,
- }
+  meta title: "#{@episode.title} — #{@channel.title}",
+  description: @episode.notes,
+  og: {
+    title: "#{@episode.title} — #{@channel.title}",
+    image: @episode.image_url,
+    audio: {
+      secure_url: root_url + @episode.audio_url,
+      type: "audio/mpeg"
+    },
+    url: episode_url(@episode),
+    site_name: "Ruby.fm"
+  },
+  twitter: {
+  }
 %>
 <header class="center py2 border-bottom mb3 mt3">
   <h1 class="m0">
@@ -19,7 +25,7 @@
   <% end %>
 </header>
 
-<%= image_tag("bacon.jpg", width: 400, height: 400, class: "block mb2 mx-auto") %>
+<%= image_tag(@episode.image_url, width: 400, height: 400, class: "block mb2 mx-auto") if @episode.image? %>
 
 <audio src="<%= @episode.audio %>" type="audio/mpeg" preload="auto" controls
   class="mx-auto block">

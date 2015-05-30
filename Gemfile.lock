@@ -195,6 +195,7 @@ GEM
     metamagic (3.1.7)
       rails (>= 3.0.0)
     mime-types (2.4.3)
+    mini_magick (4.2.4)
     mini_portile (0.6.2)
     minitest (5.6.0)
     minitest-rails (2.1.1)
@@ -300,6 +301,7 @@ DEPENDENCIES
   jquery-rails (~> 4.0.3)
   lograge
   metamagic (~> 3.1.7)
+  mini_magick (~> 4.2.4)
   minitest-rails (~> 2.1.1)
   mocha (~> 1.1.0)
   oj (~> 2.12.4)
