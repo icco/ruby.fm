@@ -7,6 +7,7 @@ class Channel < ActiveRecord::Base
   validates(:title,   presence: true)
   validates(:user_id, presence: true)
   validates(:slug,    presence: true, uniqueness: true)
+  validates(:website_url, url: { allow_blank: true, no_local: true })
 
   friendly_id(:slug_candidates, use: :slugged)
 
