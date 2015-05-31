@@ -4,7 +4,7 @@
   <h1>Settings</h1>
 </header>
 
-<%= form_for(@channel, multiple: true) do |f| %>
+<%= form_for(@channel, html: { multipart: true }) do |f| %>
   <% if @channel.errors.any? %>
     <div id="error_explanation">
       <h2>Channel could not be saved</h2>
