@@ -2,6 +2,7 @@
  meta title: @channel.title,
  description: if @channel.summary then @channel.summary else "#{@channel.episodes.visible.count} episodes of #{@channel.title}. By #{@channel.author}." end,
  og: {
+  title: @channel.title,
   image: "http://www.drinkamara.com/wp-content/uploads/2015/03/bacon_blog_post.jpg"
  },
  twitter: {
@@ -27,19 +28,27 @@
 <section class="clearfix">
   <% @channel.episodes.visible.order('created_at DESC').each do |t| %>
     <div class="flex flex-center mb3">
-      <%= image_tag(t.image_url, width: 200, height: 200, class: "flex-none mr2") if t.image? %>
-      <div class="flex-auto">
+
+      <%= image_tag(
+        if t.image_url
+          then t.image_url.sub('rubyfm-blobs.s3.amazonaws.com', 'rubyfm.imgix.net') + "?w=200&h=200&fit=crop"
+          else "http://www.nantwichtownfc.co.uk/wp-content/uploads/2011/09/Jon-Gold.jpg"
+      end,
+      width: 200,
+      height: 200,
+      class: "flex-none mr2") %>
+    <div class="flex-auto">
         <h2 class="m0"><%= link_to(t.title, slugged_channel_episode_path(@channel.slug, t.slug)) %></h2>
-          <p class="gray">
-            <%= "#{time_ago_in_words(t.created_at)} ago" %>
-            —
-            <%= Time.at(t.length).utc.strftime("%H:%M:%S") %>
+        <p class="gray">
+          <%= "#{time_ago_in_words(t.created_at)} ago" %>
+          —
+          <%= Time.at(t.length).utc.strftime("%H:%M:%S") %>
+        </p>
+        <% if t.notes %>
+          <p class="m0">
+            <%= markdown(t.notes.truncate(140)) %>
           </p>
-          <% if t.notes %>
-            <p class="m0">
-              <%= markdown(t.notes.truncate(140)) %>
-            </p>
-          <% end %>
+        <% end %>
         </div>
     </div>
   <% end %>
