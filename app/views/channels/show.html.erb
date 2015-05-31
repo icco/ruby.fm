@@ -32,7 +32,8 @@
       <%= image_tag(
         if t.image_url
           then t.image_url.sub('rubyfm-blobs.s3.amazonaws.com', 'rubyfm.imgix.net') + "?w=200&h=200&fit=crop"
-          else "http://www.nantwichtownfc.co.uk/wp-content/uploads/2011/09/Jon-Gold.jpg"
+      elsif t.channel.image_url
+        then t.channel.image_url.sub('rubyfm-blobs.s3.amazonaws.com', 'rubyfm.imgix.net') + "?w=200&h=200&fit=crop"
       end,
       width: 200,
       height: 200,

@@ -1,6 +1,8 @@
 class Channel < ActiveRecord::Base
   extend FriendlyId
 
+  IMAGE_MIN_SIZE = 400
+
   has_many(:episodes)
   belongs_to(:user)
 
@@ -10,11 +12,29 @@ class Channel < ActiveRecord::Base
   validates(:website_url, url: { allow_blank: true, no_local: true })
 
   validates(:summary, length: { maximum: 4000 })
+  validate :validate_minimum_dimensions
 
   friendly_id(:slug_candidates, use: :slugged)
 
   scope :published, -> { where(published: true) }
   scope :not_published, -> { where(published: false) }
+
+  mount_uploader(:image, ImageUploader)
+
+  def validate_minimum_dimensions
+    return true unless image_changed? && image.try(:file)
+
+    path = image.file.path
+    image = MiniMagick::Image.open(path)
+
+    if image.width < IMAGE_MIN_SIZE || image.height < IMAGE_MIN_SIZE
+      errors.add(:image, "minimum size is #{IMAGE_MIN_SIZE}x#{IMAGE_MIN_SIZE}")
+    end
+
+    # Cleanup after ourselves to ensure we don't have file descriptors held
+    # open. See {MiniMagic::Image#destroy!} documentation for more info.
+    image.destroy!
+  end
 
   def slug_candidates
     [
