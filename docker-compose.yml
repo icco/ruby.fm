@@ -1,0 +1,25 @@
+# proxy:
+#   image: centurylink/ngrok:latest
+#   command: /bin/ngrok_discover
+#   environment:
+#     - HTTP_PORT=web:3000
+
+database:
+  image: postgres
+  ports:
+    - "5432:5432"
+
+web:
+  build: .
+  environment:
+    DATABASE_HOST: database
+    DATABASE_PORT: 5432
+    DATABASE_USERNAME: postgres
+    DATABASE_PASSWORD: ''
+  command: bundle exec rails server --port 3000 --binding 0.0.0.0
+  volumes:
+    - .:/app
+  ports:
+    - "3000:3000"
+  links:
+    - database
