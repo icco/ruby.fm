@@ -1,6 +1,6 @@
 <%
  meta title: @channel.title,
- description: "#{@channel.episodes.visible.count} episodes of Deep house. By #{@channel.author}.",
+ description: if @channel.summary then @channel.summary else "#{@channel.episodes.visible.count} episodes of #{@channel.title}. By #{@channel.author}." end,
  og: {
   image: "http://www.drinkamara.com/wp-content/uploads/2015/03/bacon_blog_post.jpg"
  },
@@ -15,6 +15,9 @@
     <%= @channel.title %>
   </h1>
   <p class="gray"><%= @channel.author %></p>
+  <% if @channel.summary %>
+    <p><%= @channel.summary %></p>
+  <% end %>
   <%= link_to(@channel.website_url, @channel.website_url, class: "block mb2") if @channel.website_url %>
   <% if current_user && current_user.id == @channel.user_id %>
     <%= link_to 'Edit', edit_channel_path(@channel.id), class: "button button-outline inline-block"  %>

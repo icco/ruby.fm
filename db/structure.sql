@@ -71,7 +71,8 @@ CREATE TABLE channels (
     published boolean DEFAULT true NOT NULL,
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
-    website_url character varying
+    website_url character varying,
+    summary text
 );
 
 
@@ -320,3 +321,4 @@ INSERT INTO schema_migrations (version) VALUES ('20150530191446');
 
 INSERT INTO schema_migrations (version) VALUES ('20150530194400');
 
+INSERT INTO schema_migrations (version) VALUES ('20150530195352');
