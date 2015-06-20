@@ -38,7 +38,7 @@ class Signup
         fail(ActiveRecord::Rollback)
       end
 
-      channel = Channel.new(title: channel_name, user_id: user.id)
+      channel = Channel.new(title: channel_name, user_id: user.id, author: full_name)
 
       unless channel.save
         channel.errors[:title].each { |m| errors.add(:channel_name, m) }
