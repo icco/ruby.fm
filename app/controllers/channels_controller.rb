@@ -38,7 +38,7 @@ class ChannelsController < ApplicationController
         end
       else
         format.html do
-          flash[:alert] = I18n.t('channel.update.successful')
+          flash[:alert] = I18n.t('channel.update.failed')
           render(action: 'edit', status: 400)
         end
       end
