@@ -38,7 +38,7 @@
         }) %>
     <% elsif t.channel.image_url %>
       <%= image_tag(
-        t.channel.image_url.sub('rubyfm-blobs.s3.amazonaws.com', 'rubyfm.imgix.net') + "?w=200&h=200&fit=crop"
+        t.channel.image_url.sub('rubyfm-blobs.s3.amazonaws.com', 'rubyfm.imgix.net') + "?w=200&h=200&fit=crop", {
           width: 200,
           height: 200,
           class: "flex-none mr2"
