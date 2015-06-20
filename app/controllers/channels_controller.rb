@@ -1,4 +1,16 @@
 class ChannelsController < ApplicationController
+  rescue_from(ActiveRecord::RecordNotFound, with: :respond_with_not_found)
+
+  def respond_with_not_found(error)
+    respond_to do |format|
+      format.html do
+        flash[:alert] = I18n.t('channel.errors.not_found')
+        redirect_to(root_url)
+      end
+      format.any { redirect_to(root_url) }
+    end
+  end
+
   def index
     @channels = Channel.published
 
@@ -10,6 +22,10 @@ class ChannelsController < ApplicationController
   def show
     @channel = Channel.friendly.find(params[:id])
     authorize(@channel, :read?)
+
+    @episodes = @channel.episodes.visible.recent.map do |ch|
+      EpisodePresenter.new(ch)
+    end
 
     respond_to do |format|
       format.html
@@ -38,7 +54,7 @@ class ChannelsController < ApplicationController
         end
       else
         format.html do
-          flash[:alert] = I18n.t('channel.update.successful')
+          flash[:alert] = I18n.t('channel.update.failed')
           render(action: 'edit', status: 400)
         end
       end
@@ -71,6 +87,6 @@ class ChannelsController < ApplicationController
   end
 
   def channel_params
-    params.fetch(:channel, {}).permit(:title, :author, :slug, :published, :website_url, :summary)
+    params.fetch(:channel, {}).permit(:title, :author, :slug, :published, :website_url, :summary, :image, :image_cache)
   end
 end

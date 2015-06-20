@@ -32,7 +32,7 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
     end
     xml.itunes(:image, :href => 'https://ruby.fm/brunch-club.jpg')
 
-    @channel.episodes.each do |podcast|
+    @episodes.each do |podcast|
       xml.item do
         xml.title(podcast.title)
         xml.itunes(:author, @channel.author)

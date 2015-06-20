@@ -72,7 +72,7 @@ CREATE TABLE channels (
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     website_url character varying,
-    summary text
+    image text
 );
 
 
@@ -321,4 +321,5 @@ INSERT INTO schema_migrations (version) VALUES ('20150530191446');
 
 INSERT INTO schema_migrations (version) VALUES ('20150530194400');
 
-INSERT INTO schema_migrations (version) VALUES ('20150530195352');
+INSERT INTO schema_migrations (version) VALUES ('20150531012734');
+
