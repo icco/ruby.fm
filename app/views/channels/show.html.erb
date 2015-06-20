@@ -29,7 +29,13 @@
   <% @episodes.each do |t| %>
     <div class="flex flex-center mb3">
 
-    <%= image_tag(t.image_url, width: 200, height: 200, class: "flex-none mr2") %>
+    <%= episode_image_tag(t, {
+        width: 200,
+        height: 200,
+        fit: 'crop',
+        class: 'flex-none mr2',
+        alt: t.title
+      }) %>
 
     <div class="flex-auto">
         <h2 class="m0"><%= link_to(t.title, slugged_channel_episode_path(@channel.slug, t.slug)) %></h2>
