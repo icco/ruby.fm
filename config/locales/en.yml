@@ -25,6 +25,7 @@ en:
     access_denied: Access denied
     server_error: Server error
     unknown_format: Unknown format
+    not_found: Not found
   success:
     ok: Ok
     created: Created
@@ -40,6 +41,8 @@ en:
     password: Password
 
   channel:
+    errors:
+      not_found: Channel not found
     name:
       taken: Channel is already taken
     create:

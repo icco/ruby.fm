@@ -1,4 +1,16 @@
 class ChannelsController < ApplicationController
+  rescue_from(ActiveRecord::RecordNotFound, with: :respond_with_not_found)
+
+  def respond_with_not_found(error)
+    respond_to do |format|
+      format.html do
+        flash[:alert] = I18n.t('channel.errors.not_found')
+        redirect_to(root_url)
+      end
+      format.any { redirect_to(root_url) }
+    end
+  end
+
   def index
     @channels = Channel.published
 
