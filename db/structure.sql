@@ -72,7 +72,7 @@ CREATE TABLE channels (
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     website_url character varying,
-    image json DEFAULT '{}'::json
+    image text
 );
 
 
