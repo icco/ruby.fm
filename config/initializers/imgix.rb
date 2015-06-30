@@ -1,6 +1,6 @@
-module Imigix
+module Imgix
   def self.client
-    @client ||= Imigix::Client.new(
+    @client ||= Imgix::Client.new(
       host: ENV['IMGIX_URL'],
       token: ENV['IMGIX_TOKEN'],
       secure: true

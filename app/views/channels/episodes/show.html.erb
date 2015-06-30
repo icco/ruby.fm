@@ -25,7 +25,7 @@
   <% end %>
 </header>
 
-<%= image_tag(@episode.image_url, width: 400, height: 400, class: "block mb2 mx-auto") if @episode.image? %>
+<%= image_tag(Imgix.client.path(@episode.image.current_path).fit('crop').width(400).height(400).to_url, width: 400, height: 400, class: "block mb2 mx-auto") if @episode.image? %>
 
 <audio src="<%= @episode.audio %>" type="audio/mpeg" preload="auto" controls
   class="mx-auto block">

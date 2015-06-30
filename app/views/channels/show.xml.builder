@@ -50,7 +50,9 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
         # JPEG or PNG, RGB color space, minimum size of 1400 x 1400 pixels and
         # a maximum size of 2048 x 2048 pixels
         # https://www.apple.com/itunes/podcasts/specs.html#image
-        xml.itunes(:image, :href => podcast.image_url)
+        if podcast.image?
+          xml.itunes(:image, :href => Imgix.client.path(podcast.image.current_path).fit('crop').width(2048).height(2048).to_url)
+        end
 
         xml.itunes(:explicit, podcast.explicit ? 'yes' : 'no')
 
