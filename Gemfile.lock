@@ -303,7 +303,7 @@ DEPENDENCIES
   fabrication (~> 2.12.2)
   fog (~> 1.27)
   friendly_id (~> 5.1.0)
-  imgix
+  imgix (~> 0.3.4)
   jbuilder (~> 2.0)
   jquery-rails (~> 4.0.3)
   lograge
