@@ -21,29 +21,24 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
       xml.itunes(:summary, %Q(<![CDATA[#{@channel.summary}]]>))
     end
 
-    # Single category https://www.apple.com/itunes/podcasts/specs.html#category
-    # xml.itunes(:category, :text => 'Music')
-
-    # Subcategories
-    # xml.itunes :category, :text => 'Government &amp; Organizations TEST' do
-      # xml.itunes :category, :text => 'Local TEST'
-    # end
-    @channel.single_categories.each do |c|
-      xml.itunes(:category, text: c.name)
-    end
-    @channel.nested_categories.each do |parent, categories|
-      xml.itunes(:category, text: parent) do
-        categories.each do |category|
-          xml.itunes(:category, text: category)
-        end
-      end
-    end
-
     xml.itunes(:owner) do
       xml.itunes(:name, @channel.author)
       xml.itunes(:email, @channel.user.email)
     end
+
     xml.itunes(:image, :href => 'https://ruby.fm/brunch-club.jpg')
+
+    @channel.single_categories.each do |category|
+      xml.itunes(:category, text: h(category.name))
+    end
+    @channel.nested_categories.each do |parent, categories|
+      xml.itunes(:category, text: h(parent)) do
+        categories.each do |category|
+          xml.itunes(:category, text: h(category))
+        end
+      end
+    end
+
 
     @episodes.each do |podcast|
       xml.item do
