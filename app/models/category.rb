@@ -39,7 +39,7 @@ class Category
   end
 
   def child?
-    !root?
+    !children?
   end
 
   def children?

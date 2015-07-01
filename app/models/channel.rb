@@ -21,6 +21,8 @@ class Channel < ActiveRecord::Base
 
   mount_uploader(:image, ImageUploader)
 
+  before_validation :scrub_categories
+
   def validate_minimum_dimensions
     return true unless image_changed? && image.try(:file)
 
@@ -34,6 +36,15 @@ class Channel < ActiveRecord::Base
     # Cleanup after ourselves to ensure we don't have file descriptors held
     # open. See {MiniMagic::Image#destroy!} documentation for more info.
     image.destroy!
+  end
+
+  def categories=(value)
+    super(Array(value))
+  end
+
+  def scrub_categories
+    children = Category.children.map(&:name)
+    self.categories = self.categories.reject { |v| !children.include?(v) }
   end
 
   def slug_candidates

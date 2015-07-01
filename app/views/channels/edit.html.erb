@@ -41,17 +41,17 @@
   <div class="py2 border-bottom">
     <%= f.label :categories, class: "bold" %>
 
-    <select name="channel[category][]">
+    <select name="channel[categories][]">
       <option value="">None</option>
       <%= grouped_options_for_select(Category.grouped) %>
     </select>
     <br/>
-    <select name="channel[category][]">
+    <select name="channel[categories][]">
       <option value="">None</option>
       <%= grouped_options_for_select(Category.grouped) %>
     </select>
     <br/>
-    <select name="channel[category][]">
+    <select name="channel[categories][]">
       <option value="">None</option>
       <%= grouped_options_for_select(Category.grouped) %>
     </select>
