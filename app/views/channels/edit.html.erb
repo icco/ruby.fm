@@ -42,18 +42,15 @@
     <%= f.label :categories, class: "bold" %>
 
     <select name="channel[categories][]">
-      <option value="">None</option>
-      <%= grouped_options_for_select(Category.grouped) %>
+      <%= grouped_options_for_select(Category.grouped, @channel.categories[0], prompt: 'Choose one') %>
     </select>
     <br/>
     <select name="channel[categories][]">
-      <option value="">None</option>
-      <%= grouped_options_for_select(Category.grouped) %>
+      <%= grouped_options_for_select(Category.grouped, @channel.categories[1], prompt: 'Choose one') %>
     </select>
     <br/>
     <select name="channel[categories][]">
-      <option value="">None</option>
-      <%= grouped_options_for_select(Category.grouped) %>
+      <%= grouped_options_for_select(Category.grouped, @channel.categories[2], prompt: 'Choose one') %>
     </select>
   </div>
 

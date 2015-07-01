@@ -46,8 +46,14 @@ class ChannelsController < ApplicationController
     @channel = Channel.friendly.find(params[:id])
     authorize(@channel, :update?)
 
+    parameters = channel_params
+
+    if params[:channel][:categories]
+      parameters[:categories] = Array(params[:channel][:categories])
+    end
+
     respond_to do |format|
-      if @channel.update(channel_params)
+      if @channel.update(parameters)
         format.html do
           flash[:notice] = I18n.t('channel.update.successful')
           redirect_to(channel_url(@channel.slug))
@@ -87,6 +93,6 @@ class ChannelsController < ApplicationController
   end
 
   def channel_params
-    params.fetch(:channel, {}).permit(:title, :author, :slug, :published, :website_url, :summary, :image, :image_cache, :categories)
+    params.fetch(:channel, {}).permit(:title, :author, :slug, :published, :website_url, :summary, :image, :image_cache)
   end
 end

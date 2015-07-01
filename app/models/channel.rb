@@ -44,7 +44,7 @@ class Channel < ActiveRecord::Base
 
   def scrub_categories
     children = Category.children.map(&:name)
-    self.categories = self.categories.reject { |v| !children.include?(v) }
+    self.categories = self.categories.reject { |v| !children.include?(v) }.uniq
   end
 
   def slug_candidates
