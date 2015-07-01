@@ -38,6 +38,23 @@ class Channel < ActiveRecord::Base
     image.destroy!
   end
 
+  def category_list
+    categories.map { |v| Category.find(v) }
+  end
+
+  def nested_categories
+    hash = {}
+    category_list.select { |c| c.nested? }.each do |category|
+      hash[category.parent.name] ||= []
+      hash[category.parent.name] << category.name
+    end
+    hash
+  end
+
+  def single_categories
+    category_list.select { |c| c.single? }
+  end
+
   def categories=(value)
     super(Array(value))
   end

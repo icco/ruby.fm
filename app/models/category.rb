@@ -38,6 +38,14 @@ class Category
     @parent.nil?
   end
 
+  def nested?
+    !@parent.nil?
+  end
+
+  def single?
+    root? && !children?
+  end
+
   def child?
     !children?
   end
