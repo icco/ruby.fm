@@ -4,6 +4,13 @@ Podcast hosting for Alex Baldwin, and maybe some other kids.
 
 Lots of ideas are over in [ideas/](https://github.com/simplecasual/namefm/tree/master/ideas).
 
+## Profist sharing
+
+| Person        | Percentage           |
+| ------------- |:-------------:|
+| Matthew Johnston | 50%      |
+| Alex Baldwin     | 50%      |
+
 ## Setup
 
  * The following environment variables need to be set: `AWS_ACCESS_KEY_ID`, `AWS_SECRET_ACCESS_KEY`, `S3_BUCKET`, `S3_REGION`

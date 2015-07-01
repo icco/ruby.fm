@@ -14,6 +14,7 @@
   twitter: {
   }
 %>
+<%= stylesheet_link_tag Imgix.client.path(@episode.image.current_path).palette('css').auto('enhance').colors(8).to_url, "application", media: "all" %>
 <header class="center py2 border-bottom mb3 mt3">
   <h1 class="m0">
     <%= @episode.title %>
@@ -26,6 +27,7 @@
 </header>
 
 <%= image_tag(Imgix.client.path(@episode.image.current_path).fit('crop').width(400).height(400).to_url, width: 400, height: 400, class: "block mb2 mx-auto") if @episode.image? %>
+
 
 <audio src="<%= @episode.audio %>" type="audio/mpeg" preload="auto" controls
   class="mx-auto block">
