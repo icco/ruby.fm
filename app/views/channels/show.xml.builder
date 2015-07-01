@@ -26,7 +26,9 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
       xml.itunes(:email, @channel.user.email)
     end
 
-    xml.itunes(:image, :href => 'https://ruby.fm/brunch-club.jpg')
+    if @channel.image?
+      xml.itunes(:image, :href => Imgix.client.path(@channel.image.current_path).fit('crop').width(2048).height(2048).to_url)
+    end
 
     @channel.single_categories.each do |category|
       xml.itunes(:category, text: h(category.name))
