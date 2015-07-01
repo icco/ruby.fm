@@ -4,7 +4,7 @@ Podcast hosting for Alex Baldwin, and maybe some other kids.
 
 Lots of ideas are over in [ideas/](https://github.com/simplecasual/namefm/tree/master/ideas).
 
-## Profist sharing
+## Profit sharing
 
 | Person        | Percentage           |
 | ------------- |:-------------:|
