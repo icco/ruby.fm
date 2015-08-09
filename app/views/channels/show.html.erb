@@ -32,7 +32,7 @@
     <div class="flex col col-3 border-box">
       <div class="p2 hover-bg">
         <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
-          <%= image_tag(Imgix.client.path(t.image.current_path).fit('crop').width(1200).to_url) if t.image? %>
+          <%= image_tag(Imgix.client.path(t.image.current_path).fit('crop').width(400).height(400).to_url) if t.image? %>
           <h2 class="h4 m0 black"><%= t.title %></h2>
           <p class="gray m0">
             <%= "#{time_ago_in_words(t.created_at)} ago" %>
