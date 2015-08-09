@@ -27,19 +27,21 @@
   <%= link_to(@channel.website_url, @channel.website_url, class: "black block") if @channel.website_url %>
 </header>
 
-<section class="clearfix mb2">
+<section class="flex flex-wrap">
   <% @episodes.each do |t| %>
-    <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
-      <div class="col col-6 sm-col-4 md-col-3 lg-col-3 p2 hover-bg">
-        <%= image_tag(Imgix.client.path(t.image.current_path).fit('crop').to_url, class: "mb1 fit imgix-fluid block") if t.image? %>
-        <h2 class="h4 m0 black truncate"><%= t.title %></h2>
-        <p class="gray truncate m0">
-          <%= "#{time_ago_in_words(t.created_at)} ago" %>
-          —
-          <%= Time.at(t.length).utc.strftime("%H:%M:%S") %>
-        </p>
+    <div class="flex col col-3 border-box">
+      <div class="p2 hover-bg">
+        <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
+          <%= image_tag(Imgix.client.path(t.image.current_path).fit('crop').width(1200).to_url) if t.image? %>
+          <h2 class="h4 m0 black"><%= t.title %></h2>
+          <p class="gray m0">
+            <%= "#{time_ago_in_words(t.created_at)} ago" %>
+            —
+            <%= Time.at(t.length).utc.strftime("%H:%M:%S") %>
+          </p>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   <% end %>
 </section>
 

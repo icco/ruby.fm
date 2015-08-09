@@ -14,6 +14,11 @@
   twitter: {
   }
 %>
+
+<% content_for :favicon do %>
+  <%= Imgix.client.path(@episode.image.current_path).width(32).height(32).fit('crop').fm('png32').to_url if @episode.image? %>
+<% end %>
+
 <div class="clearfix">
 <div class="col-6 mx-auto">
 <header class="center py2 mb2 mt2">
@@ -27,7 +32,7 @@
   <% end %>
 </header>
 
-<audio src="<%= @episode.audio %>" type="audio/mpeg" preload="auto" width="100%">
+<audio src="<%= @episode.audio %>" type="audio/mpeg" preload="auto">
   Your browser does not support the audio element.
 </audio>
 
