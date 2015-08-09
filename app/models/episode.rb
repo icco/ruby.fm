@@ -5,6 +5,8 @@ class Episode < ActiveRecord::Base
 
   belongs_to(:channel)
 
+  friendly_id(:slug_candidates, use: :scoped, scope: :channel)
+
   validates(:title,      presence: true)
   validates(:channel_id, presence: true)
   validates(:slug,       presence: true, uniqueness: { scope: [:channel_id, :slug] })
@@ -20,8 +22,6 @@ class Episode < ActiveRecord::Base
 
   mount_uploader(:audio, AudioUploader)
   mount_uploader(:image, ImageUploader)
-
-  friendly_id(:slug_candidates, use: :scoped, scope: :channel)
 
   def validate_minimum_dimensions
     return true unless image_changed? && image.try(:file)
@@ -42,11 +42,19 @@ class Episode < ActiveRecord::Base
     self.visible == true
   end
 
+  def should_generate_new_friendly_id?
+    title_changed?
+  end
+
   def slug_candidates
     [
       :title,
       [:title, :fallback_count]
     ]
+  end
+
+  def slug_default
+    SecureRandom.uuid
   end
 
   def fallback_count

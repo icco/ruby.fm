@@ -27,13 +27,17 @@ module Channels
       @channel = Channel.friendly.find(params[:channel_id])
       authorize(@channel, :update?)
 
-      @episode = @channel.episodes.build(episode_params)
+
+      @episode = Episode.new(episode_params)
+      @episode.channel = @channel
       @episode.visible = true
 
       respond_to do |format|
         if @episode.save
           format.html { redirect_to(slugged_channel_episode_path(@channel.slug, @episode.slug)) }
         else
+          puts @episode.errors.messages
+          puts @episode.to_json
           format.html { render(action: :new, status: 400) }
         end
       end
