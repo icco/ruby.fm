@@ -13,3 +13,16 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree .
+//= require mediaelement_rails
+
+$('audio').mediaelementplayer({
+  loop: false,
+  enableAutosize: true,
+  features: ['playpause','progress','current','duration','tracks'],
+  alwaysShowControls: false,
+  iPadUseNativeControls: false,
+  iPhoneUseNativeControls: false,
+  AndroidUseNativeControls: false,
+  alwaysShowHours: false,
+  enableKeyboard: true
+});

@@ -11,7 +11,8 @@
     %>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="//d2v52k3cl9vedd.cloudfront.net/basscss/6.1.6/basscss.min.css" rel="stylesheet">
+    <link rel="shortcut icon" href="<%= yield :favicon %>">
+    <link href="//d2v52k3cl9vedd.cloudfront.net/basscss/7.0.3/basscss.min.css" rel="stylesheet">
     <%= stylesheet_link_tag "//cloud.typography.com/6326032/647188/css/fonts.css", "application", media: "all" %>
     <%= csrf_meta_tags %>
   </head>
@@ -38,13 +39,11 @@
         <div class="sm-col-right">
           <% if current_user %>
             <% unless current_user.channels.empty? %>
-              <%= link_to "View Channel", channel_path(current_user.channels.first), class: "button button-transparent py2 regular" %>
+              <%= link_to current_user.channels.first.title, channel_path(current_user.channels.first), class: "button button-transparent py2 regular" %>
             <% end %>
-            <%= link_to "Manage Episodes", my_episodes_path, class: "button button-transparent py2 regular" %>
             <% unless current_user.channels.empty? %>
               <%= link_to "Settings", edit_channel_path(current_user.channels.first), class: "button button-transparent py2 regular" %>
             <% end %>
-            <%= link_to "Account", edit_user_registration_path, class: "button button-transparent py2 regular" %>
             <%= link_to "+ Upload", new_channel_episode_path(current_user.channels.first), class: "button py2 regular" %>
           <% else %>
             <%= link_to 'Login', user_session_path, class: "button button-transparent py2 regular" %>
@@ -55,7 +54,7 @@
 
       <div class="flex-auto">
         <main class="flex-auto">
-          <div class="lg-col-6 col-12 mx-auto">
+          <div class="container mxn2 col-12 mx-auto">
             <%= yield %>
           </div>
         </main>

@@ -17,6 +17,10 @@
     </div>
   <% end %>
 
+  <div class="py2 border-top">
+    <%= link_to "Change your email or password →", edit_user_registration_path, class: "button regular" %>
+  </div>
+
   <div class="py2 border-top border-bottom">
     <%= f.label :title, class: "bold" %>
     <%= f.text_field :title, class: "block full-width mb1 field-light" %>

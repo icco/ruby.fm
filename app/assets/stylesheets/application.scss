@@ -11,6 +11,7 @@
  * file per style scope.
  *
  *= require_tree .
+ *= require mediaelement_rails
  *= require_self
  */
 
@@ -32,4 +33,11 @@ body, h1, h2, h3, h4, h5, h6, p, li, .regular, input, .button, textarea {
 
 .bold, .strong, strong, h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
+}
+
+.hover-bg:hover,
+.hover-bg:active,
+.hover-bg:focus {
+  background-color: rgba(0,0,0,0.058);
+  transition: background-color .33s;
 }

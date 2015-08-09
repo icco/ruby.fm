@@ -14,7 +14,9 @@
   twitter: {
   }
 %>
-<header class="center py2 border-bottom mb3 mt3">
+<div class="clearfix">
+<div class="col-6 mx-auto">
+<header class="center py2 mb2 mt2">
   <h1 class="m0">
     <%= @episode.title %>
     <span class="regular"><%= @episode.visible? ? '' : '(Not Visible)' %></span>
@@ -25,16 +27,18 @@
   <% end %>
 </header>
 
-<%= image_tag(Imgix.client.path(@episode.image.current_path).fit('crop').width(400).height(400).to_url, width: 400, height: 400, class: "imgix-fluid block mb2 mx-auto") if @episode.image? %>
-
-
-<audio src="<%= @episode.audio %>" type="audio/mpeg" preload="auto" controls
-  class="mx-auto block">
+<audio src="<%= @episode.audio %>" type="audio/mpeg" preload="auto" width="100%">
   Your browser does not support the audio element.
 </audio>
 
+<%= image_tag(Imgix.client.path(@episode.image.current_path).fit('crop').to_url, class: "mb1 imgix-fluid") if @episode.image? %>
+
 <% if @episode.notes %>
-  <p class="px4"><%= markdown(@episode.notes) %></p>
+  <div class="px3">
+    <%= markdown(@episode.notes) %></p>
+</div>
 <% end %>
 
 <%= render 'channels/subscribe' %>
+</div>
+<div>
