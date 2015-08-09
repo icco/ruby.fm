@@ -43,7 +43,7 @@ class AudioUploader < CarrierWave::Uploader::Base
         tag = fileref.tag
         model.title = tag.title
         if tag.title.nil? && original_filename.present?
-          model.title = original_filename
+          model.title = File.basename(original_filename, '.*')
         end
         # tag.artist
         # tag.album
