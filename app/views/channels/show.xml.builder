@@ -41,7 +41,6 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
       end
     end
 
-
     @episodes.each do |podcast|
       xml.item do
         xml.title(podcast.title)

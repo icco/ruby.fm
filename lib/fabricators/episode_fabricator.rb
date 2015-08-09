@@ -1,5 +1,5 @@
 Fabricator(:episode) do
   title { sequence(:title) { |i| "Test #{i}" } }
-  channel_id { Fabricate(:channel).id }
+  channel { Fabricate(:channel) }
   length { 0 }
 end

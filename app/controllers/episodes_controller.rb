@@ -24,8 +24,14 @@ class EpisodesController < ApplicationController
     @channel = @episode.channel
     authorize(@channel, :update?)
 
+    filtered_params = episode_params
+
+    if filtered_params[:aired_at]
+      filtered_params[:aired_at] = Timeliness.parse(filtered_params[:aired_at], :datetime)
+    end
+
     respond_to do |format|
-      if @episode.update_attributes(episode_params)
+      if @episode.update_attributes(filtered_params)
         format.html { redirect_to(slugged_channel_episode_path(@channel.slug, @episode.slug)) }
       else
         format.html { render(action: :edit, status: 400) }
@@ -40,6 +46,6 @@ class EpisodesController < ApplicationController
   end
 
   def episode_params
-    params.fetch(:episode, {}).permit(:title, :image, :image_cache, :notes, :visible, :length, :explicit)
+    params.fetch(:episode, {}).permit(:title, :image, :image_cache, :notes, :visible, :length, :explicit, :aired_at)
   end
 end

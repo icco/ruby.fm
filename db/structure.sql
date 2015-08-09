@@ -58,7 +58,7 @@ SET default_tablespace = '';
 SET default_with_oids = false;
 
 --
--- Name: channels; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: channels; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE channels (
@@ -79,14 +79,14 @@ CREATE TABLE channels (
 
 
 --
--- Name: episodes; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: episodes; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE episodes (
     id uuid DEFAULT uuid_generate_v4() NOT NULL,
     channel_id uuid NOT NULL,
     title character varying NOT NULL,
-    airdate timestamp without time zone,
+    aired_at timestamp without time zone,
     notes text,
     audio character varying,
     length integer DEFAULT 0 NOT NULL,
@@ -100,7 +100,7 @@ CREATE TABLE episodes (
 
 
 --
--- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: friendly_id_slugs; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE friendly_id_slugs (
@@ -114,7 +114,7 @@ CREATE TABLE friendly_id_slugs (
 
 
 --
--- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE schema_migrations (
@@ -123,7 +123,7 @@ CREATE TABLE schema_migrations (
 
 
 --
--- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace:
+-- Name: users; Type: TABLE; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE TABLE users (
@@ -152,7 +152,7 @@ CREATE TABLE users (
 
 
 --
--- Name: channels_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: channels_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY channels
@@ -160,7 +160,7 @@ ALTER TABLE ONLY channels
 
 
 --
--- Name: channels_slug_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: channels_slug_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY channels
@@ -168,7 +168,7 @@ ALTER TABLE ONLY channels
 
 
 --
--- Name: episodes_channel_id_slug_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: episodes_channel_id_slug_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY episodes
@@ -176,7 +176,7 @@ ALTER TABLE ONLY episodes
 
 
 --
--- Name: episodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: episodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY episodes
@@ -184,7 +184,7 @@ ALTER TABLE ONLY episodes
 
 
 --
--- Name: friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY friendly_id_slugs
@@ -192,7 +192,7 @@ ALTER TABLE ONLY friendly_id_slugs
 
 
 --
--- Name: users_confirmation_token_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: users_confirmation_token_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
@@ -200,7 +200,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: users_email_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: users_email_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
@@ -208,7 +208,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
@@ -216,7 +216,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: users_unlock_token_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace:
+-- Name: users_unlock_token_key; Type: CONSTRAINT; Schema: public; Owner: -; Tablespace: 
 --
 
 ALTER TABLE ONLY users
@@ -224,35 +224,35 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type ON friendly_id_slugs USING btree (slug, sluggable_type);
 
 
 --
--- Name: index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX index_friendly_id_slugs_on_slug_and_sluggable_type_and_scope ON friendly_id_slugs USING btree (slug, sluggable_type, scope);
 
 
 --
--- Name: index_friendly_id_slugs_on_sluggable_id; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_friendly_id_slugs_on_sluggable_id; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_friendly_id_slugs_on_sluggable_id ON friendly_id_slugs USING btree (sluggable_id);
 
 
 --
--- Name: index_friendly_id_slugs_on_sluggable_type; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: index_friendly_id_slugs_on_sluggable_type; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USING btree (sluggable_type);
 
 
 --
--- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace:
+-- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -; Tablespace: 
 --
 
 CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (version);
@@ -328,3 +328,6 @@ INSERT INTO schema_migrations (version) VALUES ('20150530195352');
 INSERT INTO schema_migrations (version) VALUES ('20150531012734');
 
 INSERT INTO schema_migrations (version) VALUES ('20150630024157');
+
+INSERT INTO schema_migrations (version) VALUES ('20150809173415');
+

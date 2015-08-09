@@ -5,9 +5,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  rescue_from(Pundit::NotAuthorizedError, with: :access_denied)
-  rescue_from(Pundit::NotDefinedError, with: :server_error)
-  rescue_from(ActionController::UnknownFormat, with: :unknown_format)
+  if Rails.env.production?
+    rescue_from(Pundit::NotAuthorizedError, with: :access_denied)
+    rescue_from(Pundit::NotDefinedError, with: :server_error)
+    rescue_from(ActionController::UnknownFormat, with: :unknown_format)
+  end
 
   def unknown_format(error=nil)
     respond_to do |format|
