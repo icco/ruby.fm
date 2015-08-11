@@ -20,30 +20,54 @@
 <% end %>
 
 <div class="clearfix">
-<div class="col-6 mx-auto">
-<header class="center py2 mb2 mt2">
-  <h1 class="m0">
-    <%= @episode.title %>
-    <span class="regular"><%= @episode.visible? ? '' : '(Not Visible)' %></span>
-  </h1>
-  <p><%= link_to(@channel.title, channel_path(@channel), class: "gray") %></p>
-  <% if current_user && current_user.id = @episode.channel.user_id %>
-    <%= link_to 'Edit', edit_episode_path(@episode.id), class: "button button-outline inline-block"  %>
+  <div class="col-6 mx-auto">
+    <header class="center py2 mb2 mt2">
+      <h1 class="m0">
+        <%= @episode.title %>
+        <span class="regular"><%= @episode.visible? ? '' : '(Not Visible)' %></span>
+      </h1>
+      <p><%= link_to(@channel.title, channel_path(@channel), class: "gray") %></p>
+      <% if current_user && current_user.id = @episode.channel.user_id %>
+        <%= link_to 'Edit', edit_episode_path(@episode.id), class: "button button-outline inline-block"  %>
+      <% end %>
+    </header>
+
+    <div class="player">
+      <audio controls>
+        <source src="<%= @episode.audio %>" type="audio/mp3">
+      </audio>
+    </div>
+
+    <%= image_tag(Imgix.client.path(@episode.image.current_path).fit('crop').to_url, class: "mb1 imgix-fluid") if @episode.image? %>
+
+    <% if @episode.notes %>
+      <div class="px3">
+        <%= markdown(@episode.notes) %></p>
+    </div>
   <% end %>
-</header>
 
-<audio src="<%= @episode.audio %>" type="audio/mpeg" preload="auto">
-  Your browser does not support the audio element.
-</audio>
-
-<%= image_tag(Imgix.client.path(@episode.image.current_path).fit('crop').to_url, class: "mb1 imgix-fluid") if @episode.image? %>
-
-<% if @episode.notes %>
-  <div class="px3">
-    <%= markdown(@episode.notes) %></p>
-</div>
-<% end %>
-
-<%= render 'channels/subscribe' %>
+  <%= render 'channels/subscribe' %>
 </div>
 <div>
+
+<script>
+  plyr.setup(
+    {
+      controls: ["play", "current-time", "duration"]
+    }
+  );
+</script>
+<script>
+  (function(d, p){
+    var a = new XMLHttpRequest(),
+    b = d.body;
+    a.open("GET", p, true);
+    a.send();
+    a.onload = function(){
+      var c = d.createElement("div");
+      c.style.display = "none";
+      c.innerHTML = a.responseText;
+      b.insertBefore(c, b.childNodes[0]);
+    }
+  })(document, "https://cdn.plyr.io/1.3.2/sprite.svg");
+</script>
