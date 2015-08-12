@@ -10,10 +10,7 @@
       <% end %>
     <% end %>
     <%= f.text_field :full_name, autofocus: true, placeholder: 'Full Name', class: 'block full-width field-light' %>
-    <div class="flex mb1">
-      <%= f.text_field :channel_name, placeholder: 'Subdomain', class: "col-6 m0 field-light rounded-left"  %>
-      <p class="col-6 button rounded-right border-left black bg-silver">.ruby.fm</p>
-    </div>
+    <%= f.text_field :channel_name, placeholder: 'Channel Name', class: 'block full-width field-light' %>
     <%= f.email_field :email, placeholder: 'Email', class: 'block full-width field-light' %>
     <%= f.password_field :password, autocomplete: "off", placeholder: 'Password', class: 'block full-width field-light' %>
     <% if @validatable %>

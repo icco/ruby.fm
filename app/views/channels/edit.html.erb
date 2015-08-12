@@ -27,14 +27,8 @@
   </div>
 
   <div class="py2 border-bottom">
-    <label class="bold block">
-      Subdomain
-      <span class="h6 inline-block px1 white bg-red rounded">WIP</span>
-    </label>
-    <div class="flex mb1">
-      <%= f.text_field :slug, class: "col-6 m0 field-light rounded-left"  %>
-      <p class="col-6 button rounded-right border-left black bg-silver">.ruby.fm</p>
-    </div>
+    <%= f.label :slug, class: "bold" %>
+    <%= f.text_field :slug, class: "block full-width mb1 field-light" %>
   </div>
 
   <div class="py2 border-bottom">
@@ -93,6 +87,6 @@
   </label>
       <p>You can submit your podcast to other directories, list on your website, or <%= link_to "submit to iTunes", "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/publishPodcast" %>.</p>
   <code class="block p1">
-    <%= link_to(slugged_channel_url(@channel.slug, format: 'xml'), slugged_channel_url(@channel.slug, format: 'xml')) %>
+    <%= link_to(channel_url(@channel.id, format: 'xml'), channel_url(@channel.id, format: 'xml')) %>
   </code>
 </div>
