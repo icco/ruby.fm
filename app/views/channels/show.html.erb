@@ -1,22 +1,28 @@
 <%
- meta title: @channel.title,
- description: if @channel.summary then @channel.summary else "#{@channel.episodes.visible.count} episodes of #{@channel.title}. By #{@channel.author}." end,
- og: {
+meta({
   title: @channel.title,
-  # TODO: If there is a channel image, pass it in here
-  # image: ""
- },
- twitter: {
-  #card: "summary",
-  #site: "@alexbaldwin"
- }
+    description: if @channel.summary then @channel.summary else "#{@channel.episodes.visible.count} episodes of #{@channel.title}. By #{@channel.author}." end,
+    og: {
+      title: @channel.title,
+      # TODO: If there is a channel image, pass it in here
+      # image: ""
+    },
+  twitter: {
+    #card: "summary",
+    #site: "@alexbaldwin"
+  }
+})
 %>
 <% content_for :favicon do %>
-  <%= Imgix.client.path(@channel.image.current_path).width(32).height(32).fit('crop').fm('png32').to_url if @channel.image? %>
+  <% if @channel.image? %>
+    <%= Imgix.client.path(@channel.image.current_path).width(32).height(32).fit('crop').fm('png32').to_url %>
+  <% end %>
 <% end %>
 
 <header class="center py2 mb2 mt2">
-  <%= image_tag(Imgix.client.path(@channel.image.current_path).width(120).height(120).mask('ellipse').fit('crop').to_url, class: "center mb1") if @channel.image? %>
+  <% if @channel.image? %>
+    <%= image_tag(Imgix.client.path(@channel.image.current_path).width(120).height(120).mask('ellipse').fit('crop').to_url, class: "center mb1") %>
+  <% end %>
   <h1 class="m0">
     <%= @channel.title %>
   </h1>
