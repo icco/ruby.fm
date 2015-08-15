@@ -12,6 +12,11 @@
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="<%= yield :favicon %>">
+    <% if @channel %>
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="<%= channel_url(@channel.id, format: 'xml') %>">
+      <% elsif @episode %>
+      <link rel="alternate" type="application/rss+xml" title="RSS" href="<%= channel_url(@episode.channel.id, format: 'xml') %>">
+    <% end %>
     <link href="//d2v52k3cl9vedd.cloudfront.net/basscss/7.0.3/basscss.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.plyr.io/1.3.2/plyr.css">
     <script src="//cdn.plyr.io/1.3.2/plyr.js"></script>
