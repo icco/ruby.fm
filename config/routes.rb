@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
-  authenticated :user do
-    root to: redirect("/my/episodes"), :as => :authenticated_root
-  end
+  # authenticated :user do
+  #   root to: redirect("/my/episodes"), :as => :authenticated_root
+  # end
   root "home#index"
 
   # Authentication
@@ -11,13 +11,8 @@ Rails.application.routes.draw do
   get "/users/login", to: redirect("/users/sign_in")
   get "/about", to: "home#about"
 
-  namespace :my do
-    resources :channels, only: [:index]
-    resources :episodes, only: [:index]
-  end
-
-  resources :channels, except: [:new, :create] do
-    resources :episodes, only: [:new, :create], controller: 'channels/episodes'
+  resources :channels, path: '', except: [:new, :create] do
+    resources :episodes, path: '', only: [:new, :create], controller: 'channels/episodes'
   end
   resources :episodes
 
