@@ -4,7 +4,7 @@ ruby '2.2.2'
 
 gem 'carrierwave',    '~> 0.10.0'
 gem 'coffee-rails',   '~> 4.1.0'
-gem 'devise',         '~> 3.4.1'
+gem 'devise',         '~> 3.5.2'
 gem 'fog',            '~> 1.27',  require: 'fog/aws/storage'
 gem 'imgix',          '~> 0.3.4'
 gem 'jbuilder',       '~> 2.0'

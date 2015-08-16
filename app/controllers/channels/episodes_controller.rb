@@ -36,8 +36,6 @@ module Channels
         if @episode.save
           format.html { redirect_to(slugged_channel_episode_path(@channel.slug, @episode.slug)) }
         else
-          puts @episode.errors.messages
-          puts @episode.to_json
           format.html { render(action: :new, status: 400) }
         end
       end

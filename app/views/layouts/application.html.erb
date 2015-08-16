@@ -2,13 +2,13 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <%=
-      metamagic title: "Ruby.fm",
-      description: "No-nonsense podcasting hosting, easy uploads, subscriber stats, and customize your own podcast.",
-      og: {
-        title: "Ruby.fm"
-      }
-    %>
+    <%= metamagic({
+          title: "Ruby.fm",
+          description: "No-nonsense podcasting hosting, easy uploads, subscriber stats, and customize your own podcast.",
+          og: {
+            title: "Ruby.fm"
+          }
+        }) %>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="shortcut icon" href="<%= yield :favicon %>">
@@ -20,7 +20,7 @@
     <link href="//d2v52k3cl9vedd.cloudfront.net/basscss/7.0.3/basscss.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.plyr.io/1.3.2/plyr.css">
     <script src="//cdn.plyr.io/1.3.2/plyr.js"></script>
-    <%= stylesheet_link_tag "//cloud.typography.com/6326032/647188/css/fonts.css", "application", media: "all" %>
+    <%= stylesheet_link_tag("//cloud.typography.com/6326032/647188/css/fonts.css", "application", media: "all") %>
     <%= csrf_meta_tags %>
   </head>
   <body>
@@ -41,16 +41,16 @@
 
       <nav class="clearfix white bg-dark-gray">
         <div class="sm-col">
-          <%= link_to "ruby.fm", root_path, class:"strong button button-transparent py2 h3" %>
+          <%= link_to("ruby.fm", root_path, class:"strong button button-transparent py2 h3") %>
         </div>
         <div class="sm-col-right">
-          <% if primary_channel %>
-            <%= link_to primary_channel.title, channel_path(primary_channel), class: "button button-transparent py2 regular" %>
-            <%= link_to "Settings", edit_channel_path(primary_channel), class: "button button-transparent py2 regular" %>
-            <%= link_to "+ Upload", new_channel_episode_path(primary_channel), class: "button py2 regular" %>
+          <% if user_signed_in? %>
+            <%= link_to(primary_channel.title, channel_path(primary_channel), class: "button button-transparent py2 regular") %>
+            <%= link_to("Settings", edit_channel_path(primary_channel), class: "button button-transparent py2 regular") %>
+            <%= link_to("+ Upload", new_channel_episode_path(primary_channel), class: "button py2 regular") %>
           <% else %>
-            <%= link_to 'Login', user_session_path, class: "button button-transparent py2 regular" %>
-            <%= link_to 'Sign Up', new_user_registration_path, class: "button button-transparent py2 regular" %>
+            <%= link_to('Login', user_session_path, class: "button button-transparent py2 regular") %>
+            <%= link_to('Sign Up', new_user_registration_path, class: "button button-transparent py2 regular") %>
           <% end %>
         </div>
       </nav>
@@ -66,12 +66,12 @@
       <footer class="p2 center">
         <p class="gray small">
           &copy; <%= Time.now.year %>
-          <%= link_to "Simple Casual", "http://simplecasual.com", class: "gray" %> LLC.
-          <%= link_to "About Us", about_path , class: "gray" %>
+          <%= link_to("Simple Casual", "http://simplecasual.com", class: "gray") %> LLC.
+          <%= link_to("About Us", about_path , class: "gray") %>
         </p>
       </footer>
     </div>
-    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag("application") %>
     <script src="//www.imgix.com/libraries/imgix.js" type="text/javascript"></script>
     <script>
       imgix.onready(function() {

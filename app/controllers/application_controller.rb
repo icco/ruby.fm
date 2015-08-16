@@ -13,7 +13,7 @@ class ApplicationController < ActionController::Base
 
   def primary_channel
     if user_signed_in?
-      @primary_channel ||= current_user.channels.first
+      current_user.channels.first
     else
       nil
     end
