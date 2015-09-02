@@ -10,7 +10,7 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree .
+ *= require_tree
  *= require_self
  */
 
@@ -23,15 +23,7 @@ body {
   -webkit-font-smoothing: antialiased;
   font-variant-ligatures: common-ligatures;
   -webkit-font-variant-ligatures: common-ligatures;
-}
-
-body, h1, h2, h3, h4, h5, h6, p, li, .regular, input, .button, textarea {
-  font-family: 'Ideal Sans SSm A', 'Ideal Sans SSm B', 'Helvetica Neue', helvetica;
   font-weight: 300;
-}
-
-.bold, .strong, strong, h1, h2, h3, h4, h5, h6 {
-  font-weight: 500;
 }
 
 .hover-bg:hover,

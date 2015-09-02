@@ -1,0 +1,124 @@
+.js-art {
+  border-bottom: none;
+}
+.player {
+    position: relative;
+    max-width: 100%;
+}
+.player,
+.player *,
+.player::after,
+.player::before {
+    box-sizing: border-box
+}
+.player audio {
+    width: 100%;
+    height: auto;
+    vertical-align: middle
+}
+.player-controls {
+    position: relative;
+}
+.player-progress {
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 1.5rem;
+    background: rgba(86, 93, 100, .2)
+}
+.player-progress-buffer[value],
+.player-progress-played[value],
+.player-progress-seek[type=range] {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 1.5rem;
+    margin: 0;
+    padding: 0;
+    vertical-align: top;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    border: none;
+    background: 0 0
+}
+.player-progress-buffer[value]::-webkit-progress-bar,
+.player-progress-played[value]::-webkit-progress-bar {
+    background: 0 0
+}
+.player-progress-buffer[value]::-webkit-progress-value,
+.player-progress-played[value]::-webkit-progress-value {
+    background: currentColor
+}
+.player-progress-buffer[value]::-moz-progress-bar,
+.player-progress-played[value]::-moz-progress-bar {
+    background: currentColor
+}
+.player-progress-played[value] {
+    z-index: 2;
+    color: #3498db
+}
+.player-progress-buffer[value] {
+    color: #AAA;
+    background-color: #DDD;
+}
+.player-progress-seek[type=range] {
+    z-index: 4;
+    cursor: pointer;
+    outline: 0
+}
+.player-progress-seek[type=range]::-webkit-slider-runnable-track {
+    background: 0 0;
+    border: 0
+}
+.player-progress-seek[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    background: 0 0;
+    border: 0;
+    width: 20px;
+    height: 1.5rem;
+}
+.player-progress-seek[type=range]::-moz-range-track {
+    background: 0 0;
+    border: 0
+}
+.player-progress-seek[type=range]::-moz-range-thumb {
+    -moz-appearance: none;
+    background: 0 0;
+    border: 0;
+    width: 20px;
+    height: 1.5rem;
+}
+.player-progress-seek[type=range]::-ms-track {
+    color: transparent;
+    background: 0 0;
+    border: 0
+}
+.player-progress-seek[type=range]::-ms-fill-lower,
+.player-progress-seek[type=range]::-ms-fill-upper {
+    background: 0 0;
+    border: 0
+}
+.player-progress-seek[type=range]::-ms-thumb {
+    background: 0 0;
+    border: 0;
+    width: 20px;
+    height: 1.5rem;
+}
+.player-progress-seek[type=range]:focus {
+    outline: 0
+}
+.player-progress-seek[type=range]::-moz-focus-outer {
+    border: 0
+}
+.player.loading .player-progress-buffer {
+    -webkit-animation: progress 1s linear infinite;
+    animation: progress 1s linear infinite;
+    background-size: 40px 40px;
+    background-repeat: repeat-x;
+    background-color: rgba(86, 93, 100, .25);
+    background-image: linear-gradient(-45deg, rgba(0, 0, 0, .15) 25%, transparent 25%, transparent 50%, rgba(0, 0, 0, .15) 50%, rgba(0, 0, 0, .15) 75%, transparent 75%, transparent);
+    color: transparent
+}
