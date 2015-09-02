@@ -35,16 +35,18 @@ meta({
 
 <section class="flex flex-wrap">
   <% @episodes.each do |t| %>
-    <div class="flex col col-3 border-box">
-      <div class="p2 hover-bg">
+    <div class="flex lg-col-3 md-col-4 sm-col-12 border-box">
+      <div class="">
         <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
-          <%= image_tag(Imgix.client.path(t.image.current_path).fit('crop').width(400).height(400).to_url) if t.image? %>
-          <h2 class="h4 m0 black"><%= t.title %></h2>
-          <p class="gray m0">
+          <%= image_tag(Imgix.client.path(t.image.current_path).fit('crop').width(400).height(400).to_url, class: 'col-12') if t.image? %>
+          <div class="px2 py1">
+          <h2 class="h3 m0 black"><%= t.title %></h2>
+          <p class="h5 gray m0">
             <%= "#{time_ago_in_words(t.created_at)} ago" %>
-            —
-            <%= Time.at(t.length).utc.strftime("%H:%M:%S") %>
+            ⁃
+            <%= distance_of_time_in_words(t.length) %>
           </p>
+        </div>
         <% end %>
       </div>
     </div>
