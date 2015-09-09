@@ -44,7 +44,11 @@
         <progress class='player-progress-buffer' max='100' value='0'>
         </progress>
     </div>
-    <h4 class="gray center"><%= distance_of_time_in_words(@episode.length) %></h4>
+    <h4 class="gray center">
+    <%= distance_of_time_in_words(@episode.length) %>
+    ∙
+    <%= link_to('Download', @episode.audio_url, class: 'center') %>
+  </h4>
 
 
     <% if @episode.notes %>
