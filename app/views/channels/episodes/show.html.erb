@@ -48,9 +48,42 @@
 
 
     <% if @episode.notes %>
-      <div class="px3">
+      <div class="">
         <%= markdown(@episode.notes) %></p>
-        <p>&larr; <%= link_to(@channel.title, channel_path(@channel), class: "gray") %></p>
+    </div>
+  <% end %>
+
+
+
+  <div class="border-top">
+  <% @channel.episodes.where.not(id: @episode.id).order(created_at: :desc).first(3).each do |e| %>
+    <div class="flex flex-center py2 border-bottom">
+      <div class="flex-auto">
+        <h3 class="m0 h4"><%= link_to(e.title, slugged_channel_episode_path(@channel.slug, e.slug), class: 'black') %></h3>
+          <p class="h5 gray m0">
+            <%= "#{time_ago_in_words(e.created_at)} ago" %>
+            ⁃
+            <%= distance_of_time_in_words(e.length) %>
+          </p>
+      </div>
+      <div class="flex-none">
+    <%= image_tag(Imgix.client.path(e.image.current_path).h(48).w(48).fit('crop').to_url, class: 'block border') if e.image? %>
+      </div>
+    </div>
+  <% end %>
+</div>
+
+  <% if @channel.summary? %>
+  <div class="border-bottom">
+    <div class="flex py2">
+      <div class="flex-none mr2">
+        <%= image_tag(Imgix.client.path(@channel.image.current_path).h(128).w(128).fit('crop').mask('ellipse').to_url, class: 'mb0') if @channel.image? %>
+      </div>
+      <div class="flex-auto">
+        <h2 class="mt0 h2"><%= link_to(@channel.title, channel_path(@channel), class: 'black') %></h2>
+        <p><%= @channel.summary %></p>
+        <%= link_to(@channel.website_url, @channel.website_url, class: "black block") if @channel.website_url %>
+      </div>
     </div>
   <% end %>
 

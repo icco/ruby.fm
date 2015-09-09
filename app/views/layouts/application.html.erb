@@ -39,6 +39,7 @@
       <% end %>
 
       <nav class="clearfix border-bottom">
+        <div class="container">
         <div class="sm-col">
           <%= link_to("ruby.fm", root_path, class:"btn btn-transparent py2") %>
         </div>
@@ -52,11 +53,12 @@
             <%= link_to('Sign Up', new_user_registration_path, class: "btn btn-transparent py2 regular") %>
           <% end %>
         </div>
+      </div>
       </nav>
 
       <div class="flex-auto">
         <main class="flex-auto">
-          <div class="">
+          <div class="container">
             <%= yield %>
           </div>
         </main>

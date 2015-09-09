@@ -61,8 +61,8 @@
     color: #3498db
 }
 .player-progress-buffer[value] {
-    color: #AAA;
-    background-color: #DDD;
+    background-color: #AAA;
+    color: #DDD;
 }
 .player-progress-seek[type=range] {
     z-index: 4;

@@ -72,8 +72,8 @@ CREATE TABLE channels (
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     website_url character varying,
-    image text,
     summary text,
+    image text,
     categories text[] DEFAULT '{}'::text[]
 );
 

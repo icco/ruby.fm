@@ -1,92 +1,99 @@
 <% meta title: "Edit #{@channel.title} Settings" %>
 
-<header class="center">
-  <h1>Settings</h1>
-</header>
+<div class="clearfix mt2">
+  <div class="col col-2">
+    <nav class="py2 border-bottom">
+      <h3 class="gray btn h6 caps regular">Podcast</h3>
+      <%= link_to "Information", edit_user_registration_path, class: 'btn block' %>
+      <%= link_to "Categories", edit_user_registration_path, class: 'btn block' %>
+      <%= link_to "Cover Art", edit_user_registration_path, class: 'btn block' %>
+    </nav>
 
-<%= form_for(@channel, html: { multipart: true }) do |f| %>
-  <% if @channel.errors.any? %>
-    <div id="error_explanation">
-      <h2>Channel could not be saved</h2>
+    <nav class="py2 border-bottom">
+      <h3 class="gray btn h6 caps regular">Account</h3>
+      <%= link_to "Email", edit_user_registration_path, class: 'btn block' %>
+      <%= link_to "Password", edit_user_registration_path, class: 'btn block' %>
+    </nav>
+    <nav class="py2">
+      <h3 class="gray btn h6 caps regular">Integration</h3>
+      <%= link_to "iTunes", edit_user_registration_path, class: 'btn block' %>
+    </nav>
+  </div>
+  <div class="col col-6">
+    <%= form_for(@channel, html: { multipart: true }) do |f| %>
+      <% if @channel.errors.any? %>
+        <div id="error_explanation">
+          <h2>Channel could not be saved</h2>
 
-      <ul>
-      <% @channel.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+          <ul>
+            <% @channel.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
       <% end %>
-      </ul>
-    </div>
-  <% end %>
 
-  <div class="py2 border-top">
-    <%= link_to "Change your email or password →", edit_user_registration_path, class: "button regular" %>
-  </div>
+      <div class="border-bottom py2">
+        <label class="caps gray h6 block mb2">Information</label>
+        <div class="clearfix mb2 mxn2">
+          <div class="col col-6 px2">
+        <%= f.text_field :title, placeholder: 'Title', class: "col-12 field" %>
+      </div>
+          <div class="col col-6 px2">
+        <%= f.text_field :slug, placeholder: 'Slug', class: "col-12 field" %>
+      </div>
+      </div>
+        <div class="mb1">
+        <%= f.text_field :author, placeholder: 'Author', class: "col-5 field"  %>
+        <%= f.text_field :website_url, class: "col-5 field"  %>
+      </div>
+        <%= f.text_area :summary, class: "col-10 field", style: "min-height: 200px;" %>
+      </div>
 
-  <div class="py2 border-top border-bottom">
-    <%= f.label :title, class: "bold" %>
-    <%= f.text_field :title, class: "block full-width mb1 field-light" %>
-  </div>
-
-  <div class="py2 border-bottom">
-    <%= f.label :slug, class: "bold" %>
-    <%= f.text_field :slug, class: "block full-width mb1 field-light" %>
-  </div>
-
-  <div class="py2 border-bottom">
-    <%= f.label :author, class: "bold" %>
-    <%= f.text_field :author, class: "block full-width field-light"  %>
-  </div>
-
-  <div class="py2 border-bottom">
-    <%= f.label :categories, class: "bold" %>
-
-    <select name="channel[categories][]">
-      <%= grouped_options_for_select(Category.grouped, @channel.categories[0], prompt: 'Choose one') %>
-    </select>
-    <br/>
-    <select name="channel[categories][]">
-      <%= grouped_options_for_select(Category.grouped, @channel.categories[1], prompt: 'Choose one') %>
-    </select>
-    <br/>
-    <select name="channel[categories][]">
-      <%= grouped_options_for_select(Category.grouped, @channel.categories[2], prompt: 'Choose one') %>
-    </select>
-  </div>
-
-  <div class="py2 border-bottom">
-    <label class="bold block">Summary</label>
-    <%= f.text_area :summary, class: "block full-width field-light", style: "min-height: 200px;" %>
-  </div>
-
-  <div class="py2">
-    <%= f.label :website_url, class: "bold" %>
-    <%= f.text_field :website_url, class: "block full-width field-light"  %>
-  </div>
-
-  <div class="py2 border-bottom">
-      <label class="block bold">Default Cover Art</label>
-      <p class="gray">Must be square and >= 1400px</p>
-      <%= image_tag(@channel.image_url, width: 200, height: 200) if @channel.image? %>
-      <%= f.file_field :image %>
-      <%= f.hidden_field :image_cache %>
-  </div>
-
-  <div class="mb2 py2">
-    <%= f.submit "Update your settings", class: "regular button button-blue full-width" %>
-  </div>
-<% end %>
+      <div class="py2 border-bottom">
+      <h3 class="gray mb2 h6 caps regular">Categories</h3>
+        <select class="mb1 field col-10" name="channel[categories][]">
+          <%= grouped_options_for_select(Category.grouped, @channel.categories[0], prompt: 'Choose one') %>
+        </select>
+        <select class="mb1 field col-10" name="channel[categories][]">
+          <%= grouped_options_for_select(Category.grouped, @channel.categories[1], prompt: 'Choose one') %>
+        </select>
+        <select class="mb1 field col-10" name="channel[categories][]">
+          <%= grouped_options_for_select(Category.grouped, @channel.categories[2], prompt: 'Choose one') %>
+        </select>
+      </div>
 
 
-<header class="center mt4">
-  <h2>Integrations</h2>
-</header>
+      <div class="py2 border-bottom">
+        <label class="block bold">Default Cover Art</label>
+        <p class="gray">Must be square and >= 1400px</p>
+        <%= image_tag(@channel.image_url, width: 200, height: 200) if @channel.image? %>
+        <%= f.file_field :image %>
+        <%= f.hidden_field :image_cache %>
+      </div>
 
-<div class="py2 border-top mb2">
-  <label class="bold block">
-    RSS
-    <span class="h6 inline-block px1 white bg-red rounded">WIP</span>
-  </label>
+      <div class="mb2 py2">
+        <%= f.submit "Update your settings", class: "col-10 btn btn-primary" %>
+      </div>
+    <% end %>
+
+
+    <div class="border-top">
+      <label class="bold block">
+        RSS
+        <span class="h6 inline-block px1 white bg-red rounded">WIP</span>
+      </label>
       <p>You can submit your podcast to other directories, list on your website, or <%= link_to "submit to iTunes", "https://buy.itunes.apple.com/WebObjects/MZFinance.woa/wa/publishPodcast" %>.</p>
-  <code class="block p1">
-    <%= link_to(channel_url(@channel.id, format: 'xml'), channel_url(@channel.id, format: 'xml')) %>
-  </code>
+      <code class="block p1">
+        <%= link_to(channel_url(@channel.id, format: 'xml'), channel_url(@channel.id, format: 'xml')) %>
+      </code>
+    </div>
+  </div>
+
+  <div class="col col-4">
+    <div class="px2">
+      <h3 class="regular mt0">Help Computer</h3>
+      <p class="gray">You can edit all your settings from here. Try it out.</p>
+    </div>
+  </div>
 </div>
