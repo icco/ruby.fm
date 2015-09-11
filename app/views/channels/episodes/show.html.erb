@@ -14,7 +14,6 @@
   twitter: {
   }
 %>
-<link rel="stylesheet" href="<%= Imgix.client.path(@episode.image.current_path).palette('css').to_url if @episode.image? %>">
 
 <% content_for :favicon do %>
   <%= Imgix.client.path(@episode.image.current_path).width(32).height(32).fit('crop').fm('png32').to_url if @episode.image? %>
@@ -23,28 +22,30 @@
 <div class="container">
 <div class="clearfix">
   <div class="sm-col-12 md-col-8 lg-col-6 mx-auto">
-    <header class="center py2 mb2 mt2">
-      <h1 class="m0">
-        <%= @episode.title %>
-        <span class="regular"><%= @episode.visible? ? '' : '(Not Visible)' %></span>
-      <% if policy(@channel).update? %>
-        <small class="regular">- <%= link_to 'Edit', edit_episode_path(@episode.id), class: "button button-outline inline-block"  %></small>
-      <% end %>
-      </h1>
-    </header>
-
-    <%= image_tag(Imgix.client.path(@episode.image.current_path).h(512).w(512).fit('crop').to_url, style: 'cursor: pointer', class: 'mx-auto block border js-art') if @episode.image? %>
+    <%= image_tag(Imgix.client.path(@episode.image.current_path).h(512).w(512).bri(20).blur(1000).fit('crop').to_url, style: 'position: absolute; left: 0; right: 0; height: 512px; z-index: -1; width: 100vw; ') if @episode.image? %>
+    <div class="relative">
+    <%= image_tag(Imgix.client.path(@episode.image.current_path).h(512).w(512).fit('crop').to_url, height: 512, width: 512, style: 'background: black; cursor: pointer', class: 'mx-auto block  js-art') if @episode.image? %>
     <%= image_tag('play.svg', class: 'js-art js-hide-show', style: 'cursor: pointer; filter: drop-shadow( 0 1px 3pc rgba(0,0,0,.4) ); -webkit-filter: drop-shadow( 0 1px 3px rgba(0,0,0,.4));  width: 250px; height: 250px; fill: #fff; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);') %>
+  </div>
     <div class="player" class="mb1" style="height: 1.5rem;">
       <audio controls preload="auto">
         <source src="<%= @episode.audio %>" type="audio/mp3">
       </audio>
         <input id='seek{id}' class='player-progress-seek' type='range' min='0' max='100' step='0.5' value='0' data-player='seek'>
-        <progress class='player-progress-played image-fg-1' max='100' value='0'>
+        <progress class='player-progress-played' max='100' value='0'>
         </progress>
         <progress class='player-progress-buffer' max='100' value='0'>
         </progress>
     </div>
+    <header class="center py2 mb2 mt2">
+      <h1 class="m0">
+        <%= @episode.title %>
+        <span class="regular"><%= @episode.visible? ? '' : '(Not Visible)' %></span>
+      </h1>
+      <% if policy(@channel).update? %>
+    <%= link_to 'Edit Episode', edit_episode_path(@episode.id), class: "mt2 btn btn-outline"  %>
+      <% end %>
+    </header>
     <h4 class="gray center">
     <%= distance_of_time_in_words(@episode.length) %>
     ∙

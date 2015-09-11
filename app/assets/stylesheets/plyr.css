@@ -1,9 +1,7 @@
-.js-art {
-  border-bottom: none;
-}
 .player {
     position: relative;
     max-width: 100%;
+    transform: translate(0,-24px);
 }
 .player,
 .player *,
@@ -58,11 +56,11 @@
 }
 .player-progress-played[value] {
     z-index: 2;
-    color: #3498db
+    color: #FF4136
 }
 .player-progress-buffer[value] {
-    background-color: #AAA;
-    color: #DDD;
+    background-color: rgba(0,0,0,.33);
+    color: rgba(255,255,255,.33);
 }
 .player-progress-seek[type=range] {
     z-index: 4;

@@ -1,68 +1,62 @@
-<header class="center">
-  <h1>Edit <%= @episode.title %></h1>
-</header>
+<div class="mx-auto col-6">
+  <header class="border-bottom py2">
+    <h1 class="h4 gray m0"><%= @channel.title %></h1>
+    <h2 class="m0 h3"><%= @episode.title %></h2>
+  </header>
 
-<%= form_for(@episode, url: episode_path(@episode.id), html: { multipart: true }) do |f| %>
-  <% if @episode.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@episode.errors.count, "error") %> prohibited this episode from being saved:</h2>
-      <ul>
-      <% @episode.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+  <%= form_for(@episode, url: episode_path(@episode.id), html: { multipart: true }) do |f| %>
+    <% if @episode.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(@episode.errors.count, "error") %> prohibited this episode from being saved:</h2>
+        <ul>
+          <% @episode.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="py2 border-bottom">
+      <h3 class="mt0 gray mb2 h6 caps regular" id="cover-art">Information</h3>
+      <%= f.text_field :title, placeholder: 'Title', class: 'mb2 col-12 field' %>
+      <%= f.text_field :aired_at, placeholder: 'MM/DD/YYYY', class: "field col-12" %>
+      <div class="clearfix py2">
+        <div class="col col-6">
+          <label class="col-12">
+            <%= f.check_box :visible %>
+            <span class="bold">Published</span>
+          </label>
+        </div>
+        <div class="col col-6">
+          <label class="col-12">
+            <%= f.check_box :explicit %>
+            <span class="bold">Explicit?</span>
+          </label>
+        </div>
+      </div>
+
+
+    </div>
+
+      <div class="py2 border-bottom">
+        <h3 class="mt0 gray mb2 h6 caps regular" id="cover-art">Cover Art</h3>
+        <p class="gray">Must be square and >= 1400px</p>
+        <%= image_tag(@episode.image_url, width: 200, height: 200) if @episode.image? %>
+        <%= f.file_field :image %>
+        <%= f.hidden_field :image_cache %>
+      </div>
+
+
+    <div class="py2">
+      <h3 class="mt0 gray mb2 h6 caps regular" id="cover-art">Show Notes</h3>
+      <%= f.text_area :notes, class: 'field col-12', style: "min-height: 200px;" %>
+      <p class="gray m0">
+        Basic Markdown included for links, bold, italics, lists, and breaks.
+      </p>
+    </div>
+
+    <div class="mt1">
+      <%= f.submit "Update Episode", class: 'btn btn-primary col-12' %>
     </div>
   <% end %>
-
-  <div class="py2 border-bottom">
-    <%= f.label :title, class: "bold" %>
-    <%= f.text_field :title, class: "block full-width field-light" %>
-  </div>
-
-  <div class="py2 border-bottom">
-      <label class="block bold">Cover Art</label>
-      <p class="gray">Must be square and >= 1400px</p>
-      <%= image_tag(@episode.image_url, width: 200, height: 200) if @episode.image? %>
-      <%= f.file_field :image %>
-      <%= f.hidden_field :image_cache %>
-  </div>
-
-  <div class="py2 border-bottom">
-      <label class="block full-width">
-      <%= f.check_box :visible %>
-      <span class="bold">Published</span>
-    </label>
-  </div>
-
-  <div class="py2 border-bottom">
-    <%= f.label :aired_at, class: "bold" %>
-    <%= f.text_field :aired_at, class: "block full-width field-light" %>
-  </div>
-
-  <div class="py2 border-bottom">
-      <label class="block full-width">
-      <%= f.check_box :explicit %>
-      <span class="bold">Explicit?</span>
-    </label>
-  </div>
-
-  <div class="py2">
-    <label class="block bold">
-      Show Notes
-      <%= link_to "http://daringfireball.net/projects/markdown/basics" do %>
-        <%= image_tag("markdown-mark.svg", height: 16, class: "ml1") %>
-    <% end %>
-    </label>
-    <p class="gray">
-      Basic Markdown included for links, bold, italics, lists, and breaks.
-    </p>
-    <%= f.text_area :notes, class: "block full-width field-light", style: "min-height: 200px;" %>
-  </div>
-
-  <div class="mt1">
-    <%= f.submit "Update Episode", class: "button full-width" %>
-  </div>
-<% end %>
-
-
-<%= link_to "View Episode", slugged_channel_episode_path(@channel.slug, @episode.slug), class: "mt1 gray block" %>
+</div>

@@ -46,8 +46,6 @@
         <div class="sm-col-right">
           <% if user_signed_in? %>
             <%= link_to(primary_channel.title, channel_path(primary_channel), class: "btn btn-transparent py2") %>
-            <%= link_to("Settings", edit_channel_path(primary_channel), class: "btn btn-transparent py2") %>
-            <%= link_to("+ Upload", new_channel_episode_path(primary_channel), class: "btn py2") %>
           <% else %>
             <%= link_to('Login', user_session_path, class: "btn btn-transparent py2 regular") %>
             <%= link_to('Sign Up', new_user_registration_path, class: "btn btn-transparent py2 regular") %>

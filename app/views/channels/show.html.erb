@@ -26,6 +26,10 @@ meta({
   <h1 class="m0">
     <%= @channel.title %>
   </h1>
+
+  <% if policy(@channel).update? %>
+    <%= link_to("Edit Settings", edit_channel_path(primary_channel), class: "mt2 btn btn-outline") %>
+  <% end %>
 </header>
 
 <section class="flex flex-wrap mxn2 px2">

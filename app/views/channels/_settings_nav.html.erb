@@ -4,6 +4,7 @@
     <%= link_to "Information", edit_channel_path(primary_channel) + '#information', class: 'btn block' %>
     <%= link_to "Categories", edit_channel_path(primary_channel) + '#categories', class: 'btn block' %>
     <%= link_to "Cover Art", edit_channel_path(primary_channel) + '#cover-art', class: 'btn block' %>
+    <%= link_to("Upload", new_channel_episode_path(primary_channel), class: 'btn block') %>
   </nav>
   <nav class="py2">
       <label class="ml2 caps gray h6 block mb2">Integration</label>
