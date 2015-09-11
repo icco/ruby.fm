@@ -42,6 +42,10 @@ class ChannelsController < ApplicationController
     end
   end
 
+  def itunes
+    @channel = primary_channel
+  end
+
   def update
     @channel = Channel.friendly.find(params[:id])
     authorize(@channel, :update?)

@@ -1,5 +1,6 @@
 <% meta title: "Upload to #{@channel.title}" %>
 
+<div class="col-4 mx-auto">
 <header class="center">
   <h1>Upload</h1>
 </header>
@@ -22,6 +23,7 @@
     </div>
   <% end %>
 
-  <%= f.file_field(:audio, class: 'full-width block border border-light-gray py4') %>
-  <%= f.submit('Upload episode', class: ' mt2 button full-width mb2') %>
+  <%= f.file_field(:audio, class: 'mb2 col-12 block border border-light-gray py4') %>
+  <%= f.submit('Upload episode', class: 'btn btn-primary col-12 mb2') %>
 <% end %>
+</div>

@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get "/login", to: redirect("/users/sign_in")
   get "/users/login", to: redirect("/users/sign_in")
   get "/about", to: "home#about"
+  
+  # TODO make something intelligent
+  get "/itunes", to: "channels#itunes"
 
   resources :channels, path: '', except: [:new, :create] do
     resources :episodes, path: '', only: [:new, :create], controller: 'channels/episodes'

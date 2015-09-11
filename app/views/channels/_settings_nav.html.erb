@@ -1,0 +1,21 @@
+<div class="col col-2">
+  <nav class="mb2">
+      <label class="ml2 caps gray h6 block mb2">Podcast</label>
+    <%= link_to "Information", edit_channel_path(primary_channel) + '#information', class: 'btn block' %>
+    <%= link_to "Categories", edit_channel_path(primary_channel) + '#categories', class: 'btn block' %>
+    <%= link_to "Cover Art", edit_channel_path(primary_channel) + '#cover-art', class: 'btn block' %>
+  </nav>
+  <nav class="py2">
+      <label class="ml2 caps gray h6 block mb2">Integration</label>
+    <%= link_to '/itunes', class: 'btn block' do %>
+      iTunes 
+      <span class="h6 inline-block px1 white bg-red rounded">Beta</span>
+    <% end %>
+  </nav>
+  <nav class="py2">
+      <label class="ml2 caps gray h6 block mb2">Account</label>
+    <%= link_to "Email", edit_user_registration_path + '#email', class: 'btn block' %>
+    <%= link_to "Password", edit_user_registration_path + '#password', class: 'btn block' %>
+    <%= link_to "Logout", :destroy_user_session, method: :delete, class: 'btn block' %>
+  </nav>
+</div>

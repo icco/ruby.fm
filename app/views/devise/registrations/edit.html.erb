@@ -1,26 +1,36 @@
 <% meta title: "Edit Account Settings" %>
 
-<header class="center">
-  <h1>Account</h1>
-</header>
+<div class="clearfix mt2">
+  <%= render 'channels/settings_nav' %>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= devise_error_messages! %>
+  <div class="col col-6">
+    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+      <%= devise_error_messages! %>
 
-  <div class="border-bottom mb3 py2">
-  <%= f.label "Your email", class: "bold" %><br />
-  <%= f.email_field :email, class: "mb2 block full-width mb1 field-light", autofocus: true %>
-</div>
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+      <label class="caps gray h6 block mb2" id="email">Email</label>
+      <div class="clearfix mb2">
+        <div class="col col-12 mb2">
+          <%= f.email_field :email, placeholder: 'Email', class: "col-12 field", autofocus: true %>
+          <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+            <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
+          <% end %>
+        </div>
 
-  <%= f.label "Change your password", class: "bold" %> <em>- leave blank if you don't want to change it</em>
-  <%= f.password_field :password, class: "block full-width mb1 field-light", autocomplete: "off" %>
+        <div class="clearfix mt4 py2 border-bottom border-top">
+          <label class="caps gray h6 block mb2" id="password">Password</label>
+          <div class="clearfix mxn2">
+            <div class="col col-6 px2">
+              <%= f.password_field :password, placeholder: 'New password', class: "col-12 field", autocomplete: "off" %>
+            </div>
 
-  <%= f.label :password_confirmation, class: "bold" %>
-  <%= f.password_field :password_confirmation, class: "block full-width mb1 field-light", autocomplete: "off" %>
+            <div class="col col-6 px2">
+              <%= f.password_field :password_confirmation, placeholder: 'Confirm new password', class: "col-12 field", autocomplete: "off" %>
+            </div>
+          </div>
+        </div>
 
-  <%= f.submit "Update your account", class: "regular button full-width mt3" %>
-  <%= link_to "Logout", :destroy_user_session, method: :delete, class: "gray mt2 block" %>
-<% end %>
+        <div class="mb2 py2">
+          <%= f.submit "Update your account", class: "col-12 btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>

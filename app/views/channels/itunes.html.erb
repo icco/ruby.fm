@@ -1,0 +1,9 @@
+<div class="clearfix mt2">
+  <%= render 'settings_nav' %>
+  <div class="col col-6">
+    <h3 class="mt0 gray mb2 h6 caps regular" id="cover-art">iTunes</h3>
+    <p>You can add your podcast to the iTunes Directory by providing them with the following link 
+      <%= link_to(channel_url(@channel.id, format: 'xml'), channel_url(@channel.id, format: 'xml')) %>
+    </p>
+  </div>
+</div>
