@@ -31,7 +31,7 @@
           <%= f.text_field :author, placeholder: 'Author', class: "col-12 field"  %>
           </div>
           <div class="col col-6 px2">
-          <%= f.text_field :website_url, class: "col-12 field"  %>
+            <%= f.text_field :website_url, placeholder: "https://ruby.fm/#{@channel.slug}", class: "col-12 field"  %>
           </div>
         </div>
         <%= f.text_area :summary, class: "col-12 field", style: "min-height: 200px;" %>
