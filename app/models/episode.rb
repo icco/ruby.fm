@@ -18,6 +18,10 @@ class Episode < ActiveRecord::Base
   scope(:not_visible, -> { where(visible: false) })
 
   scope(:recent, -> { order(created_at: :desc) })
+  
+  # TODO: This is nice but aired_at should override created_at
+  # We could also have aired_at default to created_at and then be
+  # easily over-rideable
   scope(:recently_aired, -> { order(aired_at: :desc) })
 
   mount_uploader(:audio, AudioUploader)
