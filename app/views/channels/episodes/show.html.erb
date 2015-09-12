@@ -2,12 +2,19 @@
   meta title: "#{@episode.title} — #{@channel.title}",
   description: truncate(strip_tags(markdown(@episode.notes).squish), length: 160),
   og: {
-    title: "WOOF #{@episode.title} — #{@channel.title}",
+    title: "#{@episode.title} — #{@channel.title}",
+    description: truncate(strip_tags(markdown(@episode.notes).squish), length: 160),
     image: Imgix.client.path(@episode.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
     audio: {
       url: @episode.audio_url,
       secure_url: @episode.audio_url,
       type: "audio/mpeg"
+    },
+    type: 'music.song',
+    music: {
+      musician: slugged_channel_url(@channel),
+      release_date: @episode.created_at.to_time.iso8601,
+      duration: @episode.length
     },
     url: episode_url(@episode),
     site_name: "Ruby.fm"
