@@ -2,10 +2,11 @@
   meta title: "#{@episode.title} — #{@channel.title}",
   description: truncate(strip_tags(markdown(@episode.notes).squish), length: 160),
   og: {
-    title: "#{@episode.title} — #{@channel.title}",
-    image: @episode.image_url,
+    title: "WOOF #{@episode.title} — #{@channel.title}",
+    image: Imgix.client.path(@episode.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
     audio: {
-      secure_url: root_url + @episode.audio_url,
+      url: @episode.audio_url,
+      secure_url: @episode.audio_url,
       type: "audio/mpeg"
     },
     url: episode_url(@episode),
@@ -16,7 +17,7 @@
 %>
 
 <% content_for :favicon do %>
-  <%= Imgix.client.path(@episode.image.current_path).width(32).height(32).fit('crop').fm('png32').to_url if @episode.image? %>
+  <%= Imgix.client.path(@episode.image.current_path).w(32).h(32).fit('crop').fm('png32').to_url if @episode.image? %>
 <% end %>
 
 <div class="container">
