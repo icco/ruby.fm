@@ -19,17 +19,37 @@
   <% end %>
 <% end %>
 
-<header class="center py2 mt2">
-  <% if @channel.image? %>
-    <%= image_tag(Imgix.client.path(@channel.image.current_path).width(120).height(120).mask('ellipse').fit('crop').to_url, class: "center mb1") %>
-  <% end %>
-  <h1 class="m0">
-    <%= @channel.title %>
-  </h1>
+<header class="py2 mt2">
+    <div class="">
+      <div class="flex flex-center py2">
+        <div class="flex-none">
+          <%= link_to slugged_channel_path(@channel) do %>
+            <%= image_tag(Imgix.client.path(@channel.image.current_path).h(128).w(128).fit('crop').mask('ellipse').to_url, class: 'mb0 mr2') if @channel.image? %>
+          <% end %>
+
+        </div>
+        <div class="flex-auto sm-col col-9">
+          <h1 class="m0 h1"><%= link_to(@channel.title, slugged_channel_path(@channel), class: 'black') %></h2>
+          <h4 class="mt0 mb2 gray regular h4">
+            <%= "#{@channel.episodes.count} episodes" %>
+            <% @channel.categories.each do |c| %>
+              ∙
+              <%= c.to_s %>
+            <% end %>
+          </h4>
+          <% if @channel.summary? %>
+            <p><%= @channel.summary %></p>
+          <% end %>
+          <%= link_to(@channel.website_url, @channel.website_url, class: "black block") if @channel.website_url %>
 
   <% if policy(@channel).update? %>
+    <%= link_to("+ Upload New Episode", edit_channel_path(primary_channel), class: "mt2 btn btn-primary") %>
     <%= link_to("Edit Settings", edit_channel_path(primary_channel), class: "mt2 btn btn-outline") %>
   <% end %>
+        </div>
+      </div>
+    </div>
+
 </header>
 
 <section class="flex flex-wrap mxn2 px2">
@@ -53,14 +73,3 @@
     </div>
   <% end %>
 </section>
-
-<% if @channel.summary %>
-  <div class="center py2 mx-auto col-6">
-    <p class="mb0"><%= @channel.summary %></p>
-  </div>
-<% end %>
-<% if @channel.website_url %>
-  <div class="center py2">
-    <%= link_to(@channel.website_url, @channel.website_url, class: "black block") if @channel.website_url %>
-  </div>
-<% end %>

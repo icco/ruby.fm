@@ -90,29 +90,29 @@
       <% end %>
     </div>
 
-      <div class="border-bottom">
-        <div class="flex flex-center py2">
-          <div class="flex-none mr2">
+    <div class="border-bottom">
+      <div class="flex flex-center py2">
+        <div class="flex-none mr2">
           <%= link_to slugged_channel_path(@channel) do %>
             <%= image_tag(Imgix.client.path(@channel.image.current_path).h(128).w(128).fit('crop').mask('ellipse').to_url, class: 'mb0') if @channel.image? %>
           <% end %>
-          </div>
-          <div class="flex-auto">
-            <h2 class="m0 h2"><%= link_to(@channel.title, slugged_channel_path(@channel), class: 'black') %></h2>
-            <h4 class="mt0 mb2 gray regular h4">
-              <%= "#{@channel.episodes.count} episodes" %>
+        </div>
+        <div class="flex-auto">
+          <h2 class="m0 h2"><%= link_to(@channel.title, slugged_channel_path(@channel), class: 'black') %></h2>
+          <h4 class="mt0 mb2 gray regular h4">
+            <%= "#{@channel.episodes.count} episodes" %>
             <% @channel.categories.each do |c| %>
               ∙
               <%= c.to_s %>
             <% end %>
           </h4>
-    <% if @channel.summary? %>
+          <% if @channel.summary? %>
             <p><%= @channel.summary %></p>
-    <% end %>
-            <%= link_to(@channel.website_url, @channel.website_url, class: "black block") if @channel.website_url %>
-          </div>
+          <% end %>
+          <%= link_to(@channel.website_url, @channel.website_url, class: "black block") if @channel.website_url %>
         </div>
       </div>
+    </div>
   </div>
 </div>
 </div>
