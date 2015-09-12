@@ -43,11 +43,11 @@ meta({
             <h2 class="h5 m0 black">
           <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'black') %>
             </h2>
-          <p class="h6 gray m0">
+          <h4 class="h6 regular gray m0">
             <%= "#{time_ago_in_words(t.created_at)} ago" %>
-            ⁃
+            ∙
             <%= distance_of_time_in_words(t.length) %>
-          </p>
+          </h4>
         </div>
       </div>
     </div>
