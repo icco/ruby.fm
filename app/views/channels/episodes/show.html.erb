@@ -4,7 +4,7 @@
   og: {
     title: "#{@episode.title} — #{@channel.title}",
     type: 'music.song',
-    url: episode_url(@episode),
+    url: episode_url(@episode) + '/',
     image: Imgix.client.path(@episode.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
     audio: {
       url: @episode.audio_url,
