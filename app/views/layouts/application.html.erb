@@ -40,10 +40,10 @@
 
       <nav class="clearfix border-bottom">
         <div class="container">
-        <div class="sm-col">
+        <div class="col">
           <%= link_to("ruby.fm", root_path, class:"btn btn-transparent py2") %>
         </div>
-        <div class="sm-col-right">
+        <div class="col-right">
           <% if user_signed_in? %>
             <%= link_to(primary_channel.title, channel_path(primary_channel), class: "btn btn-transparent py2") %>
           <% else %>
