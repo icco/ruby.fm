@@ -1,19 +1,18 @@
 <%
-meta({
-  title: @channel.title,
-    description: if @channel.summary then @channel.summary else "#{@channel.episodes.visible.count} episodes of #{@channel.title}. By #{@channel.author}." end,
-    og: {
-      title: @channel.title,
-      type: 'profile',
-      # TODO: If there is a channel image, pass it in here
-      # image: ""
-    },
+  meta title: @channel.title,
+  description: truncate(strip_tags(markdown(@channel.summary).squish), length: 160),
+  og: {
+    title: @channel.title,
+    type: 'profile',
+    url: slugged_channel_url(@channel.slug),
+    image: Imgix.client.path(@channel.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
+    description: truncate(strip_tags(markdown(@channel.summary).squish), length: 300),
+    site_name: "Ruby.fm",
+  },
   twitter: {
-    #card: "summary",
-    #site: "@alexbaldwin"
   }
-})
 %>
+
 <% content_for :favicon do %>
   <% if @channel.image? %>
     <%= Imgix.client.path(@channel.image.current_path).width(32).height(32).fit('crop').fm('png32').to_url %>
