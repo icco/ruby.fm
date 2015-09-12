@@ -22,10 +22,10 @@
 <div class="container">
 <div class="clearfix">
   <div class="sm-col-12 md-col-8 lg-col-6 mx-auto">
-    <%= image_tag(Imgix.client.path(@episode.image.current_path).h(512).w(512).bri(20).blur(1000).fit('crop').to_url, style: 'position: absolute; left: 0; right: 0; height: 512px; z-index: -1; width: 100vw; ') if @episode.image? %>
+    <div class="episode-background" style="background-image: url(<%= Imgix.client.path(@episode.image.current_path).h(512).w(512).bri(20).blur(1000).fit('crop').to_url if @episode.image? %>)"></div>
     <div class="relative">
-    <%= image_tag(Imgix.client.path(@episode.image.current_path).h(512).w(512).fit('crop').to_url, height: 512, width: 512, style: 'background: black; cursor: pointer', class: 'mx-auto block  js-art') if @episode.image? %>
-    <%= image_tag('play.svg', class: 'js-art js-hide-show', style: 'cursor: pointer; filter: drop-shadow( 0 1px 3pc rgba(0,0,0,.4) ); -webkit-filter: drop-shadow( 0 1px 3px rgba(0,0,0,.4));  width: 250px; height: 250px; fill: #fff; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);') %>
+    <%= image_tag(Imgix.client.path(@episode.image.current_path).h(512).w(512).fit('crop').to_url, height: 512, width: 512, style: 'background: black; cursor: pointer', class: 'mx-auto block js-art episode-art') if @episode.image? %>
+    <%= image_tag('play.svg', class: 'js-art js-hide-show episode-play') %>
   </div>
     <div class="player" class="mb1" style="height: 1.5rem;">
       <audio controls preload="auto">
