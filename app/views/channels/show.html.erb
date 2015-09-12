@@ -4,6 +4,7 @@ meta({
     description: if @channel.summary then @channel.summary else "#{@channel.episodes.visible.count} episodes of #{@channel.title}. By #{@channel.author}." end,
     og: {
       title: @channel.title,
+      type: 'profile',
       # TODO: If there is a channel image, pass it in here
       # image: ""
     },
