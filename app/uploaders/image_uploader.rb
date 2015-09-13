@@ -6,7 +6,7 @@ class ImageUploader < CarrierWave::Uploader::Base
   storage :fog
 
   def default_s3_path
-    "/images/fallback.jpg"
+    "images/fallback.jpg"
   end
 
   def s3_path
