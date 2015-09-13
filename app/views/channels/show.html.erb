@@ -3,6 +3,7 @@
     title: @channel.title,
     og: {
       title: @channel.title,
+      image: Imgix.client.path(@channel.image.s3_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
       type: 'profile',
       url: slugged_channel_url(@channel.slug),
       site_name: "Ruby.fm",
@@ -10,10 +11,6 @@
     twitter: {
     }
   }
-
-  if @channel.image?
-    hash[:og][:image] = Imgix.client.path(@channel.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url
-  end
 
   if @channel.summary.present?
     stripped = strip_tags(markdown(@channel.summary).squish)
@@ -27,9 +24,7 @@
 %>
 
 <% content_for :favicon do %>
-  <% if @channel.image? %>
-    <%= Imgix.client.path(@channel.image.current_path).width(32).height(32).fit('crop').fm('png32').to_url %>
-  <% end %>
+  <%= Imgix.client.path(@channel.image.s3_path).width(32).height(32).fit('crop').fm('png32').to_url %>
 <% end %>
 
 <header class="py2 mt2">
@@ -37,7 +32,7 @@
       <div class="flex flex-center py2">
         <div class="flex-none">
           <%= link_to slugged_channel_path(@channel) do %>
-            <%= image_tag(Imgix.client.path(@channel.image.current_path).h(128).w(128).fit('crop').mask('ellipse').to_url, class: 'mb0 mr2') if @channel.image? %>
+            <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').to_url, class: 'mb0 mr2') if @channel.image? %>
           <% end %>
 
         </div>
@@ -70,7 +65,7 @@
     <div class="flex col-6 md-col-4 lg-col-3 p2 border-box">
       <div class="">
         <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
-          <%= image_tag(Imgix.client.path(t.image.current_path).fit('crop').width(400).height(400).to_url, class: 'col-12 border') if t.image? %>
+          <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'col-12 border') if t.image? %>
         <% end %>
           <div class="py1">
             <h2 class="h5 m0 black">

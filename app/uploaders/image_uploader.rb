@@ -5,6 +5,14 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   storage :fog
 
+  def default_s3_path
+    "/images/fallback.jpg"
+  end
+
+  def s3_path
+    current_path || default_s3_path
+  end
+
   def default_url
     "https://rubyfm-blobs.s3.amazonaws.com/images/fallback.jpg"
   end

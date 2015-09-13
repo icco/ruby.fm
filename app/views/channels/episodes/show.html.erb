@@ -4,6 +4,7 @@
     og: {
       title: @episode.title,
       type: 'music.song',
+      image: Imgix.client.path(@episode.image.s3_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
       url: slugged_channel_episode_url(@channel.slug, @episode.slug),
       audio: {
         url: @episode.audio_url,
@@ -22,10 +23,6 @@
     }
   }
 
-  if @episode.image?
-    hash[:og][:image] = Imgix.client.path(@episode.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url
-  end
-
   if @episode.notes.present?
     stripped = strip_tags(markdown(@episode.notes).squish)
     hash[:description] = truncate(stripped, length: 160)
@@ -38,15 +35,15 @@
 %>
 
 <% content_for :favicon do %>
-  <%= Imgix.client.path(@episode.image.current_path).w(32).h(32).fit('crop').fm('png32').to_url if @episode.image? %>
+  <%= Imgix.client.path(@episode.image.s3_path).w(32).h(32).fit('crop').fm('png32').to_url if @episode.image? %>
 <% end %>
 
 <div class="container">
   <div class="clearfix">
     <div class="sm-col-12 md-col-8 lg-col-6 mx-auto">
-      <div class="episode-background" style="background-image: url(<%= Imgix.client.path(@episode.image.current_path).w(512).bri(20).blur(200).q(50).fm('pjpg').to_url if @episode.image? %>)"></div>
+      <div class="episode-background" style="background-image: url(<%= Imgix.client.path(@episode.image.s3_path).w(512).bri(20).blur(200).q(50).fm('pjpg').to_url if @episode.image? %>)"></div>
       <div class="relative">
-        <%= image_tag(Imgix.client.path(@episode.image.current_path).h(512).w(512).fit('crop').fm('pjpg').to_url, height: 512, width: 512, style: 'background: black; cursor: pointer', class: 'mx-auto block js-art episode-art') if @episode.image? %>
+        <%= image_tag(Imgix.client.path(@episode.image.s3_path).h(512).w(512).fit('crop').fm('pjpg').to_url, height: 512, width: 512, style: 'background: black; cursor: pointer', class: 'mx-auto block js-art episode-art') if @episode.image? %>
         <%= image_tag('play.svg', class: 'js-art js-hide-show episode-play') %>
       </div>
       <div class="player mb1" style="height: 1.5rem;">
@@ -97,7 +94,7 @@
             </p>
           </div>
           <div class="flex-none">
-            <%= image_tag(Imgix.client.path(e.image.current_path).h(48).w(48).fit('crop').to_url, class: 'block border') if e.image? %>
+            <%= image_tag(Imgix.client.path(e.image.s3_path).h(48).w(48).fit('crop').to_url, class: 'block border') if e.image? %>
           </div>
         </div>
       <% end %>
@@ -107,7 +104,7 @@
       <div class="flex flex-center py2">
         <div class="flex-none mr2">
           <%= link_to slugged_channel_path(@channel) do %>
-            <%= image_tag(Imgix.client.path(@channel.image.current_path).h(128).w(128).fit('crop').mask('ellipse').to_url, class: 'mb0') if @channel.image? %>
+            <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').to_url, class: 'mb0') if @channel.image? %>
           <% end %>
         </div>
         <div class="flex-auto">
