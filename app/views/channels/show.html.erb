@@ -4,9 +4,10 @@
     og: {
       title: @channel.title,
       image: Imgix.client.path(@channel.image.s3_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
-      type: 'profile',
+      type: 'website',
       url: slugged_channel_url(@channel.slug),
       site_name: "Ruby.fm",
+      updated_time: @episode.created_at.to_time.iso8601,
     },
     twitter: {
     }
