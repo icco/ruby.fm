@@ -1,27 +1,37 @@
 <%
-  meta title: "#{@episode.title} — #{@channel.title}",
-  description: truncate(strip_tags(markdown(@episode.notes).squish), length: 160),
-  og: {
-    title: @episode.title,
-    type: 'music.song',
-    url: slugged_channel_episode_url(@channel.slug, @episode.slug),
-    image: Imgix.client.path(@episode.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
-    audio: {
-      url: @episode.audio_url,
-      secure_url: @episode.audio_url,
-      type: "audio/mpeg"
+  hash = {
+    title: "#{@episode.title} — #{@channel.title}",
+    og: {
+      title: @episode.title,
+      type: 'music.song',
+      url: slugged_channel_episode_url(@channel.slug, @episode.slug),
+      image: Imgix.client.path(@episode.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
+      audio: {
+        url: @episode.audio_url,
+        secure_url: @episode.audio_url,
+        type: "audio/mpeg"
+      },
+      site_name: "Ruby.fm",
+      updated_time: @episode.created_at.to_time.iso8601,
+      music: {
+        musician: slugged_channel_url(@channel),
+        release_date: @episode.created_at.to_time.iso8601,
+        duration: @episode.length
+      },
     },
-    description: truncate(strip_tags(markdown(@episode.notes).squish), length: 300),
-    site_name: "Ruby.fm",
-    updated_time: @episode.created_at.to_time.iso8601,
-    music: {
-      musician: slugged_channel_url(@channel),
-      release_date: @episode.created_at.to_time.iso8601,
-      duration: @episode.length
-    },
-  },
-  twitter: {
+    twitter: {
+    }
   }
+
+  if @episode.notes.present?
+    stripped = strip_tags(markdown(@episode.notes).squish)
+    hash[:description] = truncate(stripped, length: 160)
+    hash[:og][:description] = truncate(stripped, length: 300)
+  else
+    hash[:description] = ""
+  end
+
+  meta(hash)
 %>
 
 <% content_for :favicon do %>
