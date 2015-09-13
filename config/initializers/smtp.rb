@@ -1,0 +1,2 @@
+SMTP_SETTINGS = {
+}
