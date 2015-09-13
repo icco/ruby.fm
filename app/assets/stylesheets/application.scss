@@ -93,3 +93,9 @@ p a:focus, li a:focus {
 .episode-art {
   -webkit-box-shadow: -30px 0px 100px -40px rgba(0, 0, 0, 0.4), 30px 0px 100px -40px rgba(0, 0, 0, 0.4);
 }
+
+@media (min-width: 52em) {
+  ul, ol {
+    padding-left: 0;
+  }
+}
