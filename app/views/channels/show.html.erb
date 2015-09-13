@@ -5,12 +5,16 @@
       title: @channel.title,
       type: 'profile',
       url: slugged_channel_url(@channel.slug),
-      image: Imgix.client.path(@channel.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
       site_name: "Ruby.fm",
     },
     twitter: {
     }
   }
+
+  if @channel.image?
+    hash[:og][:image] = Imgix.client.path(@channel.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url
+  end
+
   if @channel.summary.present?
     stripped = strip_tags(markdown(@channel.summary).squish)
     hash[:description] = truncate(stripped, length: 160)

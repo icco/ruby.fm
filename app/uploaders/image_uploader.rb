@@ -5,6 +5,10 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   storage :fog
 
+  def default_url
+    "https://rubyfm-blobs.s3.amazonaws.com/images/fallback.jpg"
+  end
+
   def store_dir
     "images/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
