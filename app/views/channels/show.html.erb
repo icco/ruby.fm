@@ -44,7 +44,7 @@
         <div class="flex-auto sm-col col-9">
           <h1 class="m0 h1"><%= link_to(@channel.title, slugged_channel_path(@channel), class: 'black') %></h2>
           <h4 class="mt0 mb2 gray regular h4">
-            <%= "#{@channel.episodes.count} episodes" %>
+            <%= pluralize(@channel.episodes.count, 'episode') %>
             <% @channel.categories.each do |c| %>
               ∙
               <%= c.to_s %>
