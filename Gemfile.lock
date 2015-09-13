@@ -323,6 +323,7 @@ DEPENDENCIES
   mini_magick (~> 4.2.4)
   minitest-rails (~> 2.1.1)
   mocha (~> 1.1.0)
+  nokogiri (~> 1.5)
   oj (~> 2.12.4)
   pg (~> 0.18.1)
   puma (~> 2.11.1)

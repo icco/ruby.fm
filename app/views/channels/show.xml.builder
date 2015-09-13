@@ -45,12 +45,12 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
       xml.item do
         xml.title(podcast.title)
         xml.itunes(:author, @channel.author)
-        xml.itunes(:subtitle, truncate(podcast.notes, length: 100, separator: ' '))
+        xml.itunes(:subtitle, Nokogiri::HTML.parse(truncate(strip_tags(markdown(podcast.notes)), length: 100, separator: ' ')).text.to_s)
 
         unless podcast.notes.blank?
           xml.itunes(:summary) do
             # Needs to be able to escape <a>s
-            xml.cdata!(truncate(strip_tags(markdown(podcast.notes)), length: 4000))
+            xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(markdown(podcast.notes)), length: 4000)).text.to_s)
           end
         end
 
