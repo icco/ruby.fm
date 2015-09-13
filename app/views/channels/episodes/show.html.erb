@@ -3,7 +3,7 @@
     title: "#{@episode.title} — #{@channel.title}",
     og: {
       title: @episode.title,
-      type: 'music.song',
+      type: 'website',
       image: Imgix.client.path(@episode.image.s3_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
       url: slugged_channel_episode_url(@channel.slug, @episode.slug),
       audio: {
@@ -13,11 +13,6 @@
       },
       site_name: "Ruby.fm",
       updated_time: @episode.created_at.to_time.iso8601,
-      music: {
-        musician: slugged_channel_url(@channel),
-        release_date: @episode.created_at.to_time.iso8601,
-        duration: @episode.length
-      },
     },
     twitter: {
     }
