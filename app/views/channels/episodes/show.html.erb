@@ -5,7 +5,6 @@
       title: @episode.title,
       type: 'music.song',
       url: slugged_channel_episode_url(@channel.slug, @episode.slug),
-      image: Imgix.client.path(@episode.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url,
       audio: {
         url: @episode.audio_url,
         secure_url: @episode.audio_url,
@@ -22,6 +21,10 @@
     twitter: {
     }
   }
+
+  if @episode.image?
+    hash[:og][:image] = Imgix.client.path(@episode.image.current_path).w(1200).h(1200).fit('crop').q(50).fm('pjpg').to_url
+  end
 
   if @episode.notes.present?
     stripped = strip_tags(markdown(@episode.notes).squish)
