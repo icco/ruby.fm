@@ -32,7 +32,7 @@
       <div class="flex flex-center py2">
         <div class="flex-none">
           <%= link_to slugged_channel_path(@channel) do %>
-            <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').to_url, class: 'mb0 mr2') if @channel.image? %>
+            <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').to_url, class: 'mb0 mr2') %>
           <% end %>
 
         </div>
@@ -65,11 +65,11 @@
     <div class="flex col-6 md-col-4 lg-col-3 p2 border-box">
       <div class="">
         <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
-          <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'col-12 border') if t.image? %>
+          <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'col-12 border') %>
         <% end %>
           <div class="py1">
             <h2 class="h5 m0 black">
-          <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'black') %>
+              <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'black') %>
             </h2>
           <h4 class="h6 regular gray m0">
             <%= "#{time_ago_in_words(t.created_at)} ago" %>
