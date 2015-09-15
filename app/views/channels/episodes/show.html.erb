@@ -40,7 +40,7 @@
         <%= image_tag(Imgix.client.path(@episode.image.s3_path).h(512).w(512).fit('crop').fm('pjpg').to_url, height: 512, width: 512, style: 'background: black; cursor: pointer', class: 'mx-auto block js-art episode-art') %>
         <%= image_tag('play.svg', class: 'js-art js-hide-show episode-play') %>
       </div>
-      <div class="player mb1" style="height: 1.5rem;">
+      <div class="player">
         <audio controls preload="auto">
           <source src="<%= @episode.audio %>" type="audio/mp3">
         </audio>
@@ -50,89 +50,101 @@
         <progress class='player-progress-buffer' max='100' value='0'>
         </progress>
       </div>
-      <div class="px2">
-      <header class="py2 mb2 mt2 flex flex-center">
-        <div class="flex-auto">
-          <h1 class="m0">
-            <%= @episode.title %>
-            <span class="regular"><%= @episode.visible? ? '' : '(Not Visible)' %></span>
-          </h1>
-          <h4 class="gray m0 regular">
-            <%= "#{time_ago_in_words(@episode.created_at)} ago" %>
-            ∙
-            <%= distance_of_time_in_words(@episode.length) %>
-          </h4>
+    </div>
+  </div>
+  <div class="clearfix">
+    <div class="flex mxn2">
+    <div class="sm-col-12 md-col-12 lg-col-6 py4 px2">
+        <header class="flex flex-center">
+          <div class="flex-auto">
+            <h1 class="m0">
+              <%= @episode.title %>
+              <span class=""><%= @episode.visible? ? '' : '(Not Visible)' %></span>
+            </h1>
+            <h4 class="m0 mb2 gray">
+              <%= "#{time_ago_in_words(@episode.created_at)} ago" %>
+              ∙
+              <%= distance_of_time_in_words(@episode.length) %>
+            </h4>
           </div>
           <% if policy(@channel).update? %>
             <div class="flex-none ml2">
               <%= link_to 'Edit', edit_episode_path(@episode.id), class: "right caps h6 bold btn btn-outline"  %>
             </div>
           <% end %>
-      </header>
+        </header>
 
-      <% if @episode.notes %>
-        <%= markdown(@episode.notes) %>
-      <% end %>
+        <% if @episode.notes %>
+          <%= markdown(@episode.notes) %>
+        <% end %>
 
-      <%= link_to('↓ Download', @episode.audio_url, class: 'btn btn-outline mb2') %>
-
-    <div class="border-top">
-      <% @channel.episodes.where.not(id: @episode.id).order(created_at: :desc).first(3).each do |e| %>
-        <div class="flex flex-center py2 border-bottom">
-          <div class="flex-auto">
-            <h3 class="m0 h4"><%= link_to(e.title, slugged_channel_episode_path(@channel.slug, e.slug), class: 'black') %></h3>
-            <p class="h5 gray m0">
-              <%= "#{time_ago_in_words(e.created_at)} ago" %>
-              ⁃
-              <%= distance_of_time_in_words(e.length) %>
-            </p>
-          </div>
-          <div class="flex-none">
-            <%= image_tag(Imgix.client.path(e.image.s3_path).h(48).w(48).fit('crop').to_url, class: 'block border') %>
-          </div>
-        </div>
-      <% end %>
+        <%= link_to('↓ Download', @episode.audio_url, class: 'btn btn-outline mb2') %>
     </div>
 
-    <div class="border-bottom">
-      <div class="flex flex-center py2">
-        <div class="flex-none mr2">
-          <%= link_to slugged_channel_path(@channel) do %>
-            <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').to_url, class: 'mb0') %>
-          <% end %>
-        </div>
-        <div class="flex-auto">
-          <h2 class="m0 h2"><%= link_to(@channel.title, slugged_channel_path(@channel), class: 'black') %></h2>
-          <h4 class="mt0 mb2 gray regular h4">
-            <%= pluralize(@channel.episodes.count, 'episode') %>
-            <% @channel.categories.each do |c| %>
-              ∙
-              <%= c.to_s %>
+    <div class="flex sm-col-12 md-col-12 lg-col-6 px2 py4" style="border-left: 1px solid #E1E4E5; background-color: #F2F5F8;">
+      <div class="col-12">
+        <div class="flex flex-center">
+          <div class="flex-none mr2">
+            <%= link_to slugged_channel_path(@channel) do %>
+              <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').fm('png').to_url, class: 'mb0') %>
             <% end %>
-          </h4>
-          <% if @channel.summary? %>
-            <p><%= @channel.summary %></p>
-          <% end %>
-          <%= link_to(@channel.website_url, @channel.website_url, class: "black block") if @channel.website_url %>
+          </div>
+          <div class="flex-auto">
+            <h2 class="m0 h2"><%= link_to(@channel.title, slugged_channel_path(@channel), class: 'black') %></h2>
+            <h4 class="mt0 mb2 gray regular h4">
+              <%= pluralize(@channel.episodes.count, 'episode') %>
+              <% @channel.categories.each do |c| %>
+                ∙
+                <%= c.to_s %>
+              <% end %>
+            </h4>
+            <% if @channel.summary? %>
+              <p><%= @channel.summary %></p>
+            <% end %>
+            <%= link_to(@channel.website_url, @channel.website_url, class: "black block") if @channel.website_url %>
+          </div>
         </div>
-      </div>
+        </div>
     </div>
   </div>
 </div>
-</div>
-</div>
+<div class="border-top p2">
+  <h4 class="caps mt2 mb2 block h6 center">More from <%= @channel.title %></h4>
+<section class="flex flex-wrap mxn2">
+      <% @channel.episodes.where.not(id: @episode.id).order(created_at: :desc).first(4).each do |t| %>
+    <div class="flex col-6 md-col-4 lg-col-3 p2 border-box">
+      <div class="">
+        <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
+          <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'col-12 border') %>
+        <% end %>
+          <div class="py1">
+            <h2 class="h5 m0 black">
+              <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'black') %>
+            </h2>
+          <h4 class="h6 regular gray m0">
+            <%= "#{time_ago_in_words(t.created_at)} ago" %>
+            ∙
+            <%= distance_of_time_in_words(t.length) %>
+          </h4>
+        </div>
+      </div>
+    </div>
+      <% end %>
+  </section>
+    </div>
 
-<script>
-  plyr.setup(
-    {
-    html: ["<div class='player-controls'>", "</div>"].join("\n")
-  }
-  );
-</script>
-<script>
-  // Album art on-click plays or pauses
-$(".js-art").click(function() {
-  document.querySelectorAll(".player")[0].plyr.togglePlay();
-  $(".js-hide-show").toggle();
-});
+
+  <script>
+    plyr.setup(
+      {
+      html: ["<div class='player-controls'>", "</div>"].join("\n")
+    }
+    );
+  </script>
+  <script>
+    // Album art on-click plays or pauses
+  $(".js-art").click(function() {
+    document.querySelectorAll(".player")[0].plyr.togglePlay();
+    $(".js-hide-show").toggle();
+  });
 </script>

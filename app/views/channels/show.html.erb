@@ -32,12 +32,12 @@
       <div class="flex flex-center py2">
         <div class="flex-none">
           <%= link_to slugged_channel_path(@channel) do %>
-            <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').to_url, class: 'mb0 mr2') %>
+            <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').fm('png').to_url, class: 'mb0 mr2') %>
           <% end %>
 
         </div>
         <div class="flex-auto sm-col col-9">
-          <h1 class="m0 h1"><%= link_to(@channel.title, slugged_channel_path(@channel), class: 'black') %></h2>
+          <h1 class="m0 h1"><%= @channel.title %></h1>
           <h4 class="mt0 mb2 gray regular h4">
             <%= pluralize(@channel.episodes.count, 'episode') %>
             <% @channel.categories.each do |c| %>
