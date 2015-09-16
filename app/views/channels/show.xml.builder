@@ -14,7 +14,7 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
     xml.language('en-us')
 
     # Need to do valid XML character matching http://www.xml.com/axml/target.html#sec-references
-    xml.copyright("&#xA9; #{Time.now.year} #{@channel.author}")
+    xml.copyright("© #{Time.now.year} #{@channel.author}")
     xml.itunes(:author, @channel.author)
     xml.itunes(:explicit, (@channel.episodes.any? { |p| p.explicit }) ? 'yes' : 'no')
     unless @channel.summary.blank?
