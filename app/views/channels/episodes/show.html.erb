@@ -54,7 +54,7 @@
   </div>
   <div class="clearfix">
     <div class="flex mxn2">
-    <div class="sm-col-12 md-col-12 lg-col-6 py4 px2">
+    <div class="sm-col-12 md-col-12 lg-col-6 p4">
         <header class="flex flex-center">
           <div class="flex-auto">
             <h1 class="m0">
@@ -81,15 +81,13 @@
         <%= link_to('↓ Download', @episode.audio_url, class: 'btn btn-outline mb2') %>
     </div>
 
-    <div class="flex sm-col-12 md-col-12 lg-col-6 px2 py4" style="border-left: 1px solid #E1E4E5; background-color: #F2F5F8;">
-      <div class="col-12">
+          <div style="position: absolute; left: -5000px;"><input type="text" name="b_772a21ec21a471387f298f0ab_a29584e1c6" tabindex="-1" value=""></div>
+    <div class="flex sm-col-12 md-col-12 lg-col-6 p4" style="border-left: 1px solid #E1E4E5; background-color: #F2F5F8;">
         <div class="flex flex-center">
-          <div class="flex-none mr2">
+          <div>
             <%= link_to slugged_channel_path(@channel) do %>
-              <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').fm('png').to_url, class: 'mb0') %>
+              <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').fm('png').to_url, class: 'mb2') %>
             <% end %>
-          </div>
-          <div class="flex-auto">
             <h2 class="m0 h2"><%= link_to(@channel.title, slugged_channel_path(@channel), class: 'black') %></h2>
             <h4 class="mt0 mb2 gray regular h4">
               <%= pluralize(@channel.episodes.count, 'episode') %>
@@ -104,13 +102,12 @@
             <%= link_to(@channel.website_url, @channel.website_url, class: "black block") if @channel.website_url %>
           </div>
         </div>
-        </div>
     </div>
   </div>
 </div>
 <div class="border-top p2">
   <h4 class="caps mt2 mb2 block h6 center">More from <%= @channel.title %></h4>
-<section class="flex flex-wrap mxn2">
+<section class="flex flex-wrap mxn4">
       <% @channel.episodes.where.not(id: @episode.id).order(created_at: :desc).first(4).each do |t| %>
     <div class="flex col-6 md-col-4 lg-col-3 p2 border-box">
       <div class="">
