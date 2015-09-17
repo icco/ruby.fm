@@ -14,18 +14,18 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
     xml.language('en-us')
 
     # Need to do valid XML character matching http://www.xml.com/axml/target.html#sec-references
-    xml.copyright("© #{Time.now.year} #{@channel.author}")
+    xml.copyright("© #{Time.now.year} #{utf8_clean(@channel.author)}")
     xml.itunes(:author, @channel.author)
     xml.itunes(:explicit, (@channel.episodes.any? { |p| p.explicit }) ? 'yes' : 'no')
     unless @channel.summary.blank?
       xml.itunes(:summary) do
-        summary = @channel.summary.encode('UTF-8', :invalid => :replace, :undef => :replace)
+        summary = utf8_clean(@channel.summary)
         xml.cdata!(summary)
       end
     end
 
     xml.itunes(:owner) do
-      xml.itunes(:name, @channel.author)
+      xml.itunes(:name, utf8_clean(@channel.author))
       xml.itunes(:email, @channel.user.email)
     end
 
@@ -47,10 +47,10 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
 
     @episodes.each do |podcast|
       xml.item do
-        xml.title(podcast.title)
+        xml.title(utf8_clean(podcast.title))
         xml.itunes(:author, @channel.author)
         unless podcast.notes.blank?
-          notes = podcast.notes.encode('UTF-8', :invalid => :replace, :undef => :replace)
+          notes = utf8_clean(podcast.notes)
           xml.itunes(:subtitle, Nokogiri::HTML.parse(truncate(strip_tags(markdown(notes)), length: 100, separator: ' ')).text.to_s)
           xml.itunes(:summary) do
             # Needs to be able to escape <a>s
