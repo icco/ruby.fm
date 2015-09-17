@@ -29,7 +29,8 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
     end
 
     if @channel.image?
-      xml.itunes(:image, href: Imgix.client.path(@channel.image.current_path).fit('crop').width(2048).height(2048).to_url.gsub(/\Ahttps/, 'http'))
+      url = Imgix.client.path(@channel.image.current_path).fit('crop').width(2048).height(2048).to_url
+      xml.itunes(:image, href: url.gsub(/\Ahttps/, 'http'))
     end
 
     @channel.single_categories.each do |category|
@@ -60,7 +61,8 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
         # a maximum size of 2048 x 2048 pixels
         # https://www.apple.com/itunes/podcasts/specs.html#image
         if podcast.image?
-          xml.itunes(:image, :href => Imgix.client.path(podcast.image.current_path).fit('crop').width(2048).height(2048).to_url)
+          url = Imgix.client.path(podcast.image.current_path).fit('crop').width(2048).height(2048).to_url
+          xml.itunes(:image, href: url.gsub(/\Ahttps/, 'http'))
         end
 
         xml.itunes(:explicit, podcast.explicit ? 'yes' : 'no')
