@@ -14,8 +14,6 @@ class ApplicationHelperTest < Minitest::Test
 
     result = @subject.utf8_clean(bad)
 
-    puts result
-
     assert(result.include?("ᄇ"), "expected ᄇ to still be present")
     assert(result.include?("ᅡ"), "expected ᅡ to still be present")
   end
