@@ -27,7 +27,7 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
     end
 
     if @channel.image?
-      xml.itunes(:image, :href => Imgix.client.path(@channel.image.current_path).fit('crop').width(2048).height(2048).to_url)
+      xml.itunes(:image, href: Imgix.client.path(@channel.image.current_path).fit('crop').width(2048).height(2048).to_url.gsub(/\Ahttps/, 'http'))
     end
 
     @channel.single_categories.each do |category|
