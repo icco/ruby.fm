@@ -19,7 +19,8 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
     xml.itunes(:explicit, (@channel.episodes.any? { |p| p.explicit }) ? 'yes' : 'no')
     unless @channel.summary.blank?
       xml.itunes(:summary) do
-        xml.cdata!(@channel.summary)
+        summary = @channel.summary.encode('UTF-8', :invalid => :replace, :undef => :replace)
+        xml.cdata!(summary)
       end
     end
 
@@ -48,12 +49,12 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
       xml.item do
         xml.title(podcast.title)
         xml.itunes(:author, @channel.author)
-        xml.itunes(:subtitle, Nokogiri::HTML.parse(truncate(strip_tags(markdown(podcast.notes)), length: 100, separator: ' ')).text.to_s)
-
         unless podcast.notes.blank?
+          notes = podcast.notes.encode('UTF-8', :invalid => :replace, :undef => :replace)
+          xml.itunes(:subtitle, Nokogiri::HTML.parse(truncate(strip_tags(markdown(notes)), length: 100, separator: ' ')).text.to_s)
           xml.itunes(:summary) do
             # Needs to be able to escape <a>s
-            xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(markdown(podcast.notes)), length: 4000)).text.to_s)
+            xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(markdown(notes)), length: 4000)).text.to_s)
           end
         end
 

@@ -35,6 +35,10 @@ class Episode < ActiveRecord::Base
     self.audio.to_s
   end
 
+  def clean_notes
+    self.notes.encode('UTF-8', :invalid => :replace, :undef => :replace)
+  end
+
   def validate_minimum_dimensions
     return true unless image_changed? && image.try(:file)
 
