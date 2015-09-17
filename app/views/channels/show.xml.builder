@@ -68,8 +68,8 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
         xml.itunes(:explicit, podcast.explicit ? 'yes' : 'no')
 
         # Valid formats are M4A, MP3, MOV, MP4, M4V, PDF, and EPUB
-        xml.enclosure(url: podcast.audio, length: podcast.audio.size, type: "audio/mpeg")
-        xml.guid(podcast.id)
+        xml.enclosure(url: podcast.http_audio_url, length: podcast.audio.size, type: "audio/mpeg")
+        xml.guid(podcast.http_audio_url)
 
         if podcast.aired_at
           xml.pubDate(podcast.aired_at.rfc2822)

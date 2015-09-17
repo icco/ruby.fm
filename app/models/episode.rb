@@ -18,7 +18,7 @@ class Episode < ActiveRecord::Base
   scope(:not_visible, -> { where(visible: false) })
 
   scope(:recent, -> { order(created_at: :desc) })
-  
+
   # TODO: This is nice but aired_at should override created_at
   # We could also have aired_at default to created_at and then be
   # easily over-rideable
@@ -26,6 +26,14 @@ class Episode < ActiveRecord::Base
 
   mount_uploader(:audio, AudioUploader)
   mount_uploader(:image, ImageUploader)
+
+  def http_audio_url
+    https_audio_url.gsub(/\Ahttps/, 'http')
+  end
+
+  def https_audio_url
+    self.audio.to_s
+  end
 
   def validate_minimum_dimensions
     return true unless image_changed? && image.try(:file)
