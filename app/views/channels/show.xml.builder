@@ -19,7 +19,7 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
     xml.itunes(:explicit, (@channel.episodes.any? { |p| p.explicit }) ? 'yes' : 'no')
     unless @channel.summary.blank?
       xml.itunes(:summary) do
-        ml.cdata!(@channel.summary)
+        xml.cdata!(@channel.summary)
       end
     end
 
