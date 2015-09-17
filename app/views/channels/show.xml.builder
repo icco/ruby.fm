@@ -1,4 +1,4 @@
-# Needs to be specc'd against https://www.apple.com/itunes/podcasts/specs.html
+# Needs to be specc'd against https://www.apple.com/itunes/podcasts/specs.htmlZZ
 xml.instruct!
 xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version: '2.0' do
   xml.channel do
@@ -57,7 +57,7 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
 
     @episodes.each do |podcast|
       xml.item do
-        xml.title(utf8_clean(podcast.title))
+        xml.title(Nokogiri::HTML.parse(utf8_clean(podcast.title)).text.to_s)
         xml.itunes(:author, @channel.author)
         unless podcast.notes.blank?
           notes = utf8_clean(podcast.notes)
