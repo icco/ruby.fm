@@ -13,7 +13,7 @@ class RegistrationsController < Devise::RegistrationsController
           sign_in(:user, @signup.user)
           flash[:notice] = I18n.t('devise.registrations.signed_up')
 
-          redriect_to(slugged_channel_url(@signup.channel.slug))
+          redirect_to(slugged_channel_url(@signup.channel.slug))
         end
       else
         format.html do
