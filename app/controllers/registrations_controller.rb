@@ -5,7 +5,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def create
-    @signup = Signup.new(params[:signup])
+    @signup = Signup.new(signup_params)
 
     respond_to do |format|
       if @signup.save
@@ -16,12 +16,16 @@ class RegistrationsController < Devise::RegistrationsController
           redirect_to(slugged_channel_url(@signup.channel.slug))
         end
       else
-        format.html do
+        format.any do
           flash[:error] = I18n.t('devise.registrations.failed')
-          render(action: :new, status: 400)
+          render(action: :new, status: 400, format: :html)
         end
       end
     end
+  end
+
+  def signup_params
+    params.fetch(:signup, {}).permit(:email, :password, :full_name, :channel_name)
   end
 
   def update
