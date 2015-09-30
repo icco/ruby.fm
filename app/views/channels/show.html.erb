@@ -51,7 +51,7 @@
           <%= link_to(@channel.website_url, @channel.website_url, class: "black block") if @channel.website_url %>
 
   <% if policy(@channel).update? %>
-    <%= link_to("+ Upload New Episode", edit_channel_path(primary_channel), class: "mt2 btn btn-primary") %>
+    <%= link_to("+ Upload New Episode", new_channel_episode_path(primary_channel), class: "mt2 btn btn-primary") %>
     <%= link_to("Edit Settings", edit_channel_path(primary_channel), class: "mt2 btn btn-outline") %>
   <% end %>
         </div>

@@ -21,14 +21,14 @@ xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version:
     # Spec says we gotta have both summary and description. Weeeeee.
     xml.itunes(:summary) do
       if @channel.summary.blank?
-        xml.cdata!(summary)
+        xml.cdata!("#{@channel.title} by #{@channel.author} with #{pluralize(@channel.episodes.count, 'episode')}")
       else
         xml.cdata!(utf8_clean(@channel.summary))
       end
     end
     xml.description do
       if @channel.summary.blank?
-        xml.cdata!(summary)
+        xml.cdata!("#{@channel.title} by #{@channel.author} with #{pluralize(@channel.episodes.count, 'episode')}")
       else
         xml.cdata!(utf8_clean(@channel.summary))
       end
