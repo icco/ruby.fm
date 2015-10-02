@@ -1,7 +1,9 @@
 # Needs to be specc'd against https://www.apple.com/itunes/podcasts/specs.html
 xml.instruct!
-xml.rss 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', version: '2.0' do
+xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcast-1.0.dtd', 'xmlns:atom' => 'http://www.w3.org/2005/Atom' do
   xml.channel do
+    # <atom:link href="http://dallas.example.com/rss.xml" rel="self" type="application/rss+xml" />
+    xml.tag! 'atom:link', :rel => 'self', :type => 'application/rss+xml', :href => slugged_channel_url(@channel.id, format: :xml)
     xml.title(@channel.title)
 
     if @channel.website_url.blank?
