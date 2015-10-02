@@ -39,12 +39,6 @@ class EpisodesController < ApplicationController
     end
   end
 
-  def destroy
-    respond_to do |format|
-      format.html
-    end
-  end
-
   def episode_params
     params.fetch(:episode, {}).permit(:title, :image, :image_cache, :notes, :visible, :length, :explicit, :aired_at)
   end
