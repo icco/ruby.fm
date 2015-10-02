@@ -10,7 +10,7 @@ class EpisodesController < ApplicationController
   # GET - /episodes/{id}/edit
   # @return [void]
   def edit
-    @episode = Episode.find(params[:id])
+    @episode = policy_scope(Episode).includes(:channel).find(params[:id])
     @channel = @episode.channel
     authorize(@channel, :update?)
 
@@ -20,7 +20,7 @@ class EpisodesController < ApplicationController
   end
 
   def update
-    @episode = Episode.find(params[:id])
+    @episode = policy_scope(Episode).includes(:channel).find(params[:id])
     @channel = @episode.channel
     authorize(@channel, :update?)
 
@@ -36,6 +36,18 @@ class EpisodesController < ApplicationController
       else
         format.html { render(action: :edit, status: 400) }
       end
+    end
+  end
+
+  def destroy
+    @episode = policy_scope(Episode).includes(:channel).find(params[:id])
+    @channel = @episode.channel
+
+    @episode.destroy
+
+    respond_to do |format|
+      format.html { redirect_to(slugged_channel_url(@channel.slug)) }
+      format.json { head(204) }
     end
   end
 

@@ -1,4 +1,20 @@
 class ChannelPolicy < ApplicationPolicy
+  class Scope
+    attr_reader :user, :scope
+    def initialize(user, scope=Channel.unscoped)
+      @user = user
+      @scope = scope
+    end
+
+    def resolve
+      if user
+        scope.joins(:user).where('users.id = ?', user.id)
+      else
+        Channel.none
+      end
+    end
+  end
+
   def initialize(user, channel)
     @user = user
     @channel = channel
