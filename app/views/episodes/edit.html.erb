@@ -59,10 +59,11 @@
       <%= f.submit "Update Episode", class: 'btn btn-primary col-12' %>
     </div>
 
-    <div class="mt2 py2 border-top">
-        <h3 class="mt0 gray mb2 h6 caps regular">Danger Zone</h3>
-      <%= button_to "Delete Episode", @episode, method: :delete, class: 'btn btn-outline red col-12' %>
-      <p class="gray mt2">This is irreversible. Don't do it unless you mean it.</p>
-    </div>
   <% end %>
+
+  <div class="mt2 py2 border-top">
+    <h3 class="mt0 gray mb2 h6 caps regular">Danger Zone</h3>
+    <%= button_to "Delete Episode", @episode, method: :delete, class: 'btn btn-outline red col-12' %>
+    <p class="gray mt2">This is irreversible. Don't do it unless you mean it.</p>
+  </div>
 </div>
