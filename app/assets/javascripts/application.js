@@ -11,9 +11,12 @@
 // about supported directives.
 //
 //= require jquery
+//= require turbolinks
 //= require jquery_ujs
 //= require fastclick
 //= require_tree .
+
+Turbolinks.enableTransitionCache();
 
 $(function() {
   FastClick.attach(document.body);

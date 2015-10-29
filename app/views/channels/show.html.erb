@@ -28,7 +28,6 @@
 <% end %>
 
 <header class="py2 mt2">
-    <div class="">
       <div class="flex flex-center py2">
         <div class="flex-none">
           <%= link_to slugged_channel_path(@channel) do %>
@@ -55,23 +54,22 @@
     <%= link_to("Edit Settings", edit_channel_path(primary_channel), class: "mt2 btn btn-outline") %>
   <% end %>
         </div>
-      </div>
     </div>
 
 </header>
 
-<section class="flex flex-wrap mxn2 px2">
+<section class="flex flex-wrap">
   <% @episodes.each do |t| %>
     <div class="flex col-6 md-col-4 lg-col-3 p2 border-box">
       <div class="">
         <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
-          <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'col-12 border') %>
+          <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'block col-12') %>
         <% end %>
-          <div class="py1">
-            <h2 class="h5 m0 black">
+          <div class="mt1">
+            <h2 class="h4 m0 black">
               <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'black') %>
             </h2>
-          <h4 class="h6 regular gray m0">
+          <h4 class="h5 regular gray m0">
             <%= "#{time_ago_in_words(t.created_at)} ago" %>
             ∙
             <%= distance_of_time_in_words(t.length) %>
