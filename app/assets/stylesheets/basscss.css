@@ -788,7 +788,7 @@ hr {
 .not-rounded { border-radius: 0 }
 
 .black  { color: #111 }
-.gray   { color: #aaa }
+.gray   { color: #777 }
 .silver { color: #ddd }
 .white  { color: #fff }
 
@@ -811,7 +811,7 @@ hr {
 .muted { opacity: .5 }
 
 .bg-black  { background-color: #111 }
-.bg-gray   { background-color: #aaa }
+.bg-gray   { background-color: #777 }
 .bg-silver { background-color: #ddd }
 .bg-white  { background-color: #fff }
 
