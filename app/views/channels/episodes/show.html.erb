@@ -49,11 +49,10 @@
           <%= "#{distance_of_time_in_words(@episode.length)} long" %>
         </h3>
       </div>
-      <div class="flex-none sm-hide">
+      <div class="flex-none md-show">
         <% if policy(@channel).update? %>
           <%= link_to 'Edit', edit_episode_path(@episode.id), class: 'gray h5 btn btn-outline'  %>
         <% end %>
-
         <%= link_to('Download', @episode.audio_url, class: 'gray h5 btn btn-outline') %>
       </div>
     </div>
