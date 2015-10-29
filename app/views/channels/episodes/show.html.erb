@@ -38,17 +38,23 @@
     <div class="flex flex-center p2">
       <div class="flex-none">
         <%= link_to slugged_channel_path(@channel) do %>
-          <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').fm('png').to_url, width: 64, height: 64, class: 'mb0 mr2') %>
+          <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(48).w(48).dpr(2).fit('crop').mask('ellipse').fm('png').to_url, width: 48, height: 48, class: 'mb0 mr2') %>
         <% end %>
       </div>
       <div class="flex-auto sm-col col-9">
-        <h1 class="black block h4 mt0 mb1 bold"><%= @episode.title %></h1>
-        <h2 class="black block h4 m0"><%= link_to @channel.title, slugged_channel_path(@channel), class: 'black' %></h2>
-        <h3 class="h4 m0 gray">
-          <%= "#{time_ago_in_words(@episode.created_at)} ago" %>
+        <h2 class="black block h4 m0 truncate"><%= link_to @channel.title, slugged_channel_path(@channel), class: 'black' %></h2>
+        <h3 class="h5 m0 gray truncate">
+          <%= @episode.created_at.strftime("%b %e") %>
           ∙
-          <%= distance_of_time_in_words(@episode.length) %>
+          <%= "#{distance_of_time_in_words(@episode.length)} long" %>
         </h3>
+      </div>
+      <div class="flex-none">
+      <% if policy(@channel).update? %>
+        <%= link_to 'Edit', edit_episode_path(@episode.id), class: 'gray h5 btn btn-outline'  %>
+      <% end %>
+
+      <%= link_to('Download', @episode.audio_url, class: 'gray h5 btn btn-outline') %>
       </div>
     </div>
   </header>
@@ -69,18 +75,16 @@
     </div>
   </div>
 
-  <% if @episode.notes %>
+  <h1 class="black block h2 mb0 mt2 px2"><%= @episode.title %></h1>
+  <% if @episode.notes.present? %>
     <div class="p2">
       <%= markdown(@episode.notes) %>
     </div>
   <% end %>
 
-  <%= link_to('↓ Download', @episode.audio_url, class: 'btn btn-outline mb2') %>
-  <% if policy(@channel).update? %>
-    <%= link_to 'Edit', edit_episode_path(@episode.id), class: "btn btn-outline mb2"  %>
-  <% end %>
-    <h4 class="caps gray h6 mb2">More from <%= @channel.title %></h4>
-    <section class="flex flex-wrap">
+  <% if @channel.episodes.count > 1 %>
+    <h4 class="caps gray h6 p2">More from <%= @channel.title %></h4>
+    <section class="flex flex-wrap mb2">
       <% @channel.episodes.where.not(id: @episode.id).order(created_at: :desc).first(3).each do |t| %>
         <div class="flex col-4 md-col-4 lg-col-4 border-box">
           <div class="">
@@ -96,6 +100,7 @@
         </div>
       <% end %>
     </section>
+  <% end %>
 </div>
 
 
