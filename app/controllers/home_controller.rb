@@ -3,6 +3,8 @@ class HomeController < ApplicationController
   respond_to :html
 
   def index
+    @episodes = Channel.find_by_slug('consolefm').episodes.all.order("title DESC").limit(12)
+    @channel = Channel.find_by_slug('consolefm')
     # https://stackoverflow.com/questions/27495326/rare-error-about-missing-view-welcome-index-formats-image
     respond_with()
   end
