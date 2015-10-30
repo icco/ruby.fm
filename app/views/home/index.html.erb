@@ -1,8 +1,10 @@
 <header class="center py4 border-bottom mb4">
   <h1 class="mt0">No-nonsense podcast hosting</h1>
   <p>Self publishing made as simple as dragging and dropping audio files.</p>
-  <%= link_to "Sign up →", new_user_registration_path, class: "h3 btn btn-primary px4 py2 mb1" %>
-  <small class="gray block">Free while in beta</small>
+  <% unless user_signed_in? %>
+    <%= link_to "Sign up →", new_user_registration_path, class: "h3 btn btn-primary px4 py2 mb1" %>
+    <small class="gray block">Free while in beta</small>
+  <% end %>
 </header>
 
 <h4 class="center caps gray h6 p2 mxn2">Featured Episodes</h4>
