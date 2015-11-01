@@ -108,7 +108,12 @@
     </div>
   </div>
 
-  <h1 class="black block h1 mb0 mt2 px2 md-px-reset"><%= @episode.title %></h1>
+  <h1 class="black block h1 mb0 mt2 px2 md-px-reset">
+    <%= @episode.title %>
+    <% unless t.visible? %>
+      <span class="h6 inline-block px1 white bg-red rounded">Draft</span>
+    <% end %>
+  </h1>
   <% if @episode.notes.present? %>
     <div class="p2 md-px-reset">
       <%= markdown(@episode.notes) %>
