@@ -99,3 +99,10 @@ p a:focus, li a:focus {
   -o-user-select: none;
   user-select: none;
 }
+
+@media (min-width: 52em) {
+  .md-px-reset {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
