@@ -32,8 +32,6 @@
   <%= Imgix.client.path(@episode.image.s3_path).w(32).h(32).fit('crop').fm('png32').to_url %>
 <% end %>
 
-<%= render "layouts/geomicons" %>
-
 <div class="container">
   <div class="sm-col-12 md-col-6 mx-auto">
   <header class="clearfix">
@@ -138,6 +136,8 @@
     </section>
   <% end %>
 </div>
+
+<%= render "layouts/geomicons" %>
 
 <script data-turbolinks-eval=always>
   // Enable the player
