@@ -91,6 +91,12 @@ p a:focus, li a:focus {
   /* Keep the navbar fixed for small screens */
   .sm-fixed { position: fixed; }
   .sm-pt3 { padding-top: 3rem; }
+  /* Mobile button sizes */
+  .player .btn svg {
+    width: 24px !important; 
+    height: 24px !important; 
+  }
+  .sm-lh2 { line-height: 2;}
 }
 
 
