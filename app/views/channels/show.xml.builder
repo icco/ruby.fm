@@ -4,7 +4,9 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
   xml.channel do
     # <atom:link href="http://dallas.example.com/rss.xml" rel="self" type="application/rss+xml" />
     xml.tag! 'atom:link', :rel => 'self', :type => 'application/rss+xml', :href => slugged_channel_url(@channel.id, format: :xml)
-    xml.title(@channel.title)
+    xml.title do
+      xml.cdata!(@channel.title)
+    end
 
     if @channel.website_url.blank?
       xml.link(channel_url(@channel.slug))
@@ -20,14 +22,6 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
     xml.itunes(:author, @channel.author)
     xml.itunes(:explicit, (@channel.episodes.any? { |p| p.explicit }) ? 'yes' : 'no')
 
-    # Spec says we gotta have both summary and description. Weeeeee.
-    xml.itunes(:summary) do
-      if @channel.summary.blank?
-        xml.cdata!("#{@channel.title} by #{@channel.author} with #{pluralize(@channel.episodes.count, 'episode')}")
-      else
-        xml.cdata!(utf8_clean(@channel.summary))
-      end
-    end
     xml.description do
       if @channel.summary.blank?
         xml.cdata!("#{@channel.title} by #{@channel.author} with #{pluralize(@channel.episodes.count, 'episode')}")
@@ -42,7 +36,8 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
     end
 
     if @channel.image?
-      url = Imgix.client.path(@channel.image.current_path).fit('crop').width(2048).height(2048).to_url
+      url = Imgix.client.path(@channel.image.current_path).q(80).fm('jpg').fit('crop').width(2048).height(2048).to_url
+      url << '.jpg'
       xml.itunes(:image, href: url.gsub(/\Ahttps/, 'http'))
     end
 
@@ -59,12 +54,12 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
 
     @episodes.each do |podcast|
       xml.item do
-        xml.title(Nokogiri::HTML.parse(utf8_clean(podcast.title)).text.to_s)
-        xml.itunes(:author, @channel.author)
+        xml.title do
+          xml.cdata!(Nokogiri::HTML.parse(utf8_clean(podcast.title)).text.to_s)
+        end
         unless podcast.notes.blank?
           notes = utf8_clean(podcast.notes)
-          xml.itunes(:subtitle, Nokogiri::HTML.parse(truncate(strip_tags(markdown(notes)), length: 100, separator: ' ')).text.to_s)
-          xml.itunes(:summary) do
+          xml.description do
             # Needs to be able to escape <a>s
             xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(markdown(notes)), length: 4000)).text.to_s)
           end
@@ -74,7 +69,8 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
         # a maximum size of 2048 x 2048 pixels
         # https://www.apple.com/itunes/podcasts/specs.html#image
         if podcast.image?
-          url = Imgix.client.path(podcast.image.current_path).fit('crop').width(2048).height(2048).to_url
+          url = Imgix.client.path(podcast.image.current_path).q(80).fm('jpg').fit('crop').width(2048).height(2048).to_url
+          url << '.jpg'
           xml.itunes(:image, href: url.gsub(/\Ahttps/, 'http'))
         end
 
