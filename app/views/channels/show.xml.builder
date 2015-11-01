@@ -63,44 +63,46 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
       end
 
       @episodes.each do |podcast|
-        cache podcast do
-          xml.item do
-            xml.title do
-              xml.cdata!(Nokogiri::HTML.parse(utf8_clean(podcast.title)).text.to_s)
-            end
-            unless podcast.notes.blank?
-              notes = utf8_clean(podcast.notes)
-              xml.itunes(:summary) do
-                xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(markdown(notes)), length: 4000)).text.to_s)
+        if podcast.visible?
+          cache podcast do
+            xml.item do
+              xml.title do
+                xml.cdata!(Nokogiri::HTML.parse(utf8_clean(podcast.title)).text.to_s)
               end
-              xml.description do
-                # Needs to be able to escape <a>s
-                xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(markdown(notes)), length: 4000)).text.to_s)
+              unless podcast.notes.blank?
+                notes = utf8_clean(podcast.notes)
+                xml.itunes(:summary) do
+                  xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(markdown(notes)), length: 4000)).text.to_s)
+                end
+                xml.description do
+                  # Needs to be able to escape <a>s
+                  xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(markdown(notes)), length: 4000)).text.to_s)
+                end
               end
+
+              # JPEG or PNG, RGB color space, minimum size of 1400 x 1400 pixels and
+              # a maximum size of 2048 x 2048 pixels
+              # https://www.apple.com/itunes/podcasts/specs.html#image
+              if podcast.image?
+                url = Imgix.client.path(podcast.image.current_path).q(80).fm('jpg').fit('crop').width(2048).height(2048).to_url
+                url << '.jpg'
+                xml.itunes(:image, href: url.gsub(/\Ahttps/, 'http'))
+              end
+
+              xml.itunes(:explicit, podcast.explicit ? 'yes' : 'no')
+
+              # Valid formats are M4A, MP3, MOV, MP4, M4V, PDF, and EPUB
+              xml.enclosure(url: podcast.http_audio_url, length: podcast.audio.size, type: "audio/mpeg")
+              xml.guid(podcast.http_audio_url)
+
+              if podcast.aired_at
+                xml.pubDate(podcast.aired_at.rfc2822)
+              else
+                xml.pubDate(podcast.created_at.rfc2822)
+              end
+
+              xml.itunes(:duration, Time.at(podcast.length).utc.strftime("%H:%M:%S"))
             end
-
-            # JPEG or PNG, RGB color space, minimum size of 1400 x 1400 pixels and
-            # a maximum size of 2048 x 2048 pixels
-            # https://www.apple.com/itunes/podcasts/specs.html#image
-            if podcast.image?
-              url = Imgix.client.path(podcast.image.current_path).q(80).fm('jpg').fit('crop').width(2048).height(2048).to_url
-              url << '.jpg'
-              xml.itunes(:image, href: url.gsub(/\Ahttps/, 'http'))
-            end
-
-            xml.itunes(:explicit, podcast.explicit ? 'yes' : 'no')
-
-            # Valid formats are M4A, MP3, MOV, MP4, M4V, PDF, and EPUB
-            xml.enclosure(url: podcast.http_audio_url, length: podcast.audio.size, type: "audio/mpeg")
-            xml.guid(podcast.http_audio_url)
-
-            if podcast.aired_at
-              xml.pubDate(podcast.aired_at.rfc2822)
-            else
-              xml.pubDate(podcast.created_at.rfc2822)
-            end
-
-            xml.itunes(:duration, Time.at(podcast.length).utc.strftime("%H:%M:%S"))
           end
         end
       end
