@@ -22,6 +22,15 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
     xml.itunes(:author, @channel.author)
     xml.itunes(:explicit, (@channel.episodes.any? { |p| p.explicit }) ? 'yes' : 'no')
 
+    # Spec says we gotta have both summary and description. Weeeeee.
+    xml.itunes(:summary) do
+      if @channel.summary.blank?
+        xml.cdata!("#{@channel.title} by #{@channel.author} with #{pluralize(@channel.episodes.count, 'episode')}")
+      else
+        xml.cdata!(utf8_clean(@channel.summary))
+      end
+    end
+
     xml.description do
       if @channel.summary.blank?
         xml.cdata!("#{@channel.title} by #{@channel.author} with #{pluralize(@channel.episodes.count, 'episode')}")
@@ -59,6 +68,9 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
         end
         unless podcast.notes.blank?
           notes = utf8_clean(podcast.notes)
+          xml.itunes(:summary) do
+            xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(markdown(notes)), length: 4000)).text.to_s)
+          end
           xml.description do
             # Needs to be able to escape <a>s
             xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(markdown(notes)), length: 4000)).text.to_s)
