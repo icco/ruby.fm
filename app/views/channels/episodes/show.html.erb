@@ -29,7 +29,7 @@
 %>
 
 <% content_for :favicon do %>
-  <%= Imgix.client.path(@episode.image.s3_path).w(32).h(32).fit('crop').fm('png32').to_url %>
+  <%= favicon_link_tag(Imgix.client.path(@episode.image.s3_path).w(32).h(32).fit('crop').fm('png32').to_url) %>
 <% end %>
 
 <div class="container">
@@ -140,6 +140,9 @@
 <%= render "layouts/geomicons" %>
 
 <script data-turbolinks-eval=always>
+  // Change the favicon
+  $("#favicon").attr("href","<%= Imgix.client.path(@episode.image.s3_path).w(32).h(32).fit('crop').fm('png32').to_url %>");
+  
   // Enable the player
   plyr.setup(
     {
