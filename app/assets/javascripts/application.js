@@ -13,11 +13,13 @@
 //= require jquery
 //= require turbolinks
 //= require jquery_ujs
+//= require plyr
 //= require fastclick
-//= require_tree .
 
+// Get TL working
 Turbolinks.enableTransitionCache();
 
+// Eliminate stupid 300ms tap delay
 $(function() {
   FastClick.attach(document.body);
 });
