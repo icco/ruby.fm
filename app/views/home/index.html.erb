@@ -7,11 +7,11 @@
   <% end %>
 </header>
 
-<h4 class="center caps gray h6 p2 mxn2">Featured Episodes</h4>
+<h4 class="center caps gray h6 p2">Featured Episodes</h4>
 <section class="flex flex-wrap mb4">
   <% @episodes.each do |t| %>
     <div class="flex col-6 md-col-4 lg-col-3 p2 border-box">
-      <div class="">
+      <div class="clearfix">
         <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
           <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'block col-12') %>
         <% end %>

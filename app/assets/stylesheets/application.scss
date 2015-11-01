@@ -56,8 +56,8 @@ p a:focus, li a:focus {
 
 .episode-play {
   cursor: pointer;
-  width: 128px; 
-  height: 128px;
+  width: 4rem; 
+  height: 4rem;
   position: absolute; 
   top: 50%; 
   left: 50%;
@@ -75,7 +75,6 @@ p a:focus, li a:focus {
 }
 
 .square {
-  position: relative;
   width: 100%;
 }
 
@@ -85,6 +84,20 @@ p a:focus, li a:focus {
   padding-bottom: 100%;
 }
 
-.pointer {
+.cursor-pointer {
   cursor: pointer;
+}
+
+.cursor-default {
+  cursor: default;
+}
+
+
+.unselectable {
+  -webkit-user-select: none; /* Chrome/Safari */        
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+
+  -o-user-select: none;
+  user-select: none;
 }

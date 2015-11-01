@@ -55,15 +55,15 @@
         <% if policy(@channel).update? %>
           <%= link_to 'Edit', edit_episode_path(@episode.id), class: 'gray h5 btn btn-outline'  %>
         <% end %>
-        <%= link_to('Download', @episode.audio_url, class: 'gray h5 btn btn-outline') %>
       </div>
     </div>
   </header>
-  <div class="square bg-black">
-    <div class="absolute">
-      <%= image_tag(Imgix.client.path(@episode.image.s3_path).h(512).w(512).dpr(2).fit('crop').fm('pjpg').to_url, class: 'pointer block js-art col-12') %>
-      <%= image_tag('play.svg', class: 'js-art js-hide-show episode-play') %>
-      <div class="player">
+    <div class="square relative bg-black" style="background-size: cover; background-image: url(<%= Imgix.client.path(@episode.image.s3_path).h(512).w(512).dpr(2).fit('crop').fm('pjpg').to_url %>)">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" class="episode-play js-play-hide white p2">
+        <use xlink:href="#play"></use>
+      </svg>
+      <div class="absolute top-0 right-0 left-0 js-toggle-play" style="bottom: 56px;"></div>
+      <div class="z4 player absolute bottom-0 col-12">
         <audio controls preload="auto">
           <source src="<%= @episode.audio %>" type="audio/mp3">
         </audio>
@@ -72,11 +72,44 @@
         </progress>
         <progress class='player-progress-buffer' max='100' value='0'>
         </progress>
-      </div>
+        <div class="z3 flex center" style="background: rgba(0,0,0,.25);">
+          <a href="#!" class="flex-none btn btn-transparent rounded-left white" data-player="play">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16">
+              <use xlink:href="#play"></use>
+            </svg>
+          </a>
+          <a href="#!" class="flex-none btn btn-transparent rounded-left white" data-player="pause">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16">
+              <use xlink:href="#pause"></use>
+            </svg>
+          </a>
+          <a href="#!" class="flex-none btn btn-transparent border-left not-rounded white" data-player="rewind">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16">
+              <use xlink:href="#previous"></use>
+            </svg>
+          </a>
+
+          <a href="#!" class="flex-none btn btn-transparent border-left not-rounded white" data-player="fast-forward">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16">
+              <use xlink:href="#next"></use>
+            </svg>
+          </a>
+          <span class="flex-auto btn btn-transparent border-left not-rounded white unselectable cursor-default">
+            <span class="player-current-time">00:00</span>
+            /
+            <span class="player-duration">00:49</span>
+          </span>
+          </span>
+          <%= link_to @episode.audio_url, class: 'flex-none btn btn-transparent border-left rounded-right white md-show' do %>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16">
+              <use xlink:href="#external"></use>
+            </svg>
+          <% end %>
+        </div>
     </div>
   </div>
 
-  <h1 class="black block h2 mb0 mt2 px2"><%= @episode.title %></h1>
+  <h1 class="black block h1 mb0 mt2 px2"><%= @episode.title %></h1>
   <% if @episode.notes.present? %>
     <div class="p2">
       <%= markdown(@episode.notes) %>
@@ -84,11 +117,11 @@
   <% end %>
 
   <% if @channel.episodes.count > 1 %>
-    <h4 class="caps gray h6 p2 mxn2">More from <%= @channel.title %></h4>
+    <h4 class="caps gray h6 p2">More from <%= @channel.title %></h4>
     <section class="flex flex-wrap mb2">
       <% @channel.episodes.where.not(id: @episode.id).order(created_at: :desc).first(3).each do |t| %>
         <div class="flex col-4 md-col-4 lg-col-4 border-box">
-          <div class="">
+          <div class="flex-stretch">
             <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
               <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'col-12') %>
             <% end %>
@@ -105,16 +138,37 @@
 </div>
 
 <script data-turbolinks-eval=always>
+  // Enable the player
   plyr.setup(
     {
-      html: ["<div class='player-controls'>", "</div>"].join("\n")
+      html: ["<div class='player-controls'>", "</div>"].join("\n"),
+      seekTime: 30
     }
   );
-</script>
-<script data-turbolinks-eval=always>
-  // Album art on-click plays or pauses
-  $(".js-art").click(function() {
-    document.querySelectorAll(".player")[0].plyr.togglePlay();
-    $(".js-hide-show").toggle();
+
+  // Easily access the player
+  var player = document.querySelectorAll(".player")[0].plyr;
+  var media = player.media;
+
+  $("[data-player='pause']").hide();
+  // Toggle play pause button
+  media.addEventListener("playing", function() { 
+    $("[data-player='play']").hide();
+    $("[data-player='pause']").show();
+  });
+
+  media.addEventListener("pause", function() { 
+    $("[data-player='play']").show();
+    $("[data-player='pause']").hide();
+  });
+
+  // Toggle play on click of player background
+  $('.js-toggle-play').on('click', function(){
+    player.togglePlay();
+  });
+
+  // Hide play button on first play
+  media.addEventListener("play", function() { 
+    $(".js-play-hide").hide();
   });
 </script>
