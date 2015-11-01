@@ -3,7 +3,7 @@ class Episode < ActiveRecord::Base
 
   IMAGE_MIN_SIZE = 400
 
-  belongs_to(:channel)
+  belongs_to(:channel, touch: true)
 
   friendly_id(:slug_candidates, use: :scoped, scope: :channel)
 
