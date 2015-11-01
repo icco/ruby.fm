@@ -23,8 +23,12 @@ class ChannelsController < ApplicationController
     @channel = Channel.friendly.find(params[:id])
     authorize(@channel, :read?)
 
-    @episodes = @channel.episodes.visible.recent.map do |ch|
-      EpisodePresenter.new(ch)
+    @episodes = []
+
+    @channel.episodes.recent.each do |episode|
+      if policy(episode).update? || policy(episode).read?
+        @episodes << EpisodePresenter.new(episode)
+      end
     end
 
     respond_to do |format|

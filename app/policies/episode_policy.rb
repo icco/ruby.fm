@@ -37,6 +37,6 @@ class EpisodePolicy < ApplicationPolicy
   end
 
   def owner?
-    @user.present? && @episode.user_id == @user.id
+    user.present? && ChannelPolicy.new(user, @episode.channel).owner?
   end
 end
