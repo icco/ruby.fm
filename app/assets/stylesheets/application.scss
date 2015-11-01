@@ -87,6 +87,13 @@ p a:focus, li a:focus {
   user-select: none;
 }
 
+@media (max-width: 40em) {
+  /* Keep the navbar fixed for small screens */
+  .sm-fixed { position: fixed; }
+  .sm-pt3 { padding-top: 3rem; }
+}
+
+
 @media (min-width: 52em) {
   /* Have li overhang on desktop */
   ul, ol {
