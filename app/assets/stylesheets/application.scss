@@ -26,13 +26,6 @@ body {
   font-weight: 300;
 }
 
-.hover-bg:hover,
-.hover-bg:active,
-.hover-bg:focus {
-  background-color: rgba(0,0,0,0.058);
-  transition: background-color .33s;
-}
-
 .regular {
   font-weight: 300;
 }
@@ -56,8 +49,8 @@ p a:focus, li a:focus {
 
 .episode-play {
   cursor: pointer;
-  width: 4rem; 
-  height: 4rem;
+  width: 3rem; 
+  height: 3rem;
   position: absolute; 
   top: 50%; 
   left: 50%;
@@ -65,12 +58,6 @@ p a:focus, li a:focus {
     -webkit-transform: translate(-50%, -50%);
   background: rgba(0,0,0,.5);
   border-radius: 50%;
-}
-
-@media (min-width: 52em) {
-  ul, ol {
-    padding-left: 0;
-  }
 }
 
 .square {
@@ -101,6 +88,11 @@ p a:focus, li a:focus {
 }
 
 @media (min-width: 52em) {
+  /* Have li overhang on desktop */
+  ul, ol {
+    padding-left: 0;
+  }
+  /* Remove x-padding on desktop */
   .md-px-reset {
     padding-right: 0;
     padding-left: 0;
