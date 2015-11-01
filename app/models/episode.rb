@@ -36,8 +36,9 @@ class Episode < ActiveRecord::Base
   end
 
   def image_url
-    if self.image_url
-      self.image_url.sub('rubyfm-blobs.s3.amazonaws.com', 'rubyfm.imgix.net')
+    url = super
+    if url
+      url.sub('rubyfm-blobs.s3.amazonaws.com', 'rubyfm.imgix.net')
     elsif self.channel.image_url
       self.channel.image_url.sub('rubyfm-blobs.s3.amazonaws.com', 'rubyfm.imgix.net')
     else
