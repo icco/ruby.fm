@@ -25,7 +25,7 @@ class EpisodePolicy < ApplicationPolicy
   end
 
   def read?
-    @episode.published? || owner?
+    @episode.visible? || owner?
   end
 
   def update?
