@@ -35,6 +35,16 @@ class Episode < ActiveRecord::Base
     self.audio.to_s
   end
 
+  def image_url
+    if self.image_url
+      self.image_url.sub('rubyfm-blobs.s3.amazonaws.com', 'rubyfm.imgix.net')
+    elsif self.channel.image_url
+      self.channel.image_url.sub('rubyfm-blobs.s3.amazonaws.com', 'rubyfm.imgix.net')
+    else
+      nil
+    end
+  end
+
   def validate_minimum_dimensions
     return true unless image_changed? && image.try(:file)
 

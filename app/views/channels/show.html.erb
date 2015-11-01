@@ -60,7 +60,7 @@
 
 <section class="flex flex-wrap">
   <% @episodes.each do |t| %>
-    <% if policy(t.model).update? || t.visible? %>
+    <% if policy(t).update? || t.visible? %>
       <div class="flex col-6 md-col-4 lg-col-3 p2 border-box">
         <div class="">
           <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>

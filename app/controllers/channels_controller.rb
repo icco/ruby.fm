@@ -27,7 +27,7 @@ class ChannelsController < ApplicationController
 
     @channel.episodes.recent.each do |episode|
       if policy(episode).update? || policy(episode).read?
-        @episodes << EpisodePresenter.new(episode)
+        @episodes << episode
       end
     end
 
