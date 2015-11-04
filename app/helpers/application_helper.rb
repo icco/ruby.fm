@@ -21,6 +21,10 @@ module ApplicationHelper
     markdown.render(text).html_safe
   end
 
+  def profane(text)
+    Obscenity.sanitize(text)
+  end
+
   def utf8_clean(string)
     string.encode('UTF-8', :invalid => :replace, :undef => :replace, :xml => :text)
   end
