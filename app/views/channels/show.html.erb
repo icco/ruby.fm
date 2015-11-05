@@ -73,11 +73,11 @@
                 <span class="h6 inline-block px1 white bg-red rounded">Draft</span>
               <% end %>
             </h2>
-            <h4 class="h5 regular gray m0">
-              <%= "#{time_ago_in_words(t.created_at)} ago" %>
+            <h3 class="h6 m0 gray truncate">
+              <%= t.created_at.strftime("%b %e") %>
               ∙
-              <%= distance_of_time_in_words(t.length) %>
-            </h4>
+              <%= "#{distance_of_time_in_words(t.length)}" %>
+            </h3>
           </div>
         </div>
       </div>
