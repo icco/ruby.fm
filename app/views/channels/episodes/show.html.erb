@@ -120,7 +120,7 @@
     </div>
   <% end %>
 
-  <% if @channel.episodes.count > 1 %>
+  <% if @channel.episodes.visible.count > 1 %>
     <h4 class="caps gray h6 p2 md-px-reset m0">More from <%= link_to @channel.title, slugged_channel_path(@channel), class: 'gray' %></h4>
     <section class="flex flex-wrap mb2">
       <% @channel.episodes.visible.where.not(id: @episode.id).order(created_at: :desc).first(3).each do |t| %>
