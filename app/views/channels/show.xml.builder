@@ -20,7 +20,11 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
 
       # Need to do valid XML character matching http://www.xml.com/axml/target.html#sec-references
       xml.copyright("© #{Time.now.year} #{utf8_clean(@channel.author)}")
-      xml.itunes(:author, @channel.author)
+      if @channel.author.blank?
+        xml.itunes(:author, @channel.title)
+      else
+        xml.itunes(:author, @channel.author)
+      end
       xml.itunes(:explicit, (@channel.episodes.any? { |p| p.explicit }) ? 'yes' : 'no')
 
       # Spec says we gotta have both summary and description. Weeeeee.
@@ -41,7 +45,11 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
       end
 
       xml.itunes(:owner) do
-        xml.itunes(:name, utf8_clean(@channel.author))
+        if @channel.author.blank?
+          xml.itunes(:name, utf8_clean(@channel.title))
+        else
+          xml.itunes(:name, utf8_clean(@channel.author))
+        end
         xml.itunes(:email, @channel.user.email)
       end
 
