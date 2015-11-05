@@ -16,6 +16,7 @@ module Channels
     def show
       @channel = Channel.friendly.find(params[:channel_id])
       @episode = @channel.episodes.friendly.find(params[:id])
+      authorize(@episode, :read?)
 
       respond_to do |format|
         format.html
