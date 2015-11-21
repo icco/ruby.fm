@@ -12,4 +12,8 @@ class User < ActiveRecord::Base
   def paying?
     true
   end
+
+  def current_admin
+    current_user && current_user.is_admin
+  end
 end
