@@ -8,7 +8,7 @@ class EpisodePolicy < ApplicationPolicy
 
     def resolve
       if user
-        scope.joins(:channel => :user).where('users.id = ?', user.id)
+        scope.joins(:channel).where(channels: { user_id: user.id })
       else
         Episode.none
       end
