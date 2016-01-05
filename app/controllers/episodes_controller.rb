@@ -1,4 +1,6 @@
 class EpisodesController < ApplicationController
+  before_action :fetch_episode, only: [:edit, :update, :show, :destroy]
+
   def index
     @episodes = Episode.published.recent.includes(:channel).order(created_at: :desc)
 
@@ -10,7 +12,6 @@ class EpisodesController < ApplicationController
   # GET - /episodes/{id}/edit
   # @return [void]
   def edit
-    @episode = policy_scope(Episode).includes(:channel).find(params[:id])
     @channel = @episode.channel
     authorize(@channel, :update?)
 
@@ -20,7 +21,6 @@ class EpisodesController < ApplicationController
   end
 
   def update
-    @episode = policy_scope(Episode).includes(:channel).find(params[:id])
     @channel = @episode.channel
     authorize(@channel, :update?)
 
@@ -40,7 +40,6 @@ class EpisodesController < ApplicationController
   end
 
   def destroy
-    @episode = policy_scope(Episode).includes(:channel).find(params[:id])
     @channel = @episode.channel
 
     @episode.destroy
@@ -49,6 +48,14 @@ class EpisodesController < ApplicationController
       format.html { redirect_to(slugged_channel_url(@channel.slug)) }
       format.json { head(204) }
     end
+  end
+
+  def find_episode(id)
+    policy_scope(Episode).includes(:channel).friendly.find(id)
+  end
+
+  def fetch_episode
+    @episode = find_episode(params[:id])
   end
 
   def episode_params
