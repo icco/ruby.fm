@@ -17,7 +17,7 @@ class Episode < ActiveRecord::Base
   scope(:visible, -> { where(visible: true) })
   scope(:not_visible, -> { where(visible: false) })
 
-  scope(:recent, -> { order(aired_at: :desc) })
+  scope(:recent, -> { order(created_at: :desc) })
 
   mount_uploader(:audio, AudioUploader)
   mount_uploader(:image, ImageUploader)

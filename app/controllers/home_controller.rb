@@ -5,7 +5,7 @@ class HomeController < ApplicationController
   def index
     @channel = Channel.find_by_slug('consolefm')
     if @channel
-      @episodes = @channel.episodes.all.order("title DESC").limit(12)
+      @episodes = @channel.episodes.all.recent.limit(12)
     else
       @episodes = Episode.none
     end
