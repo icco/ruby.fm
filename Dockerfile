@@ -1,8 +1,11 @@
 FROM rails:latest
 
 RUN apt-get update && \
-  apt-get install -y --no-install-recommends \
-    libtag1-dev && \
+  apt-get install -y \
+    nodejs \
+    postgresql-client \
+    libtag1-dev \
+    --no-install-recommends && \
   rm -rf /var/lib/apt/lists/*
 
 ENV APP_DIR /app
