@@ -8,11 +8,11 @@ cache: bundler
 services:
   - postgresql
   - redis-server
-before_install:
-  - sudo apt-get -qq update
-  - sudo apt-get -y libtag1-dev --no-install-recommends
 addons:
   postgresql: "9.4"
+  apt:
+    packages:
+      - libtag1-dev
 before_script:
   - psql -c 'create database "rubyfm_test";' -U postgres
 script: bundle exec rake test
