@@ -63,40 +63,40 @@
         <use xlink:href="#play"></use>
       </svg>
       <div class="cursor-pointer absolute top-0 right-0 left-0 js-toggle-play" style="bottom: 56px;"></div>
-      <div class="z3 player absolute bottom-0 col-12">
+      <div class="z3 player js-plyr absolute bottom-0 col-12">
         <audio controls preload="auto">
           <source src="<%= play_episode_url(@episode.id, format: @episode.audio_ext) %>" type="audio/mp3">
         </audio>
-        <input id='seek{id}' class='z4 player-progress-seek' type='range' min='0' max='100' step='0.5' value='0' data-player='seek'>
-        <progress class='player-progress-played' max='100' value='0'>
+        <input id='seek{id}' class='z4 plyr__progress--seek player-progress-seek' type='range' min='0' max='100' step='0.5' value='0' data-plyr='seek'>
+        <progress class="plyr__progress--played player-progress-played" max="100" value='0'>
         </progress>
-        <progress class='player-progress-buffer' max='100' value='0'>
+        <progress class='plyr__progress--buffer player-progress-buffer' max='100' value='0'>
         </progress>
         <div class="z3 flex center" style="background: rgba(0,0,0,.25);">
-          <span class="flex-none btn btn-transparent white" data-player="play">
+          <span class="flex-none btn btn-transparent white" data-plyr="play">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16">
               <use xlink:href="#play"></use>
             </svg>
           </span>
-          <span class="flex-none btn btn-transparent white" data-player="pause">
+          <span class="flex-none btn btn-transparent white" data-plyr="pause">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16">
               <use xlink:href="#pause"></use>
             </svg>
           </span>
-          <span class="flex-none btn btn-transparent border-left white" data-player="rewind">
+          <span class="flex-none btn btn-transparent border-left white" data-plyr="rewind">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16">
               <use xlink:href="#previous"></use>
             </svg>
           </span>
-          <span href="javascript:void(0)" class="flex-none btn btn-transparent border-left white" data-player="fast-forward">
+          <span href="javascript:void(0)" class="flex-none btn btn-transparent border-left white" data-plyr="fast-forward">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16">
               <use xlink:href="#next"></use>
             </svg>
           </span>
           <span class="flex-auto btn h5 bold btn-transparent border-left white unselectable cursor-default sm-lh2">
-            <span class="player-current-time">00:00</span>
+            <span class="plyr__time--current">00:00</span>
             /
-            <span class="player-duration">00:49</span>
+            <span class="plyr__time--duration">00:49</span>
           </span>
           </span>
           <%= link_to download_episode_url(@episode.id, format: @episode.audio_ext), download: true, class: 'flex-none btn btn-transparent border-left white md-show' do %>
@@ -148,32 +148,34 @@
   $("#favicon").attr("href","<%= Imgix.client.path(@episode.image.s3_path).w(32).h(32).fit('crop').fm('png32').to_url %>");
 
   // Enable the player
-  plyr.setup(
+  var player = plyr.setup(document.querySelector(".js-plyr"),
     {
       html: ["<div class='player-controls'>", "</div>"].join("\n"),
       seekTime: 30,
-      volume: 8
+      volume: 8,
+      tooltips: { controls: false, seek: false }
     }
   );
 
   // Easily access the player
-  var player = document.querySelectorAll(".player")[0].plyr;
+  player = player[0]
   var media = player.media;
 
-  $("[data-player='pause']").hide();
+  $("[data-plyr='pause']").hide();
+
   // Toggle play pause button
   media.addEventListener("playing", function() {
-    $("[data-player='play']").hide();
-    $("[data-player='pause']").show();
+    $("[data-plyr='play']").hide();
+    $("[data-plyr='pause']").show();
   });
 
   media.addEventListener("pause", function() {
-    $("[data-player='play']").show();
-    $("[data-player='pause']").hide();
+    $("[data-plyr='play']").show();
+    $("[data-plyr='pause']").hide();
   });
 
   // Toggle play on click of player background
-  $('.js-toggle-play').on('click', function(){
+  $('.js-toggle-play').on("click", function(){
     player.togglePlay();
   });
 

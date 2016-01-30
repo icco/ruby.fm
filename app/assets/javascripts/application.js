@@ -11,15 +11,9 @@
 // about supported directives.
 //
 //= require jquery
-//= require turbolinks
 //= require jquery_ujs
+//= require turbolinks
 //= require plyr
-//= require fastclick
 
 // Get TL working
 Turbolinks.enableTransitionCache();
-
-// Eliminate stupid 300ms tap delay
-$(function() {
-  FastClick.attach(document.body);
-});
