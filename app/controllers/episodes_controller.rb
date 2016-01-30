@@ -1,4 +1,6 @@
 class EpisodesController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+
   before_action :fetch_episode, only: [:edit, :update, :show, :destroy]
 
   def index

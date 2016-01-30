@@ -1,5 +1,7 @@
 module Channels
   class EpisodesController < ApplicationController
+    before_action :authenticate_user!, only: [:new, :create]
+
     # GET - /channels/{slug_or_id}/episodes/new
     def new
       @channel = Channel.friendly.find(params[:channel_id])

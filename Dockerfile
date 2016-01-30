@@ -1,4 +1,4 @@
-FROM rails:latest
+FROM ruby:2.3
 
 RUN apt-get update && \
   apt-get install -y \
@@ -7,6 +7,10 @@ RUN apt-get update && \
     libtag1-dev \
     --no-install-recommends && \
   rm -rf /var/lib/apt/lists/*
+
+ENV RAILS_VERSION 4.2.5.1
+
+RUN gem install rails --version "$RAILS_VERSION"
 
 ENV APP_DIR /app
 

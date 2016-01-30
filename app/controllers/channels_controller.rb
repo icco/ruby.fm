@@ -1,4 +1,6 @@
 class ChannelsController < ApplicationController
+  before_action :authenticate_user!, only: [:edit, :update, :destroy]
+
   rescue_from(ActiveRecord::RecordNotFound, with: :respond_with_not_found)
 
   def respond_with_not_found(error)
