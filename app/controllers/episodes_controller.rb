@@ -1,7 +1,7 @@
 class EpisodesController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
-  before_action :fetch_episode, only: [:edit, :update, :show, :destroy, :download, :play]
+  before_action :fetch_episode, only: [:edit, :update, :show, :destroy]
 
   def index
     @episodes = Episode.published.recent.includes(:channel).order(created_at: :desc)
@@ -56,6 +56,7 @@ class EpisodesController < ApplicationController
   #
   # @return [void]
   def play
+    @episode = Episode.find(params[:id])
     attributes = {
       keen: {
         timestamp: DateTime.now.utc.iso8601
@@ -66,14 +67,14 @@ class EpisodesController < ApplicationController
     }
     KeenPublisher.perform_async('podcast.download', attributes)
 
-    response.headers['Location'] = @episode.https_audio_url
-    head(302)
+    redirect_to(@episode.https_audio_url, status: 302)
   end
 
   # GET - /episodes/:id/download
   #
   # @return [void]
   def download
+    @episode = Episode.find(params[:id])
     attributes = {
       keen: {
         timestamp: DateTime.now.utc.iso8601
@@ -84,8 +85,7 @@ class EpisodesController < ApplicationController
     }
     KeenPublisher.perform_async('podcast.download', attributes)
 
-    response.headers['Location'] = @episode.https_audio_url
-    head(302)
+    redirect_to(@episode.https_audio_url, status: 302)
   end
 
   def find_episode(id)
