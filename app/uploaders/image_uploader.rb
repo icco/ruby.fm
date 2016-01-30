@@ -3,7 +3,11 @@
 class ImageUploader < CarrierWave::Uploader::Base
   include CarrierWave::MiniMagick
 
-  storage :fog
+  storage :aws
+
+  def filename
+    "#{secure_token}.#{file.extension}" if original_filename.present?
+  end
 
   def default_s3_path
     "images/fallback.jpg"
@@ -27,5 +31,11 @@ class ImageUploader < CarrierWave::Uploader::Base
 
   def extension_white_list
     %w(png jpg)
+  end
+
+  protected
+  def secure_token
+    var = :"@#{mounted_as}_secure_token"
+    model.instance_variable_get(var) or model.instance_variable_set(var, SecureRandom.uuid)
   end
 end

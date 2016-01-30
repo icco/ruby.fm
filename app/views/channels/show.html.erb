@@ -31,7 +31,7 @@
       <div class="flex flex-center py2">
         <div class="flex-none">
           <%= link_to slugged_channel_path(@channel) do %>
-            <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').fm('png').to_url, class: 'mb0 mr2') %>
+            <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').fm('png').to_url, class: 'mb0 mr2', alt: @channel.title) %>
           <% end %>
 
         </div>
@@ -64,7 +64,7 @@
       <div class="flex col-6 md-col-4 lg-col-3 p2 border-box">
         <div class="">
           <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
-            <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'block col-12') %>
+            <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'block col-12', alt: t.title) %>
           <% end %>
           <div class="mt1">
             <h2 class="h4 m0 black">
