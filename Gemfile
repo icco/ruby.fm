@@ -30,6 +30,8 @@ gem 'virtus',         '~> 1.0.0'
 gem 'mini_magick',    '~> 4.2.4'
 gem 'validate_url',   '~> 1.0.0'
 gem 'timeliness',     '~> 0.3.7'
+gem 'keen',           '~> 0.9.4'
+gem 'addressable',    '~> 2.3.5'
 
 # Try to put very little in here, we don't want production to be different than
 # dev in general.
