@@ -17,7 +17,9 @@
       <% elsif @episode %>
       <link rel="alternate" type="application/rss+xml" title="RSS" href="<%= channel_url(@episode.channel.id, format: 'xml') %>">
     <% end %>
-    <%= stylesheet_link_tag("//cloud.typography.com/6326032/647188/css/fonts.css", "application", media: "all") %>
+    <style>
+      <%= render file: '../assets/stylesheets/basscss.css' %>
+    </style>
     <%= csrf_meta_tags %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
@@ -70,6 +72,7 @@
         </p>
       </footer>
     </div>
+    <%= stylesheet_link_tag("//cloud.typography.com/6326032/647188/css/fonts.css", "application", media: "all") %>
     <%= javascript_include_tag("application") %>
     <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=

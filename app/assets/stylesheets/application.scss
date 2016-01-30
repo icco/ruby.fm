@@ -10,8 +10,8 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_tree
  *= require_self
+ *= require plyr
  */
 
 body {
@@ -26,7 +26,21 @@ body {
   font-weight: 300;
 }
 
-.regular {
+body {
+  font-family: 'Ideal Sans SSm A', 'Ideal Sans SSm B', 'Helvetica Neue', helvetica;
+  line-height: 1.5;
+  font-size: 100%;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Ideal Sans SSm A', 'Ideal Sans SSm B', 'Helvetica Neue', helvetica;
+  font-weight: 300;
+  line-height: 1.25;
+  margin-top: 1em;
+  margin-bottom: .5em;
+}
+
+.regular, .btn, input, textarea, select {
   font-weight: 300;
 }
 
