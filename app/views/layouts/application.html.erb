@@ -18,6 +18,35 @@
       <link rel="alternate" type="application/rss+xml" title="RSS" href="<%= channel_url(@episode.channel.id, format: 'xml') %>">
     <% end %>
     <style>
+      body {
+        text-rendering: optimizeLegibility;
+        font-feature-settings: "kern";
+        -webkit-font-feature-settings: "kern";
+        -moz-font-feature-settings: "kern";
+        -moz-font-feature-settings: "kern=1";
+        -webkit-font-smoothing: antialiased;
+        font-variant-ligatures: common-ligatures;
+        -webkit-font-variant-ligatures: common-ligatures;
+        font-weight: 300;
+      }
+
+      body {
+        font-family: 'Ideal Sans SSm A', 'Ideal Sans SSm B', 'Helvetica Neue', helvetica;
+        line-height: 1.5;
+        font-size: 100%;
+      }
+
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Ideal Sans SSm A', 'Ideal Sans SSm B', 'Helvetica Neue', helvetica;
+        font-weight: 300;
+        line-height: 1.25;
+        margin-top: 1em;
+        margin-bottom: .5em;
+      }
+
+      .regular, .btn, input, textarea, select {
+        font-weight: 300;
+      }
       <%= render file: '../assets/stylesheets/basscss.css' %>
     </style>
     <%= csrf_meta_tags %>
