@@ -66,7 +66,8 @@ class EpisodesController < ApplicationController
     }
     KeenPublisher.perform_async('podcast.download', attributes)
 
-    redirect_to(@episode.https_audio_url, status: 302)
+    response.headers['Location'] = @episode.https_audio_url
+    head(302)
   end
 
   # GET - /episodes/:id/download
@@ -83,7 +84,8 @@ class EpisodesController < ApplicationController
     }
     KeenPublisher.perform_async('podcast.download', attributes)
 
-    redirect_to(@episode.https_audio_url, status: 302)
+    response.headers['Location'] = @episode.https_audio_url
+    head(302)
   end
 
   def find_episode(id)
