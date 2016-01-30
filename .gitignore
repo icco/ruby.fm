@@ -13,3 +13,4 @@ db/*.db
 log/**/*
 tmp/**/*
 vendor/gems/*
+.ruby-version
