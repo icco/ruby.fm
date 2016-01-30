@@ -18,6 +18,7 @@
       <link rel="alternate" type="application/rss+xml" title="RSS" href="<%= channel_url(@episode.channel.id, format: 'xml') %>">
     <% end %>
     <style>
+      <%= render file: '../assets/stylesheets/basscss.css' %>
       body {
         text-rendering: optimizeLegibility;
         font-feature-settings: "kern";
@@ -47,7 +48,6 @@
       .regular, .btn, input, textarea, select {
         font-weight: 300;
       }
-      <%= render file: '../assets/stylesheets/basscss.css' %>
     </style>
     <%= csrf_meta_tags %>
   </head>
