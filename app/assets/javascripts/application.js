@@ -15,6 +15,7 @@
 //= require jquery_ujs
 //= require plyr
 //= require fastclick
+//= require timejump
 
 // Get TL working
 Turbolinks.enableTransitionCache();
