@@ -64,7 +64,7 @@
       </svg>
       <div class="cursor-pointer absolute top-0 right-0 left-0 js-toggle-play" style="bottom: 56px;"></div>
       <div class="z3 player js-plyr absolute bottom-0 col-12">
-        <audio controls preload="auto">
+        <audio controls preload="auto" class="hide">
           <source src="<%= play_episode_url(@episode.id, format: @episode.audio_ext) %>" type="audio/mp3">
         </audio>
         <input id='seek{id}' class='z4 plyr__progress--seek player-progress-seek' type='range' min='0' max='100' step='0.5' value='0' data-plyr='seek'>
@@ -96,7 +96,7 @@
           <span class="flex-auto btn h5 bold btn-transparent border-left white unselectable cursor-default sm-lh2">
             <span class="plyr__time--current">00:00</span>
             /
-            <span class="plyr__time--duration">00:49</span>
+            <span class="plyr__time--duration">00:00</span>
           </span>
           </span>
           <%= link_to download_episode_url(@episode.id, format: @episode.audio_ext), download: true, class: 'flex-none btn btn-transparent border-left white md-show' do %>
@@ -144,43 +144,5 @@
 <%= render "layouts/geomicons" %>
 
 <script data-turbolinks-eval=always>
-  // Change the favicon
-  $("#favicon").attr("href","<%= Imgix.client.path(@episode.image.s3_path).w(32).h(32).fit('crop').fm('png32').to_url %>");
 
-  // Enable the player
-  var player = plyr.setup(document.querySelector(".js-plyr"),
-    {
-      html: ["<div class='player-controls'>", "</div>"].join("\n"),
-      seekTime: 30,
-      volume: 8,
-      tooltips: { controls: false, seek: false }
-    }
-  );
-
-  // Easily access the player
-  player = player[0]
-  var media = player.media;
-
-  $("[data-plyr='pause']").hide();
-
-  // Toggle play pause button
-  media.addEventListener("playing", function() {
-    $("[data-plyr='play']").hide();
-    $("[data-plyr='pause']").show();
-  });
-
-  media.addEventListener("pause", function() {
-    $("[data-plyr='play']").show();
-    $("[data-plyr='pause']").hide();
-  });
-
-  // Toggle play on click of player background
-  $('.js-toggle-play').on("click", function(){
-    player.togglePlay();
-  });
-
-  // Hide play button on first play
-  media.addEventListener("play", function() {
-    $(".js-play-hide").hide();
-  });
 </script>

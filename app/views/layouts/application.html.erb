@@ -18,10 +18,9 @@
       <link rel="alternate" type="application/rss+xml" title="RSS" href="<%= channel_url(@episode.channel.id, format: 'xml') %>">
     <% end %>
     <%= stylesheet_link_tag("//cloud.typography.com/6326032/647188/css/fonts.css", "application", media: "all") %>
-    <%= javascript_include_tag("application") %>
     <%= csrf_meta_tags %>
   </head>
-  <body>
+  <body class="<%= controller_name %> <%= action_name %>">
     <!--[if lt IE 8]>
       <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -71,6 +70,7 @@
         </p>
       </footer>
     </div>
+    <%= javascript_include_tag("application") %>
     <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
       function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
