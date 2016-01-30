@@ -1,7 +1,7 @@
 class EpisodesController < ApplicationController
   before_action :authenticate_user!, only: [:edit, :update, :destroy]
 
-  before_action :fetch_episode, only: [:edit, :update, :show, :destroy]
+  before_action :fetch_episode, only: [:edit, :update, :show, :destroy, :download, :play]
 
   def index
     @episodes = Episode.published.recent.includes(:channel).order(created_at: :desc)
@@ -49,6 +49,44 @@ class EpisodesController < ApplicationController
     respond_to do |format|
       format.html { redirect_to(slugged_channel_url(@channel.slug)) }
       format.json { head(204) }
+    end
+  end
+
+  # GET - /episodes/:id/play
+  #
+  # @return [void]
+  def play
+    attributes = {
+      keen: {
+        timestamp: DateTime.now.utc.iso8601
+      },
+      episode_id: params[:id],
+      user_agent: request.headers['User-Agent'],
+      source: 'RubyFM'
+    }
+    KeenPublisher.perform_async('podcast.download', attributes)
+
+    respond_to do |format|
+      format.any { redirect_to(@episode.https_audio_url, status: 302) }
+    end
+  end
+
+  # GET - /episodes/:id/download
+  #
+  # @return [void]
+  def download
+    attributes = {
+      keen: {
+        timestamp: DateTime.now.utc.iso8601
+      },
+      episode_id: params[:id],
+      user_agent: request.headers['User-Agent'],
+      source: 'Other'
+    }
+    KeenPublisher.perform_async('podcast.download', attributes)
+
+    respond_to do |format|
+      format.any { redirect_to(@episode.https_audio_url, status: 302) }
     end
   end
 

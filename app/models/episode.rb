@@ -22,6 +22,8 @@ class Episode < ActiveRecord::Base
   mount_uploader(:audio, AudioUploader)
   mount_uploader(:image, ImageUploader)
 
+  # TODO: Check audio file to make sure the correct extension is there
+
   def http_audio_url
     https_audio_url.gsub(/\Ahttps/, 'http')
   end
