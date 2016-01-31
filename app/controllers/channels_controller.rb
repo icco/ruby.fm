@@ -49,9 +49,9 @@ class ChannelsController < ApplicationController
   end
 
   def stats
-    @labels = ((Date.today - 29.days)..Date.yesterday).map{ |date| date.strftime("%b %d").to_s }.to_json
-    @data = (30.times).map{ |date| rand(0..300).to_s }.to_json
-    p @data
+    data = Keen.count("podcast.download", :interval => "daily", :timeframe => "previous_30_days")
+    @labels = data.map {|date| Time.parse(date['timeframe']['start']).strftime("%b %d")}.to_json
+    @data = data.map {|date| date['value']}.to_json
     @channel = primary_channel
   end
 
