@@ -53,7 +53,7 @@
 
       <div class="py2 border-bottom">
         <h3 class="gray mb2 h6 caps regular" id="cover-art">Cover Art</h3>
-        <%= image_tag(@channel.image_url, class: 'fit') if @channel.image? %>
+        <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').auto('format').to_url, class: 'mb0 mr2', alt: @channel.title) if @channel.image? %>
         <%= f.file_field :image %>
         <%= f.hidden_field :image_cache %>
       </div>
