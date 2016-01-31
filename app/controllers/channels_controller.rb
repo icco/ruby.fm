@@ -49,6 +49,7 @@ class ChannelsController < ApplicationController
   end
 
   def stats
+    # TODO: Cache and make sure to filter by the channel_id
     data = Keen.count("podcast.download", :interval => "daily", :timeframe => "previous_30_days")
     @labels = data.map {|date| Time.parse(date['timeframe']['start']).strftime("%b %d")}.to_json
     @data = data.map {|date| date['value']}.to_json
