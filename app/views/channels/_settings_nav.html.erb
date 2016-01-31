@@ -1,6 +1,7 @@
 <div class="col col-2">
   <nav class="mb2">
       <label class="ml2 caps gray h6 block mb2">Podcast</label>
+    <%= link_to "Stats", '/stats', class: 'btn block' %>
     <%= link_to "Information", edit_channel_path(primary_channel) + '#information', class: 'btn block' %>
     <%= link_to "Categories", edit_channel_path(primary_channel) + '#categories', class: 'btn block' %>
     <%= link_to "Cover Art", edit_channel_path(primary_channel) + '#cover-art', class: 'btn block' %>
