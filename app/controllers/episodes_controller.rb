@@ -57,17 +57,11 @@ class EpisodesController < ApplicationController
   # @return [void]
   def play
     @episode = Episode.find(params[:id])
-    attributes = {
-      keen: {
-        timestamp: DateTime.now.utc.iso8601
-      },
+    track_podcast_download(request, {
+      source: 'RubyFM',
       episode_id: @episode.id,
-      channel_id: @episode.channel_id,
-      ip: request.remote_ip,
-      ua_string: request.headers['User-Agent'],
-      source: 'RubyFM'
-    }
-    KeenPublisher.perform_async('podcast.download', attributes)
+      channel_id: @episode.channel_id
+    })
 
     redirect_to(@episode.https_audio_url, status: 302)
   end
@@ -77,19 +71,48 @@ class EpisodesController < ApplicationController
   # @return [void]
   def download
     @episode = Episode.find(params[:id])
-    attributes = {
-      keen: {
-        timestamp: DateTime.now.utc.iso8601
-      },
+    track_podcast_download(request, {
+      source: 'Other',
       episode_id: @episode.id,
-      channel_id: @episode.channel_id,
-      ip: request.remote_ip,
-      ua_string: request.headers['User-Agent'],
-      source: 'Other'
-    }
-    KeenPublisher.perform_async('podcast.download', attributes)
+      channel_id: @episode.channel_id
+    })
 
     redirect_to(@episode.https_audio_url, status: 302)
+  end
+
+  def track_podcast_download(request, options={})
+    attributes = {
+      keen: {
+        timestamp: DateTime.now.utc.iso8601,
+        addons: [
+          {
+            name: "keen:ua_parser",
+            input: {
+              ua_string: "user_agent.string"
+            },
+            output: "user_agent.info"
+          },
+          {
+            name: "keen:ip_to_geo",
+            input: {
+              ip: "ip.address"
+            },
+            output: "ip.info"
+          }
+        ]
+      },
+      referrer: {
+        url: request.referrer
+      },
+      ip: {
+        address: request.remote_ip
+      },
+      user_agent: {
+        string: request.headers['User-Agent']
+      }
+    }.merge(options)
+
+    KeenPublisher.perform_async('podcast.download', attributes)
   end
 
   def find_episode(id)

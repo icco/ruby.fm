@@ -27,7 +27,7 @@ common:
 worker:
   extends:
     service: common
-  command: bundle exec sidekiq -q critical -q entries -q box -q default -v
+  command: bundle exec sidekiq -v
   volumes:
     - .:/app
   links:
