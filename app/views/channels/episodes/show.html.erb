@@ -43,8 +43,8 @@
       </div>
       <div class="flex-auto">
         <div class="mr2">
-          <h2 class="black block h4 m0 truncate"><%= link_to @channel.title, slugged_channel_path(@channel), class: 'black' %></h2>
-          <h3 class="h5 m0 gray truncate">
+          <h2 class="black block h3 m0 truncate"><%= link_to @channel.title, slugged_channel_path(@channel), class: 'black' %></h2>
+          <h3 class="h4 m0 gray truncate">
             Published <%= @episode.created_at.strftime("%b %e") %>
             ∙
             <%= "#{distance_of_time_in_words(@episode.length)} long" %>
@@ -121,7 +121,7 @@
   <% end %>
 
   <% if @channel.episodes.visible.count > 1 %>
-    <h4 class="caps gray h6 p2 md-px-reset m0">More from <%= link_to @channel.title, slugged_channel_path(@channel), class: 'gray' %></h4>
+    <h4 class="caps gray h4 p2 md-px-reset m0">More from <%= link_to @channel.title, slugged_channel_path(@channel), class: 'gray' %></h4>
     <section class="flex flex-wrap mb2">
       <% @channel.episodes.visible.where.not(id: @episode.id).order(created_at: :desc).first(3).each do |t| %>
         <div class="flex col-4 md-col-4 lg-col-4 border-box">
@@ -130,9 +130,12 @@
               <%= image_tag(Imgix.client.path(t.image.s3_path).auto('format').fit('crop').lossless(true).width(400).height(400).to_url, class: 'col-12', alt: t.title) %>
             <% end %>
             <div class="p1">
-              <h2 class="h5 m0 black">
-                <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'black') %>
+              <h2 class="h3 m0">
+                <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'regular black') %>
               </h2>
+              <h4 class="h4 regular gray m0">
+                <%= "#{time_ago_in_words(t.created_at)} ago" %>
+              </h4>
             </div>
           </div>
         </div>

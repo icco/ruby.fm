@@ -1,13 +1,15 @@
 <header class="center py4 border-bottom mb4">
-  <h1 class="mt0">No-nonsense podcast hosting</h1>
-  <p>Self publishing made as simple as dragging and dropping audio files.</p>
-  <% unless user_signed_in? %>
-    <%= link_to "Sign up →", new_user_registration_path, class: "h3 btn btn-primary px4 py2 mb1" %>
-    <small class="gray block">Free while in beta</small>
-  <% end %>
+  <div class="py4">
+    <h1 class="mt0 h1">No-nonsense podcast hosting</h1>
+    <p class="h3 regular gray">Self publishing made as simple as dragging and dropping audio files.</p>
+    <% unless user_signed_in? %>
+      <%= link_to "Sign up →", new_user_registration_path, class: "h3 btn btn-primary px4 py2 mb1" %>
+      <small class="gray block">Free while in beta</small>
+    <% end %>
+  </div>
 </header>
 
-<h4 class="center caps gray h6 p2">Featured Episodes</h4>
+<h4 class="center caps gray h4 regular p2">Featured Episodes</h4>
 <section class="flex flex-wrap mb4">
   <% @episodes.each do |t| %>
     <div class="flex col-6 md-col-4 lg-col-3 p2 border-box">
@@ -15,11 +17,11 @@
         <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
           <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'block col-12') %>
         <% end %>
-          <div class="mt1">
-            <h2 class="h4 m0 black">
-              <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'black') %>
-            </h2>
-          <h4 class="h5 regular gray m0">
+        <div class="mt1">
+          <h2 class="h3 m0 regular black">
+            <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'black') %>
+          </h2>
+          <h4 class="h4 regular gray m0">
             <%= "#{time_ago_in_words(t.created_at)} ago" %>
             ∙
             <%= distance_of_time_in_words(t.length) %>
