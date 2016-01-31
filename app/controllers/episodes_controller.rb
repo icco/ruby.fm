@@ -64,7 +64,7 @@ class EpisodesController < ApplicationController
       episode_id: @episode.id,
       channel_id: @episode.channel_id,
       ip: request.remote_ip,
-      user_agent: request.headers['User-Agent'],
+      ua_string: request.headers['User-Agent'],
       source: 'RubyFM'
     }
     KeenPublisher.perform_async('podcast.download', attributes)
@@ -84,7 +84,7 @@ class EpisodesController < ApplicationController
       episode_id: @episode.id,
       channel_id: @episode.channel_id,
       ip: request.remote_ip,
-      user_agent: request.headers['User-Agent'],
+      ua_string: request.headers['User-Agent'],
       source: 'Other'
     }
     KeenPublisher.perform_async('podcast.download', attributes)
