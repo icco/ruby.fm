@@ -25,7 +25,7 @@
             <%= e.created_at.strftime("%b %e") %>
           </h4>
         </td>
-        <td class="align-middle">353</td>
+        <td class="align-middle"><%= Keen.count("podcast.download", :filters => [{"property_name" => "episode_id", "operator" => "eq", "property_value" => e.id}], :timeframe => "this_7_days") %></td>
         <td class="align-middle">0</td>
         </tr>
       <% end %>
