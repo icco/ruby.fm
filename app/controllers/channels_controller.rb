@@ -49,11 +49,22 @@ class ChannelsController < ApplicationController
   end
 
   def stats
+    @channel = primary_channel
+
     # TODO: Cache and make sure to filter by the channel_id
-    data = Keen.count("podcast.download", :interval => "daily", :timeframe => "previous_30_days")
+    data = Keen.count_unique("podcast.download", {
+      interval: "daily",
+      timeframe: "previous_30_days",
+      target_property: 'ip.address',
+      filters: [{
+        property_name: "channel_id",
+        operator: "eq",
+        property_value: @channel.id
+      }]
+    })
     @labels = data.map {|date| Time.parse(date['timeframe']['start']).strftime("%b %d")}.to_json
     @data = data.map {|date| date['value']}.to_json
-    @channel = primary_channel
+
   end
 
   def itunes
