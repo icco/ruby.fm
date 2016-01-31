@@ -58,7 +58,7 @@ class EpisodesController < ApplicationController
   def play
     @episode = Episode.find(params[:id])
     track_podcast_download(request, {
-      source: 'RubyFM',
+      source: params.fetch(:player, 'other'),
       episode_id: @episode.id,
       channel_id: @episode.channel_id
     })
@@ -72,7 +72,7 @@ class EpisodesController < ApplicationController
   def download
     @episode = Episode.find(params[:id])
     track_podcast_download(request, {
-      source: 'Other',
+      source: params.fetch(:player, 'other'),
       episode_id: @episode.id,
       channel_id: @episode.channel_id
     })
