@@ -61,7 +61,9 @@ class EpisodesController < ApplicationController
       keen: {
         timestamp: DateTime.now.utc.iso8601
       },
-      episode_id: params[:id],
+      episode_id: @episode.id,
+      channel_id: @episode.channel_id,
+      ip: request.remote_ip,
       user_agent: request.headers['User-Agent'],
       source: 'RubyFM'
     }
@@ -79,7 +81,9 @@ class EpisodesController < ApplicationController
       keen: {
         timestamp: DateTime.now.utc.iso8601
       },
-      episode_id: params[:id],
+      episode_id: @episode.id,
+      channel_id: @episode.channel_id,
+      ip: request.remote_ip,
       user_agent: request.headers['User-Agent'],
       source: 'Other'
     }
