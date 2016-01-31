@@ -48,6 +48,13 @@ class ChannelsController < ApplicationController
     end
   end
 
+  def stats
+    @labels = ((Date.today - 29.days)..Date.yesterday).map{ |date| date.strftime("%b %d").to_s }.to_json
+    @data = (30.times).map{ |date| rand(0..300).to_s }.to_json
+    p @data
+    @channel = primary_channel
+  end
+
   def itunes
     @channel = primary_channel
   end
