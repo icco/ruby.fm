@@ -55,7 +55,6 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
 
       if @channel.image?
         url = Imgix.client.path(@channel.image.s3_path).q(80).fm('jpg').fit('crop').width(2048).height(2048).to_url
-        url << '.jpg'
         xml.itunes(:image, href: url.gsub(/\Ahttps/, 'http'))
       end
 
@@ -93,7 +92,6 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
               # https://www.apple.com/itunes/podcasts/specs.html#image
               if podcast.image?
                 url = Imgix.client.path(podcast.image.s3_path).q(80).fm('jpg').fit('crop').width(2048).height(2048).to_url
-                url << '.jpg'
                 xml.itunes(:image, href: url.gsub(/\Ahttps/, 'http'))
               end
 
