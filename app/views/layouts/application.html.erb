@@ -17,9 +17,21 @@
       <% elsif @episode %>
       <link rel="alternate" type="application/rss+xml" title="RSS" href="<%= channel_url(@episode.channel.id, format: 'xml') %>">
     <% end %>
+    <script src="https://use.typekit.net/bqy6mrp.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <style>
       <%= render file: '../assets/stylesheets/basscss.css' %>
       body { font-size: 18px; }
+      body, p, h1, h2, h3, h4, h5, h6, input, textarea, li, .regular {
+        font-family: "soleil";
+        font-weight: 300;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: 500;
+      }
+      .bold {
+        font-weight: 600;
+      }
     </style>
     <%= csrf_meta_tags %>
   </head>
@@ -42,7 +54,7 @@
       <nav class="sm-fixed col-12 bg-white z4 clearfix border-bottom">
         <div class="container">
         <div class="col">
-          <%= link_to(root_path, class:"btn btn-transparent py2") do %>
+          <%= link_to(root_path, class:"bold btn btn-transparent py2") do %>
             ruby.fm
           <% end %>
         </div>
