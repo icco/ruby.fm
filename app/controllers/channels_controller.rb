@@ -85,7 +85,7 @@ class ChannelsController < ApplicationController
       if @channel.update(parameters)
         format.html do
           flash[:notice] = I18n.t('channel.update.successful')
-          redirect_to(channel_url(@channel.slug))
+          redirect_to(edit_channel_url(@channel.slug))
         end
       else
         format.html do
@@ -131,7 +131,8 @@ class ChannelsController < ApplicationController
       :summary,
       :image,
       :image_cache,
-      :airdate
+      :airdate,
+      :itunes_url
     )
   end
 end
