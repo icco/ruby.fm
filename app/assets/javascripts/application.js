@@ -15,6 +15,7 @@
 //= require jquery.readyselector
 //= require turbolinks
 //= require plyr
+//= require chart.min
 
 // Get TL working
 Turbolinks.enableTransitionCache();

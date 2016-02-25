@@ -34,6 +34,8 @@
       }
     </style>
     <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag("application", media: "all") %>
+    <%= javascript_include_tag("application") %>
   </head>
   <body class="<%= controller_name %> <%= action_name %>">
     <!--[if lt IE 8]>
@@ -85,8 +87,6 @@
         </p>
       </footer>
     </div>
-    <%= stylesheet_link_tag("application", media: "all") %>
-    <%= javascript_include_tag("application") %>
     <script>
       (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
       function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;

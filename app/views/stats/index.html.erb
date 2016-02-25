@@ -1,0 +1,73 @@
+<header class="py2 mb2 border-bottom">
+<h1>Stats</h1>
+</header>
+
+<canvas id="myChart" class="col-12" height="100"></canvas>
+
+<div class="overflow-hidden mt4">
+  <table class="table-light">
+    <thead>
+      <tr>
+        <th>Episodes</th>
+        <th>Listens</th>
+        <th>Downloads</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @channel.episodes.order('created_at DESC').all.each do |e| %>
+        <tr>
+          <td>
+            <div class="py1">
+          <h2 class="h3 m0 regular black">
+            <%= e.title %>
+          </h2>
+          <h4 class="h4 regular gray m0">
+            <%= e.created_at.strftime("%b %e") %>
+          </h4>
+        </td>
+        <td class="align-middle"><%= @episode_stats.fetch(e.id, 0) %></td>
+        <td class="align-middle">0</td>
+        </tr>
+      <% end %>
+      <tr>
+        <td><h2>Total</h2></td>
+        <td class="align-middle"><%= @episode_stats.map { |k, v| v }.reduce(&:+) %></td>
+        <td class="align-middle"></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<%= javascript_tag do %>
+  var ctx = document.getElementById("myChart").getContext("2d");
+  $(document).ready(function() {
+    jQuery.getJSON("<%= stats_overall_url %>", function(result) {
+      var mainDataset = {
+        label: "Last 30 Days",
+        fillColor: "rgba(255, 37, 34, 0.7)",
+        data: []
+      };
+      var mainLabels = [];
+
+      $.each(result.data, function(index, obj) {
+        mainLabels.push(obj.label)
+        mainDataset.data.push(obj.value)
+      });
+
+      var data = {
+        labels: mainLabels,
+        datasets: [
+          mainDataset
+        ]
+      };
+
+      var myNewChart = new Chart(ctx).Bar(data);
+      var options = {
+        scaleBeginAtZero : true,
+        scaleShowVerticalLines: false,
+        scaleShowLabelBackdrop : false,
+      };
+      new Chart(ctx).Bar(data, options);
+    });
+  });
+<% end %>

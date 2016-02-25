@@ -65,6 +65,10 @@ class ChannelsController < ApplicationController
     @labels = data.map {|date| Time.parse(date['timeframe']['start']).strftime("%b %d")}.to_json
     @data = data.map {|date| date['value']}.to_json
 
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   def itunes
