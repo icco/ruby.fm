@@ -45,5 +45,14 @@ module RubyFm
     }
     config.action_mailer.raise_delivery_errors = true
     config.action_mailer.default_url_options = { host: 'ruby.fm' }
+
+
+    # Use a different cache store in production.
+    case ENV['CACHE_STORE'].downcase
+    when 'redis'
+      config.cache_store = :redis_store
+    else
+      config.cache_store = :null_store
+    end
   end
 end
