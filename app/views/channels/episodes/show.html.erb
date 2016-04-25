@@ -64,7 +64,7 @@
       </svg>
       <div class="cursor-pointer absolute top-0 right-0 left-0 js-toggle-play" style="bottom: 56px;"></div>
       <div class="z3 player js-plyr absolute bottom-0 col-12">
-        <audio controls preload="none" class="hide">
+        <audio controls preload="auto" class="hide">
           <source src="<%= play_episode_url(@episode.id, params: {player: 'rubyfm'}, format: @episode.audio_ext) %>" type="audio/mp3">
         </audio>
         <input id='seek{id}' class='z4 plyr__progress--seek player-progress-seek' type='range' min='0' max='100' step='0.5' value='0' data-plyr='seek'>
