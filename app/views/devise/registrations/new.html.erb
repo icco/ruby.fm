@@ -21,3 +21,8 @@
   <% end %>
   <%= render "devise/shared/links" %>
 </div>
+
+<%# Clearbit to Slack integration %>
+<% if Rails.env.production? %>
+  <script src="https://slack.clearbit.com/v1/notify.js" data-cb-account="de29d12e-1204-441f-b088-fb183828055d" ></script>
+<% end %>
