@@ -31,4 +31,15 @@ RailsAdmin.config do |config|
     # history_index
     # history_show
   end
+
+  config.model Episode do
+    list do
+      sort_by :created_at
+      field :title
+      field :channel
+      field :created_at do
+        sort_reverse true
+      end
+    end
+  end
 end
