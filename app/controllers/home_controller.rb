@@ -1,16 +1,16 @@
 class HomeController < ApplicationController
-  # https://stackoverflow.com/questions/27495326/rare-error-about-missing-view-welcome-index-formats-image
-  respond_to :html
-
   def index
+    if user_signed_in?
+      redirect_to channel_path(primary_channel)
+    end
+
     @channel = Channel.find_by_slug('consolefm')
+
     if @channel
       @episodes = @channel.episodes.all.recent.limit(12)
     else
       @episodes = Episode.none
     end
-    # https://stackoverflow.com/questions/27495326/rare-error-about-missing-view-welcome-index-formats-image
-    respond_with()
   end
 
   def itunes

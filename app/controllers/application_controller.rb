@@ -61,4 +61,8 @@ class ApplicationController < ActionController::Base
       format.any { redirect_to(root_url) }
     end
   end
+
+  def after_sign_in_path_for(resource_or_scope)
+    channel_path(primary_channel)
+  end
 end
