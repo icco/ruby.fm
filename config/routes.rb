@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :channels, path: '', except: [:new, :create] do
     resources :episodes, path: '', only: [:new, :create], controller: 'channels/episodes'
   end
-  resources :episodes, only: [:index, :edit, :update, :destroy] do
+  resources :episodes, only: [:index, :show, :edit, :update, :destroy] do
     member do
       get :download
       get :play

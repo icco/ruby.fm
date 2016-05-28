@@ -11,6 +11,15 @@ class EpisodesController < ApplicationController
     end
   end
 
+  def show
+    @channel = @episode.channel
+    authorize(@channel, :read?)
+
+    respond_to do |format|
+      format.html { redirect_to(slugged_channel_episode_path(@channel.slug, @episode.slug)) }
+    end
+  end
+
   # GET - /episodes/{id}/edit
   # @return [void]
   def edit
