@@ -48,7 +48,7 @@ module RubyFm
 
 
     # Use a different cache store in production.
-    case ENV['CACHE_STORE'].downcase
+    case ENV['CACHE_STORE']&.downcase
     when 'redis'
       config.cache_store = :redis_store
     else
