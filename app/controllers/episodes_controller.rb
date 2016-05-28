@@ -4,7 +4,7 @@ class EpisodesController < ApplicationController
   before_action :fetch_episode, only: [:edit, :update, :destroy]
 
   def index
-    @episodes = Episode.published.recent.includes(:channel).order(created_at: :desc)
+    @episodes = Episode.visible.recent.includes(:channel).order(created_at: :desc)
 
     respond_to do |format|
       format.html
@@ -12,7 +12,7 @@ class EpisodesController < ApplicationController
   end
 
   def show
-    @episode = Episode.published.includes(:channel).friendly.find(params[:id])
+    @episode = Episode.visible.includes(:channel).friendly.find(params[:id])
     @channel = @episode.channel
     authorize(@channel, :read?)
 
