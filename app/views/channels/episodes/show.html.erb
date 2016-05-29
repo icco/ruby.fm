@@ -127,7 +127,7 @@
         <div class="flex col-4 md-col-4 lg-col-4 border-box">
           <div class="flex-stretch">
             <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
-              <%= image_tag(Imgix.client.path(t.image.s3_path).q(70).fm('jpg').auto('format').fit('crop').width(400).height(400).to_url, class: 'col-12', alt: t.title) %>
+              <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'col-12', alt: t.title) %>
             <% end %>
             <div class="p1">
               <h2 class="h3 m0">
