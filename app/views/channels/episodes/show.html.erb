@@ -38,7 +38,7 @@
     <div class="flex flex-center p2 md-px-reset">
       <div class="flex-none">
         <%= link_to slugged_channel_path(@channel) do %>
-          <%= image_tag(Imgix.client.path(@channel.image.s3_path).q(70).h(48).w(48).dpr(2).fit('crop').mask('ellipse').auto('format').fm('jpg').to_url, width: 48, height: 48, class: 'mb0 mr2', alt: @channel.title) %>
+          <%= image_tag(Imgix.client.path(@channel.image.s3_path).q(70).h(48).w(48).dpr(2).fit('crop').mask('ellipse').to_url, width: 48, height: 48, class: 'mb0 mr2', alt: @channel.title) %>
         <% end %>
       </div>
       <div class="flex-auto">

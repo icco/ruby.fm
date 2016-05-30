@@ -38,7 +38,11 @@
         <div class="flex-auto sm-col col-9">
           <h1 class="m0 h1"><%= @channel.title %></h1>
           <h4 class="mt0 mb2 gray regular h4">
-            <%= pluralize(@channel.episodes.count, 'episode') %>
+            <% if policy(@channel).update?  %>
+              <%= pluralize(@channel.episodes.count, 'episode') %>
+            <% else %>
+              <%= pluralize(@channel.episodes.where(visible: true).count, 'episode') %>
+            <% end %>
             <% @channel.categories.each do |c| %>
               ∙
               <%= c.to_s %>
