@@ -49,3 +49,6 @@ We currently deploy on heroku. If you need a system dependency that you know for
 a fact is apart of the debian apt repo, then feel free to add it to the
 `Aptfile`. Just understand that for every dependency you add, it will increase
 the slug size.
+
+Master is auto deployed to heroku. If it fails to deploy, it wont notify the
+slack channel.
