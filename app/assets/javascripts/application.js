@@ -59,7 +59,7 @@ ready = function() {
   media.addEventListener("play", function() {
     $(".js-play-hide").hide();
   });
-});
+};
 
 $(document).ready(ready);
 $(document).on('page:load', ready);
