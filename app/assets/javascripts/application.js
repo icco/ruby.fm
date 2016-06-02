@@ -21,7 +21,7 @@
 Turbolinks.enableTransitionCache();
 
 // Enable the player
-$('.episodes.show').ready(function () {
+document.addEventListener("turbolinks:load", function() {
   var player = plyr.setup(document.querySelector(".js-plyr"),
     {
       html: ["<div class='player-controls'>", "</div>"].join("\n"),
