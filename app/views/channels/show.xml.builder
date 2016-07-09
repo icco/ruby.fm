@@ -54,8 +54,7 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
       end
 
       if @channel.image?
-        url = Imgix.client.path(@channel.image.s3_path).q(80).fm('jpg').fit('crop').width(2048).height(2048).to_url
-        xml.itunes(:image, href: url.gsub(/\Ahttps/, 'http'))
+        xml.itunes(:image, href: "#{channel_url(@channel)}.jpg")
       end
 
       @channel.single_categories.each do |category|

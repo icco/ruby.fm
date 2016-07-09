@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     member do
       get :download
       get :play
+      get :image
     end
   end
 
