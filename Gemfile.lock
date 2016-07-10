@@ -211,6 +211,7 @@ GEM
       activesupport (>= 4.1.0)
     haml (4.0.7)
       tilt
+    htmlentities (4.3.4)
     i18n (0.7.0)
     ice_nine (0.11.2)
     imgix (1.0.0)
@@ -404,6 +405,7 @@ DEPENDENCIES
   fabrication (~> 2.12.2)
   fog (~> 1.37.0)
   friendly_id (~> 5.1.0)
+  htmlentities
   imgix (~> 1.0.0)
   jbuilder (~> 2.4.0)
   jquery-rails (~> 4.0.3)
@@ -439,4 +441,4 @@ RUBY VERSION
    ruby 2.3.1p112
 
 BUNDLED WITH
-   1.12.1
+   1.12.5

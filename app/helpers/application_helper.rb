@@ -1,3 +1,5 @@
+require 'htmlentities'
+
 module ApplicationHelper
   def markdown(text)
     text = String(text)

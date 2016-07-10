@@ -78,11 +78,11 @@ xml.rss 'version' => '2.0', 'xmlns:itunes' => 'http://www.itunes.com/dtds/podcas
               unless podcast.notes.blank?
                 notes = utf8_clean(podcast.notes)
                 xml.itunes(:summary) do
-                  xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(profane(markdown(notes))), length: 4000)).text.to_s)
+                  xml.cdata!(HtmlEntities.coder.decode(Nokogiri::HTML.parse(truncate(strip_tags(profane(markdown(notes))), length: 4000)).text.to_s))
                 end
                 xml.description do
                   # Needs to be able to escape <a>s
-                  xml.cdata!(Nokogiri::HTML.parse(truncate(strip_tags(profane(markdown(notes))), length: 4000)).text.to_s)
+                  xml.cdata!(HtmlEntities.coder.decode(Nokogiri::HTML.parse(truncate(strip_tags(profane(markdown(notes))), length: 4000)).text.to_s))
                 end
               end
 
