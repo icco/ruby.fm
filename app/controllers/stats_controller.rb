@@ -12,7 +12,6 @@ class StatsController < AuthorizedController
     end
   end
 
-
   def overall
     @channel = primary_channel
 
@@ -37,7 +36,6 @@ class StatsController < AuthorizedController
       })
     end
   end
-
 
   def fetch_plays_grouped_by_episode(channel)
     Rails.cache.fetch("#{channel.id}/plays-grouped-by-episode", expires_in: 12.hours) do
