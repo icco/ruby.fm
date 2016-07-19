@@ -23,6 +23,7 @@ Turbolinks.enableTransitionCache();
 // http://stackoverflow.com/questions/18770517/rails-4-how-to-use-document-ready-with-turbo-links
 // Enable the player
 var ready;
+
 ready = function() {
   var player = plyr.setup(document.querySelector(".js-plyr"),
     {
@@ -60,6 +61,3 @@ ready = function() {
     $(".js-play-hide").hide();
   });
 };
-
-$(document).ready(ready);
-$(document).on('page:load', ready);

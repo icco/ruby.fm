@@ -32,6 +32,7 @@
   <%= favicon_link_tag(Imgix.client.path(@episode.image.s3_path).w(32).h(32).fit('crop').fm('auto').to_url) %>
 <% end %>
 
+
 <div class="container">
   <div class="sm-col-12 md-col-6 mx-auto">
   <header class="clearfix">
@@ -57,6 +58,10 @@
         <% end %>
       </div>
     </div>
+
+  <% if policy(@channel).update? %>
+    <h1>Stats</h1>
+  <% end %>
   </header>
     <div class="unselectable square relative bg-black" style="background-size: cover; background-image: url(<%= Imgix.client.path(@episode.image.s3_path).q(70).h(512).w(512).dpr(2).fit('crop').auto('format').fm('jpg').to_url %>)">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" class="episode-play js-play-hide white p3">
@@ -145,3 +150,8 @@
 </div>
 
 <%= render "layouts/geomicons" %>
+
+<%= javascript_tag do %>
+  $(document).ready(ready);
+  $(document).on('page:load', ready);
+<% end %>
