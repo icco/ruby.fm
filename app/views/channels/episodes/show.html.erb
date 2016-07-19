@@ -60,7 +60,9 @@
     </div>
 
   <% if policy(@channel).update? %>
-    <h1>Stats</h1>
+    <div class="hide">
+      <h1>Stats</h1>
+    </div>
   <% end %>
   </header>
     <div class="unselectable square relative bg-black" style="background-size: cover; background-image: url(<%= Imgix.client.path(@episode.image.s3_path).q(70).h(512).w(512).dpr(2).fit('crop').auto('format').fm('jpg').to_url %>)">
