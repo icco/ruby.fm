@@ -49,6 +49,8 @@
             Published <%= @episode.created_at.strftime("%b %e") %>
             ∙
             <%= "#{distance_of_time_in_words(@episode.length)} long" %>
+            ∙
+            <%= pluralize(@episode.play_count, 'play') %>
           </h3>
       </div>
       </div>
@@ -59,11 +61,6 @@
       </div>
     </div>
 
-  <% if policy(@channel).update? %>
-    <div class="hide">
-      <h1>Stats</h1>
-    </div>
-  <% end %>
   </header>
     <div class="unselectable square relative bg-black" style="background-size: cover; background-image: url(<%= Imgix.client.path(@episode.image.s3_path).q(70).h(512).w(512).dpr(2).fit('crop').auto('format').fm('jpg').to_url %>)">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" class="episode-play js-play-hide white p3">

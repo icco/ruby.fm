@@ -84,6 +84,8 @@
               <%= t.created_at.strftime("%b %e") %>
               ∙
               <%= "#{distance_of_time_in_words(t.length)}" %>
+              ∙
+              <%= pluralize(t.play_count, 'play') %>
             </h3>
           </div>
         </div>

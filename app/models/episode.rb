@@ -43,6 +43,23 @@ class Episode < ActiveRecord::Base
     end
   end
 
+  def play_count
+    Rails.cache.fetch("#{self.id}/play-count", expires_in: 12.hours) do
+      Keen.count("podcast.download", {
+        filters: [
+          {
+            property_name: "episode_id",
+            operator: "eq",
+            property_value: self.id
+          }
+        ],
+        timeframe: {
+          start: self.created_at.iso8601
+        }
+      })
+    end
+  end
+
   def validate_minimum_dimensions
     return true unless image_changed? && image.try(:file)
 
