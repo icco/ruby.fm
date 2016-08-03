@@ -65,21 +65,15 @@
 
 </header>
 
-<section class="flex flex-wrap">
+<section class="flex flex-wrap mxn2">
   <% @episodes.each do |t| %>
-    <% if policy(t).update? || t.visible? %>
-      <div class="flex col-6 md-col-4 lg-col-3 p2 border-box">
-        <div class="">
-          <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
-            <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'block col-12', alt: t.title) %>
-          <% end %>
-          <div class="mt1">
-            <h2 class="h4 m0 black">
-              <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'black') %>
-              <% unless t.visible? %>
-                <span class="h6 inline-block px1 white bg-red rounded">Draft</span>
-              <% end %>
-            </h2>
+    <div class="flex overflow-hidden col-12 md-col-6 lg-col-4 relative border-box m2">
+      <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
+        <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'block col-12') %>
+        <div class="col-12 absolute left-0 right-0 bottom-0 z2 p2" style="background-image: linear-gradient(rgba(0,0,0,0) 10%, #1A232C 100%), none;">
+          <h2 class="h3 m0 regular white">
+            <%= t.title  %>
+          </h2>
             <h3 class="h6 m0 gray truncate">
               <%= t.created_at.strftime("%b %e") %>
               ∙
@@ -87,10 +81,9 @@
               ∙
               <%= pluralize(t.play_count, 'play') %>
             </h3>
-          </div>
-        </div>
+        <% end %>
       </div>
-    <% end %>
+    </div>
   <% end %>
 </section>
 
@@ -98,3 +91,4 @@
   // Change the favicon
   $("#favicon").attr("href","<%= Imgix.client.path(@channel.image.s3_path).width(32).height(32).fit('crop').fm('png32').to_url %> ");
 </script>
+

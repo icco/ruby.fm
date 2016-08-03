@@ -1,8 +1,5 @@
+<div class="flex flex-center" style="min-height: 100vh;">
 <div class="lg-col-4 px2 py4 mx-auto">
-  <header class="center">
-    <h1 class="m0">Sign Up</h1>
-    <p>You're 30 seconds away from publishing super dope things. Good luck.</p>
-  </header>
   <%= form_for(@signup, url: user_registration_path) do |f| %>
     <% unless @signup.errors.empty? %>
       <% @signup.errors.messages.each do |field, messages| %>
@@ -20,6 +17,7 @@
     <%= f.submit "Sign Up", class: 'btn btn-primary col-12 mb2' %>
   <% end %>
   <%= render "devise/shared/links" %>
+</div>
 </div>
 
 <%# Clearbit to Slack integration %>
