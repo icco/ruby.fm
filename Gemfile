@@ -3,7 +3,7 @@ source 'https://rubygems.org'
 ruby '2.3.1'
 
 gem 'addressable',    '~> 2.3.5'
-gem 'bugsnag',        '~> 3.0.0'
+gem 'bugsnag',        '~> 4.2.1'
 gem 'carrierwave-aws', '~> 1.0.0'
 gem 'coffee-rails',   '~> 4.1.0'
 gem 'dalli',          '~> 2.7.4'
