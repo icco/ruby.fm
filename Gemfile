@@ -49,7 +49,7 @@ group :development, :test do
 end
 
 group :doc do
-  gem 'yard', '~> 0.8.7'
+  gem 'yard', '~> 0.9.5'
 end
 
 group :test do
