@@ -1,6 +1,4 @@
-class KeenPublisher
-  include Sidekiq::Worker
-
+class KeenPublisher < ApplicationWorker
   def perform(channel, attributes={})
     Keen.publish(channel, attributes)
   end

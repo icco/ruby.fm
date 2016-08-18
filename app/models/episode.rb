@@ -43,21 +43,24 @@ class Episode < ActiveRecord::Base
     end
   end
 
-  def play_count
-    Rails.cache.fetch("#{self.id}/play-count", expires_in: 12.hours) do
-      Keen.count("podcast.download", {
-        filters: [
-          {
-            property_name: "episode_id",
-            operator: "eq",
-            property_value: self.id
-          }
-        ],
-        timeframe: {
-          start: self.created_at.iso8601
+  def keen_plays
+    Keen.count("podcast.download", {
+      filters: [
+        {
+          property_name: "episode_id",
+          operator: "eq",
+          property_value: self.id
         }
-      })
-    end
+      ],
+      timeframe: {
+        start: self.created_at.iso8601
+      }
+    })
+  end
+
+  def update_play_count
+    self.play_count = keen_plays
+    save
   end
 
   def validate_minimum_dimensions
