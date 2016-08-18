@@ -44,7 +44,7 @@ group :production do
 end
 
 group :development, :test do
-  gem 'dotenv-rails', '2.0.2'
+  gem 'dotenv-rails', '~> 2.1.1'
 end
 
 group :doc do
