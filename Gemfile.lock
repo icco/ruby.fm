@@ -317,7 +317,7 @@ DEPENDENCIES
   devise (~> 4.2.0)
   dotenv-rails (~> 2.1.1)
   fabrication (~> 2.15.2)
-  fog-aws
+  fog-aws (~> 0.11.0)
   friendly_id (~> 5.1.0)
   htmlentities (~> 4.3.4)
   imgix (~> 1.1.0)
