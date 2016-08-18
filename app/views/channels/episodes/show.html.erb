@@ -18,9 +18,8 @@
   }
 
   if @episode.notes.present?
-    stripped = strip_tags(markdown(@episode.notes).squish)
-    hash[:description] = truncate(stripped, length: 160)
-    hash[:og][:description] = truncate(stripped, length: 300)
+    hash[:description] = truncate(@episode.stripped_notes, length: 160)
+    hash[:og][:description] = truncate(@episode.stripped_notes, length: 300)
   else
     hash[:description] = ""
   end
