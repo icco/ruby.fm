@@ -10,12 +10,12 @@ gem 'dalli',          '~> 2.7.4'
 gem 'devise',         '~> 4.1.1'
 gem 'fog',            '~> 1.37.0',  require: 'fog/aws/storage'
 gem 'friendly_id',    '~> 5.1.0'
-gem 'htmlentities'
-gem 'imgix',          '~> 1.0.0'
+gem 'htmlentities',   '~> 4.3.4'
+gem 'imgix',          '~> 1.1.0'
 gem 'jbuilder',       '~> 2.4.0'
 gem 'jquery-rails',   '~> 4.0.3'
 gem 'keen',           '~> 0.9.4'
-gem 'mailgun_rails'
+gem 'mailgun_rails',  '~> 0.8.0'
 gem 'metamagic',      '~> 3.1.7'
 gem 'mini_magick',    '~> 4.2.4'
 gem 'nokogiri',       '~> 1.6.7'
@@ -46,7 +46,6 @@ group :production do
 end
 
 group :development, :test do
-  gem 'spring'
   gem 'dotenv-rails', '2.0.2'
 end
 
@@ -55,7 +54,7 @@ group :doc do
 end
 
 group :test do
-  gem 'fabrication', '~> 2.12.2'
+  gem 'fabrication',    '~> 2.12.2'
   gem 'minitest-rails', '~> 2.1.1'
-  gem 'mocha', '~> 1.1.0'
+  gem 'mocha',          '~> 1.1.0'
 end
