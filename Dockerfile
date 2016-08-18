@@ -8,7 +8,7 @@ RUN apt-get update && \
   apt-get install -y nodejs nodejs-legacy libtag1-dev postgresql-client-9.5 && \
   rm -rf /var/lib/apt/lists/*
 
-RUN gem install rails --version "4.2.6"
+RUN gem install rails --version "4.2.7.1"
 
 RUN mkdir -p /app
 
