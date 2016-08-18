@@ -1,47 +1,46 @@
-# proxy:
-#   image: centurylink/ngrok:latest
-#   command: /bin/ngrok_discover
-#   environment:
-#     - HTTP_PORT=web:3000
+version: '2'
 
-database:
-  image: postgres
-  ports:
-    - "5432:5432"
+services:
+  database:
+    image: postgres
+    ports:
+      - "5432:5432"
 
-redis:
-  image: redis
-  ports:
-    - "6379:6379"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
 
-common:
-  build: .
-  environment:
-    DATABASE_HOST: database
-    DATABASE_PORT: 5432
-    DATABASE_USERNAME: postgres
-    DATABASE_PASSWORD: ''
-    REDIS_URL: redis://redis:6379
-    PORT: 3000
+  web:
+    build: .
+    depends_on:
+      - database
+      - redis
+    environment:
+      DATABASE_HOST: database
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: ''
+      REDIS_URL: redis://redis:6379/0
+      PORT: 3000
+    ports:
+      - "3000:3000"
+    command: bundle exec rails server --port 3000 --binding 0.0.0.0
+    volumes:
+      - .:/app
 
-worker:
-  extends:
-    service: common
-  command: bundle exec sidekiq -v
-  volumes:
-    - .:/app
-  links:
-    - database
-    - redis
-
-web:
-  extends:
-    service: common
-  command: bundle exec rails server --port 3000 --binding 0.0.0.0
-  volumes:
-    - .:/app
-  ports:
-    - "3000:3000"
-  links:
-    - database
-    - redis
+  worker:
+    build: .
+    depends_on:
+      - database
+      - redis
+    environment:
+      DATABASE_HOST: database
+      DATABASE_PORT: 5432
+      DATABASE_USERNAME: postgres
+      DATABASE_PASSWORD: ''
+      REDIS_URL: redis://redis:6379/0
+      PORT: 3000
+    command: bundle exec sidekiq -v
+    volumes:
+      - .:/app

@@ -1,25 +1,26 @@
 FROM ruby:2.3.1
 
+RUN wget --quiet -O - "https://www.postgresql.org/media/keys/ACCC4CF8.asc" | apt-key add -
+RUN echo "deb http://apt.postgresql.org/pub/repos/apt jessie-pgdg main" >> /etc/apt/sources.list
+
 RUN apt-get update && \
-  apt-get install -y \
-    nodejs \
-    postgresql-client \
-    libtag1-dev \
-    --no-install-recommends && \
+  apt-get upgrade -y && \
+  apt-get install -y nodejs nodejs-legacy libtag1-dev postgresql-client-9.5 && \
   rm -rf /var/lib/apt/lists/*
 
-ENV RAILS_VERSION 4.2.5.1
+RUN gem install rails --version "4.2.6"
 
-RUN gem install rails --version "$RAILS_VERSION"
+RUN mkdir -p /app
 
-ENV APP_DIR /app
+WORKDIR /app
 
-RUN mkdir -p $APP_DIR
-WORKDIR $APP_DIR
-
-COPY Gemfile $APP_DIR/
-COPY Gemfile.lock $APP_DIR/
+COPY Gemfile /app/
+COPY Gemfile.lock /app/
 
 RUN bundle install --jobs 4
 
-ADD . $APP_DIR
+ADD . /app
+
+EXPOSE 3000
+
+CMD ["rails", "server", "--port", "3000", "--binding", "0.0.0.0"]
