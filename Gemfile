@@ -53,7 +53,7 @@ group :doc do
 end
 
 group :test do
-  gem 'fabrication',    '~> 2.12.2'
+  gem 'fabrication',    '~> 2.15.2'
   gem 'minitest-rails', '~> 2.1.1'
   gem 'mocha',          '~> 1.1.0'
 end
