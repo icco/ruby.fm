@@ -43,21 +43,6 @@ class Episode < ActiveRecord::Base
     end
   end
 
-  def keen_plays
-    Keen.count("podcast.download", {
-      filters: [
-        {
-          property_name: "episode_id",
-          operator: "eq",
-          property_value: self.id
-        }
-      ],
-      timeframe: {
-        start: self.created_at.iso8601
-      }
-    })
-  end
-
   def update_play_count
     self.play_count = keen_plays
     save
@@ -103,5 +88,22 @@ class Episode < ActiveRecord::Base
     else
       channel.episodes.count + 1
     end
+  end
+
+  private
+
+  def keen_plays
+    Keen.count("podcast.download", {
+      filters: [
+        {
+          property_name: "episode_id",
+          operator: "eq",
+          property_value: self.id
+        }
+      ],
+      timeframe: {
+        start: self.created_at.iso8601
+      }
+    })
   end
 end
