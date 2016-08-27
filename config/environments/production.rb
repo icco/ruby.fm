@@ -36,7 +36,7 @@ Rails.application.configure do
   config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Set max-age for cached assets
-  config.static_cache_control = "public, max-age=31536000"
+  config.public_file_server.headers = { 'Cache-Control' => 'public, max-age=31536000' }
 
   # Compress JavaScripts and CSS.
   config.assets.js_compressor = :uglifier
