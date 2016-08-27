@@ -43,20 +43,6 @@ COMMENT ON EXTENSION "uuid-ossp" IS 'generate universally unique identifiers (UU
 
 SET search_path = public, pg_catalog;
 
---
--- Name: update_modified_column(); Type: FUNCTION; Schema: public; Owner: -
---
-
-CREATE FUNCTION update_modified_column() RETURNS trigger
-    LANGUAGE plpgsql
-    AS $$
-BEGIN
-    NEW.updated_at = now();
-    RETURN NEW;
-END;
-$$;
-
-
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -287,27 +273,6 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: update_channels_updated_at; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER update_channels_updated_at BEFORE UPDATE ON channels FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
-
-
---
--- Name: update_episodes_updated_at; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER update_episodes_updated_at BEFORE UPDATE ON episodes FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
-
-
---
--- Name: update_users_updated_at; Type: TRIGGER; Schema: public; Owner: -
---
-
-CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON users FOR EACH ROW EXECUTE PROCEDURE update_modified_column();
-
-
---
 -- Name: channels_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
@@ -329,6 +294,6 @@ ALTER TABLE ONLY episodes
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20150101000000'), ('20150102000000'), ('20150103000000'), ('20150104000000'), ('20150105000000'), ('20150313022254'), ('20150524210447'), ('20150524213913'), ('20150525223100'), ('20150530191446'), ('20150530194400'), ('20150530195352'), ('20150531012734'), ('20150630024157'), ('20150809173415'), ('20151101191915'), ('20151105005013'), ('20151121163724'), ('20160130040411'), ('20160211022005'), ('20160818020239');
+INSERT INTO schema_migrations (version) VALUES ('20150101000000'), ('20150102000000'), ('20150103000000'), ('20150104000000'), ('20150105000000'), ('20150313022254'), ('20150524210447'), ('20150524213913'), ('20150525223100'), ('20150530191446'), ('20150530194400'), ('20150530195352'), ('20150531012734'), ('20150630024157'), ('20150809173415'), ('20151101191915'), ('20151105005013'), ('20151121163724'), ('20160130040411'), ('20160211022005'), ('20160818020239'), ('20160827051346');
 
 
