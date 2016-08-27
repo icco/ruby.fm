@@ -1,7 +1,16 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
   config.lograge.enabled = true
+
+  # Replacement portion of rails_12factor:
+  #   https://github.com/heroku/rails_12factor#rails-5-and-beyond
+  logger = ActiveSupport::Logger.new(STDOUT)
+  logger.formatter = config.log_formatter
+  config.logger = ActiveSupport::TaggedLogging.new(logger)
+
+  # Use the lowest log level to ensure availability of diagnostic information
+  # when problems arise.
+  config.log_level = (ENV['LOG_LEVEL'] || 'INFO').downcase.to_sym
 
   # Code is not reloaded between requests.
   config.cache_classes = true
@@ -24,7 +33,7 @@ Rails.application.configure do
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
-  config.serve_static_files = ENV['RAILS_SERVE_STATIC_FILES'].present?
+  config.public_file_server.enabled = ENV["RAILS_SERVE_STATIC_FILES"].present?
 
   # Set max-age for cached assets
   config.static_cache_control = "public, max-age=31536000"
@@ -48,10 +57,6 @@ Rails.application.configure do
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
-
-  # Use the lowest log level to ensure availability of diagnostic information
-  # when problems arise.
-  config.log_level = (ENV['LOG_LEVEL'] || 'INFO').downcase.to_sym
 
   # Prepend all log lines with the following tags.
   # config.log_tags = [ :subdomain, :uuid ]
