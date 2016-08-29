@@ -36,7 +36,7 @@ class Channel < ActiveRecord::Base
   end
 
   def resized_image_url
-    Rails.cache.fetch("channel-#{channel.id}-resized_image_url-#{channel.updated_at.to_i}") do
+    Rails.cache.fetch("channel-#{self.id}-resized_image_url-#{self.updated_at.to_i}") do
       resized_image_url!
     end
   end

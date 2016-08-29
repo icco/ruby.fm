@@ -35,7 +35,7 @@ class Episode < ActiveRecord::Base
   end
 
   def resized_image_url
-    Rails.cache.fetch("episode-#{episode.id}-resized_image_url-#{episode.updated_at.to_i}") do
+    Rails.cache.fetch("episode-#{self.id}-resized_image_url-#{self.updated_at.to_i}") do
       resized_image_url!
     end
   end
