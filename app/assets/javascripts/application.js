@@ -17,9 +17,6 @@
 //= require plyr
 //= require chart.min
 
-// Get TL working
-Turbolinks.enableTransitionCache();
-
 // http://stackoverflow.com/questions/18770517/rails-4-how-to-use-document-ready-with-turbo-links
 // Enable the player
 var ready;
