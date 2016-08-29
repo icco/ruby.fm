@@ -23,6 +23,24 @@ class Channel < ActiveRecord::Base
 
   before_validation :scrub_categories
 
+  def resized_image_url!
+    Imgix.client
+         .path(image.s3_path)
+         .q(70)
+         .h(48)
+         .w(48)
+         .dpr(2)
+         .fit('crop')
+         .mask('ellipse')
+         .to_url
+  end
+
+  def resized_image_url
+    Rails.cache.fetch("channel-#{channel.id}-resized_image_url-#{channel.updated_at.to_i}") do
+      resized_image_url!
+    end
+  end
+
   def validate_minimum_dimensions
     return true unless image_changed? && image.try(:file)
 

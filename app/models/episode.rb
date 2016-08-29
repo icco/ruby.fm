@@ -22,6 +22,24 @@ class Episode < ActiveRecord::Base
   mount_uploader(:audio, AudioUploader)
   mount_uploader(:image, ImageUploader)
 
+  def resized_image_url!
+    Imgix.client
+         .path(image.s3_path)
+         .q(70)
+         .h(48)
+         .w(48)
+         .dpr(2)
+         .fit('crop')
+         .mask('ellipse')
+         .to_url
+  end
+
+  def resized_image_url
+    Rails.cache.fetch("episode-#{episode.id}-resized_image_url-#{episode.updated_at.to_i}") do
+      resized_image_url!
+    end
+  end
+
   # TODO: Check audio file to make sure the correct extension is there
 
   def http_audio_url
