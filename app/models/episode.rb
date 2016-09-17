@@ -22,6 +22,14 @@ class Episode < ActiveRecord::Base
   mount_uploader(:audio, AudioUploader)
   mount_uploader(:image, ImageUploader)
 
+  after_commit :report
+
+  def report
+    # TODO make the reporting more robust
+    message = Rails.application.routes.url_helpers.episode_url(self.id, host: 'https://ruby.fm')
+    Slack.notifier.ping message
+  end
+
   def resized_image_url!
     Imgix.client
          .path(image.s3_path)
