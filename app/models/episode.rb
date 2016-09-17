@@ -26,8 +26,10 @@ class Episode < ActiveRecord::Base
 
   def report
     # TODO make the reporting more robust
-    message = Rails.application.routes.url_helpers.episode_url(self.id, host: 'https://ruby.fm')
-    Slack.notifier.ping message
+    if self.visible?
+      message = "[#{self.title || 'Untitled'}](#{Rails.application.routes.url_helpers.episode_url(self.id, host: 'https://ruby.fm')})"
+      Slack.notifier.ping message
+    end
   end
 
   def resized_image_url!
