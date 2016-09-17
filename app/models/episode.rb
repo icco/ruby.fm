@@ -25,9 +25,8 @@ class Episode < ActiveRecord::Base
   after_commit :report
 
   def report
-    # TODO make the reporting more robust
-    if self.visible?
-      message = "[#{self.title || 'Untitled'}](#{Rails.application.routes.url_helpers.episode_url(self.id, host: 'https://ruby.fm')})"
+    if self.visible? && Rails.env.production?
+      message = "♫ [#{self.title} by #{self.channel.title}](#{Rails.application.routes.url_helpers.episode_url(self.id, host: 'https://ruby.fm')})"
       Slack.notifier.ping message
     end
   end
