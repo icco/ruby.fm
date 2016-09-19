@@ -22,7 +22,7 @@ class Episode < ActiveRecord::Base
   mount_uploader(:audio, AudioUploader)
   mount_uploader(:image, ImageUploader)
 
-  after_commit :report
+  after_create :report
 
   def report
     if self.visible? && Rails.env.production?
