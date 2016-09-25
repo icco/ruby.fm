@@ -2,7 +2,6 @@ source "https://rubygems.org"
 
 ruby "2.3.1"
 
-gem "rack-timeout",    "~> 0.4.2"
 gem "addressable",     "~> 2.3.0"
 gem "bugsnag",         "~> 5.0.0"
 gem "carrierwave-aws", "~> 1.0.0"
