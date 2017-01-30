@@ -14,4 +14,3 @@ log/**/*
 tmp/**/*
 vendor/gems/*
 .ruby-version
-/bin
