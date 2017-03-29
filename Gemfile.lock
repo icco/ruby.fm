@@ -239,8 +239,6 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.2, >= 3.2.1)
-    skylight (1.0.1)
-      activesupport (>= 3.0.0)
     slack-notifier (1.5.1)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
@@ -314,7 +312,6 @@ DEPENDENCIES
   redis-rails (~> 5.0.0)
   sass-rails (~> 5.0.4)
   sidekiq (~> 4.2.3)
-  skylight (~> 1.0.1)
   slack-notifier (~> 1.5.1)
   taglib-ruby (~> 0.7.0)
   timeliness (~> 0.3.7)
@@ -328,4 +325,4 @@ RUBY VERSION
    ruby 2.4.0p0
 
 BUNDLED WITH
-   1.14.3
+   1.14.4
