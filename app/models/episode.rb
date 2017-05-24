@@ -25,13 +25,13 @@ class Episode < ApplicationRecord
 
   after_create :report
 
-  # Record a play was done today
+  # Record a play was done date
   #
-  # @param today [Date] The date of the bucket
-  def record_play(today: Date.today)
+  # @param date [Date] The date of the bucket
+  def record_play(date: Date.today)
     # Find the most recent play bucket and record the play
-    play = plays.find_by(bucket: today)
-    play = Play.new(episode: self, total: 0, bucket: today) if play.nil?
+    play = plays.find_by(bucket: date)
+    play = Play.new(episode: self, total: 0, bucket: date) if play.nil?
     play.increment
 
     # Increment the play count cache
