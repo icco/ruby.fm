@@ -1,4 +1,4 @@
-class Channel < ActiveRecord::Base
+class Channel < ApplicationRecord
   extend FriendlyId
 
   IMAGE_MIN_SIZE = 400

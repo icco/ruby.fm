@@ -1,9 +1,10 @@
-class Episode < ActiveRecord::Base
+class Episode < ApplicationRecord
   extend FriendlyId
 
   IMAGE_MIN_SIZE = 400
 
   belongs_to(:channel, touch: true)
+  has_many(:plays, dependent: :destroy)
 
   friendly_id(:slug_candidates, use: :scoped, scope: :channel)
 
