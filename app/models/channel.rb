@@ -23,6 +23,10 @@ class Channel < ApplicationRecord
 
   before_validation :scrub_categories
 
+  def total_plays
+    episodes.sum(:play_count)
+  end
+
   def resized_image_url!
     Imgix.client
          .path(image.s3_path)

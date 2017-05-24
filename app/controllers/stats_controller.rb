@@ -3,9 +3,8 @@ class StatsController < AuthorizedController
 
   def index
     @channel = primary_channel
-    @episodes = @channel.episodes
-
-    @episode_stats = fetch_plays_grouped_by_episode(@channel)
+    @episodes = @channel.episodes.order('created_at DESC')
+    @episode_plays = @channel.episodes.sum(:play_count)
 
     respond_to do |format|
       format.html
@@ -14,6 +13,12 @@ class StatsController < AuthorizedController
 
   def overall
     @channel = primary_channel
+
+    # Only want the last 30 days worth of plays
+    # TODO: We will probably need to zero fill for the days that no plays exist
+    @plays = Play.joins(:episodes)
+                 .where(episodes: { channel_id: @channel.id })
+                 .where("bucket >= ?", 30.days.ago)
 
     @data = fetch_plays_overall(@channel)
 
@@ -34,26 +39,6 @@ class StatsController < AuthorizedController
           property_value: @channel.id
         }]
       })
-    end
-  end
-
-  def fetch_plays_grouped_by_episode(channel)
-    Rails.cache.fetch("#{channel.id}/plays-grouped-by-episode", expires_in: 12.hours) do
-      hash = {}
-      Keen.count("podcast.download", {
-        group_by: "episode_id",
-        filters: [
-          {
-            property_name: "channel_id",
-            operator: "eq",
-            property_value: channel.id
-          }
-        ],
-        timeframe: "previous_30_days"
-      }).each do |data|
-        hash[data['episode_id']] = data['result']
-      end
-      hash
     end
   end
 end

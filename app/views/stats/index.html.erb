@@ -14,7 +14,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @channel.episodes.order('created_at DESC').all.each do |e| %>
+      <% @episodes.each do |e| %>
         <tr>
           <td>
             <div class="py1">
@@ -25,13 +25,13 @@
             <%= e.created_at.strftime("%b %e") %>
           </h4>
         </td>
-        <td class="align-middle"><%= @episode_stats.fetch(e.id, 0) %></td>
+        <td class="align-middle"><%= e.play_count %></td>
         <td class="align-middle">0</td>
         </tr>
       <% end %>
       <tr>
         <td><h2>Total</h2></td>
-        <td class="align-middle"><%= @episode_stats.map { |k, v| v }.reduce(&:+) %></td>
+        <td class="align-middle"><%= @episode_plays %></td>
         <td class="align-middle"></td>
       </tr>
     </tbody>
