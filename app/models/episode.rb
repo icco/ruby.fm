@@ -25,6 +25,25 @@ class Episode < ApplicationRecord
 
   after_create :report
 
+  # Record a play was done today
+  #
+  # @param today [Date] The date of the bucket
+  def record_play(today: Date.today)
+    # Find the most recent play bucket and record the play
+    play = plays.find_by(bucket: today)
+    play = Play.new(episode: self, total: 0, bucket: today) if play.nil?
+    play.increment
+
+    # Increment the play count cache
+    self.play_count += 1
+    self.save
+  end
+
+  def update_play_count_cache
+    self.play_count = plays.sum(:total)
+    self.save
+  end
+
   def report
     if self.visible? && Rails.env.production?
       message = "♫ [#{self.title} by #{self.channel.title}](#{Rails.application.routes.url_helpers.episode_url(self.id, host: 'https://ruby.fm')})"
@@ -71,11 +90,6 @@ class Episode < ApplicationRecord
     end
   end
 
-  def update_play_count
-    self.play_count = keen_plays
-    save
-  end
-
   def validate_minimum_dimensions
     return true unless image_changed? && image.try(:file)
 
@@ -116,22 +130,5 @@ class Episode < ApplicationRecord
     else
       channel.episodes.count + 1
     end
-  end
-
-  private
-
-  def keen_plays
-    Keen.count("podcast.download", {
-      filters: [
-        {
-          property_name: "episode_id",
-          operator: "eq",
-          property_value: self.id
-        }
-      ],
-      timeframe: {
-        start: self.created_at.iso8601
-      }
-    })
   end
 end
