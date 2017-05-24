@@ -1,0 +1,2 @@
+Fabricator(:play) do
+end
