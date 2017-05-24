@@ -41,7 +41,7 @@ gem "virtus",          "~> 1.0.0"
 # gem "rails_admin",     "~> 1.0.0.rc"
 
 group :development, :test do
-  gem "dotenv-rails", "~> 2.1.1"
+  gem "dotenv-rails", "~> 2.2.1"
 end
 
 group :doc do
