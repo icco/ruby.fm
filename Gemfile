@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "2.4.0"
+ruby "2.4.1"
 
 gem "addressable",     "~> 2.3.0"
 gem "bugsnag",         "~> 5.0.0"
