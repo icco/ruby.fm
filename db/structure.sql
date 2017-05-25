@@ -22,20 +22,6 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 
 --
--- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
---
-
-CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
-
-
---
--- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: -
---
-
-COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
-
-
---
 -- Name: uuid-ossp; Type: EXTENSION; Schema: -; Owner: -
 --
 
@@ -131,12 +117,12 @@ CREATE TABLE friendly_id_slugs (
 --
 
 CREATE TABLE plays (
-    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    id uuid DEFAULT uuid_generate_v4() NOT NULL,
     bucket date NOT NULL,
     total integer DEFAULT 0 NOT NULL,
     episode_id uuid NOT NULL,
-    created_at timestamp without time zone NOT NULL,
-    updated_at timestamp without time zone NOT NULL
+    created_at timestamp without time zone DEFAULT now() NOT NULL,
+    updated_at timestamp without time zone DEFAULT now() NOT NULL
 );
 
 
@@ -330,6 +316,14 @@ ALTER TABLE ONLY channels
 
 ALTER TABLE ONLY episodes
     ADD CONSTRAINT episodes_channel_id_fkey FOREIGN KEY (channel_id) REFERENCES channels(id);
+
+
+--
+-- Name: plays plays_episode_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plays
+    ADD CONSTRAINT plays_episode_id_fkey FOREIGN KEY (episode_id) REFERENCES episodes(id);
 
 
 --

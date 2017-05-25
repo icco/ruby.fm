@@ -1,19 +1,23 @@
 class CreatePlays < ActiveRecord::Migration[5.1]
   def up
-    enable_extension 'pgcrypto' unless extension_enabled?('pgcrypto')
+    execute <<-SQL
+CREATE TABLE "plays" (
+  id UUID NOT NULL DEFAULT uuid_generate_v4(),
+  bucket date NOT NULL,
+  total integer DEFAULT 0 NOT NULL,
+  episode_id uuid NOT NULL REFERENCES episodes(id),
+  created_at timestamp without time zone NOT NULL DEFAULT now(),
+  updated_at timestamp without time zone NOT NULL DEFAULT now(),
+  PRIMARY KEY (id)
+);
 
-    create_table :plays, id: :uuid do |t|
-      t.date :bucket, null: false, index: true
-      t.integer :total, null: false, default: 0
+CREATE INDEX index_plays_on_episode_id ON plays USING btree (episode_id);
 
-      t.belongs_to :episode, index: true, null: false, type: :uuid
-
-      t.timestamps null: false
-    end
+CREATE INDEX index_plays_on_bucket ON plays USING btree (bucket);
+SQL
   end
 
   def down
     drop_table :plays
-    disable_extension 'pgcrypto' if extension_enabled?('pgcrypto')
   end
 end
