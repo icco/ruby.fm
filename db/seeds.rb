@@ -14,6 +14,30 @@ signup = Signup.new({
 })
 
 if signup.save
-  puts "Login email: john@example.com"
+  user    = signup.user
+  channel = signup.channel
+
+  10.times do |i|
+    aired_at = i.weeks.ago.to_date
+    episode = Fabricate(:episode, {
+                channel:  channel,
+                aired_at: aired_at,
+                visible:  true
+              })
+
+    (aired_at..Date.today).each do |date|
+      Fabricate(:play, {
+        bucket:  date,
+        episode: episode,
+        total:   Random.rand(100)
+      })
+    end
+
+    episode.update_play_count_cache
+  end
+
+  puts "==================================="
+  puts "Login email: #{user.email}"
   puts "Login pass:  password"
+  puts "==================================="
 end

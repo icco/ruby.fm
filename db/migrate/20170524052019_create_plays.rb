@@ -6,7 +6,7 @@ class CreatePlays < ActiveRecord::Migration[5.1]
       t.date :bucket, null: false, index: true
       t.integer :total, null: false, default: 0
 
-      t.belongs_to :episode, index: true, null: false
+      t.belongs_to :episode, index: true, null: false, type: :uuid
 
       t.timestamps null: false
     end

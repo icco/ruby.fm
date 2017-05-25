@@ -134,7 +134,7 @@ CREATE TABLE plays (
     id uuid DEFAULT gen_random_uuid() NOT NULL,
     bucket date NOT NULL,
     total integer DEFAULT 0 NOT NULL,
-    episode_id bigint NOT NULL,
+    episode_id uuid NOT NULL,
     created_at timestamp without time zone NOT NULL,
     updated_at timestamp without time zone NOT NULL
 );
