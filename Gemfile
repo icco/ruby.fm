@@ -42,6 +42,7 @@ gem "virtus",          "~> 1.0.0"
 
 group :development, :test do
   gem "dotenv-rails", "~> 2.2.1"
+  gem "fabrication",  "~> 2.15.2"
 end
 
 group :doc do
@@ -49,7 +50,6 @@ group :doc do
 end
 
 group :test do
-  gem "fabrication",    "~> 2.15.2"
   gem "minitest-rails", "~> 3.0.0"
   gem "mocha",          "~> 1.2.0"
 end

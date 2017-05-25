@@ -26,7 +26,7 @@ module RubyFm
     config.generators do |g|
       g.orm             :active_record
       g.template_engine :erb
-      g.test_framework  :minitest, spec: true, fixture_replacement: :fabrication
+      g.test_framework  :minitest, fixture_replacement: :fabrication
       g.stylesheets     false
       g.javascripts     false
       g.fixture_replacement :fabrication, dir: "lib/fabricators"

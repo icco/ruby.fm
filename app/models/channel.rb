@@ -1,4 +1,4 @@
-class Channel < ActiveRecord::Base
+class Channel < ApplicationRecord
   extend FriendlyId
 
   IMAGE_MIN_SIZE = 400
@@ -22,6 +22,10 @@ class Channel < ActiveRecord::Base
   mount_uploader(:image, ImageUploader)
 
   before_validation :scrub_categories
+
+  def total_plays
+    episodes.sum(:play_count)
+  end
 
   def resized_image_url!
     Imgix.client

@@ -5,3 +5,39 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+signup = Signup.new({
+  email:        "john@example.com",
+  password:     "password",
+  full_name:    "John Doe",
+  channel_name: "Doe Before Bro"
+})
+
+if signup.save
+  user    = signup.user
+  channel = signup.channel
+
+  10.times do |i|
+    aired_at = i.weeks.ago.to_date
+    episode = Fabricate(:episode, {
+                channel:  channel,
+                aired_at: aired_at,
+                visible:  true
+              })
+
+    (aired_at..Date.today).each do |date|
+      Fabricate(:play, {
+        bucket:  date,
+        episode: episode,
+        total:   Random.rand(100)
+      })
+    end
+
+    episode.update_play_count_cache
+  end
+
+  puts "==================================="
+  puts "Login email: #{user.email}"
+  puts "Login pass:  password"
+  puts "==================================="
+end

@@ -3,7 +3,6 @@ class ChannelsController < ApplicationController
 
   rescue_from(ActiveRecord::RecordNotFound, with: :respond_with_not_found)
 
-
   def respond_with_not_found(error)
     respond_to do |format|
       format.html do

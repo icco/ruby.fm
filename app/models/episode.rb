@@ -1,9 +1,10 @@
-class Episode < ActiveRecord::Base
+class Episode < ApplicationRecord
   extend FriendlyId
 
   IMAGE_MIN_SIZE = 400
 
   belongs_to(:channel, touch: true)
+  has_many(:plays, dependent: :destroy)
 
   friendly_id(:slug_candidates, use: :scoped, scope: :channel)
 
@@ -23,6 +24,25 @@ class Episode < ActiveRecord::Base
   mount_uploader(:image, ImageUploader)
 
   after_create :report
+
+  # Record a play was done date
+  #
+  # @param date [Date] The date of the bucket
+  def record_play(date: Date.today)
+    # Find the most recent play bucket and record the play
+    play = plays.find_by(bucket: date)
+    play = Play.new(episode: self, total: 0, bucket: date) if play.nil?
+    play.increment
+
+    # Increment the play count cache
+    self.play_count += 1
+    self.save
+  end
+
+  def update_play_count_cache
+    self.play_count = plays.sum(:total)
+    self.save
+  end
 
   def report
     if self.visible? && Rails.env.production?
@@ -70,11 +90,6 @@ class Episode < ActiveRecord::Base
     end
   end
 
-  def update_play_count
-    self.play_count = keen_plays
-    save
-  end
-
   def validate_minimum_dimensions
     return true unless image_changed? && image.try(:file)
 
@@ -115,22 +130,5 @@ class Episode < ActiveRecord::Base
     else
       channel.episodes.count + 1
     end
-  end
-
-  private
-
-  def keen_plays
-    Keen.count("podcast.download", {
-      filters: [
-        {
-          property_name: "episode_id",
-          operator: "eq",
-          property_value: self.id
-        }
-      ],
-      timeframe: {
-        start: self.created_at.iso8601
-      }
-    })
   end
 end

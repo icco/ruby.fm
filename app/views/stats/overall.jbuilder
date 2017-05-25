@@ -1,5 +1,5 @@
-json.data(@data) do |point|
-  json.value(point['value'])
-  json.label(Time.parse(point['timeframe']['start']).strftime("%b %d"))
-  json.date(point['timeframe']['start'])
+json.data(@plays) do |play|
+  json.value(play.total)
+  json.label(play.date.strftime("%b %d"))
+  json.date(play.date.iso8601)
 end

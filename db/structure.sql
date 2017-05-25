@@ -1,12 +1,6 @@
---
--- PostgreSQL database dump
---
-
--- Dumped from database version 9.5.4
--- Dumped by pg_dump version 9.5.4
-
 SET statement_timeout = 0;
 SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
 SET client_encoding = 'UTF8';
 SET standard_conforming_strings = on;
 SET check_function_bodies = false;
@@ -25,6 +19,20 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
+
+
+--
+-- Name: pgcrypto; Type: EXTENSION; Schema: -; Owner: -
+--
+
+CREATE EXTENSION IF NOT EXISTS pgcrypto WITH SCHEMA public;
+
+
+--
+-- Name: EXTENSION pgcrypto; Type: COMMENT; Schema: -; Owner: -
+--
+
+COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 
 --
@@ -119,6 +127,20 @@ CREATE TABLE friendly_id_slugs (
 
 
 --
+-- Name: plays; Type: TABLE; Schema: public; Owner: -
+--
+
+CREATE TABLE plays (
+    id uuid DEFAULT gen_random_uuid() NOT NULL,
+    bucket date NOT NULL,
+    total integer DEFAULT 0 NOT NULL,
+    episode_id uuid NOT NULL,
+    created_at timestamp without time zone NOT NULL,
+    updated_at timestamp without time zone NOT NULL
+);
+
+
+--
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -158,7 +180,7 @@ CREATE TABLE users (
 
 
 --
--- Name: ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: ar_internal_metadata ar_internal_metadata_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY ar_internal_metadata
@@ -166,7 +188,7 @@ ALTER TABLE ONLY ar_internal_metadata
 
 
 --
--- Name: channels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: channels channels_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY channels
@@ -174,7 +196,7 @@ ALTER TABLE ONLY channels
 
 
 --
--- Name: channels_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: channels channels_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY channels
@@ -182,7 +204,7 @@ ALTER TABLE ONLY channels
 
 
 --
--- Name: episodes_channel_id_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: episodes episodes_channel_id_slug_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY episodes
@@ -190,7 +212,7 @@ ALTER TABLE ONLY episodes
 
 
 --
--- Name: episodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: episodes episodes_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY episodes
@@ -198,7 +220,7 @@ ALTER TABLE ONLY episodes
 
 
 --
--- Name: friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: friendly_id_slugs friendly_id_slugs_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY friendly_id_slugs
@@ -206,7 +228,15 @@ ALTER TABLE ONLY friendly_id_slugs
 
 
 --
--- Name: users_confirmation_token_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: plays plays_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+--
+
+ALTER TABLE ONLY plays
+    ADD CONSTRAINT plays_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: users users_confirmation_token_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -214,7 +244,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: users_email_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -222,7 +252,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -230,7 +260,7 @@ ALTER TABLE ONLY users
 
 
 --
--- Name: users_unlock_token_key; Type: CONSTRAINT; Schema: public; Owner: -
+-- Name: users users_unlock_token_key; Type: CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY users
@@ -266,6 +296,20 @@ CREATE INDEX index_friendly_id_slugs_on_sluggable_type ON friendly_id_slugs USIN
 
 
 --
+-- Name: index_plays_on_bucket; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_plays_on_bucket ON plays USING btree (bucket);
+
+
+--
+-- Name: index_plays_on_episode_id; Type: INDEX; Schema: public; Owner: -
+--
+
+CREATE INDEX index_plays_on_episode_id ON plays USING btree (episode_id);
+
+
+--
 -- Name: unique_schema_migrations; Type: INDEX; Schema: public; Owner: -
 --
 
@@ -273,7 +317,7 @@ CREATE UNIQUE INDEX unique_schema_migrations ON schema_migrations USING btree (v
 
 
 --
--- Name: channels_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: channels channels_user_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY channels
@@ -281,7 +325,7 @@ ALTER TABLE ONLY channels
 
 
 --
--- Name: episodes_channel_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
+-- Name: episodes episodes_channel_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: -
 --
 
 ALTER TABLE ONLY episodes
@@ -294,6 +338,29 @@ ALTER TABLE ONLY episodes
 
 SET search_path TO "$user", public;
 
-INSERT INTO schema_migrations (version) VALUES ('20150101000000'), ('20150102000000'), ('20150103000000'), ('20150104000000'), ('20150105000000'), ('20150313022254'), ('20150524210447'), ('20150524213913'), ('20150525223100'), ('20150530191446'), ('20150530194400'), ('20150530195352'), ('20150531012734'), ('20150630024157'), ('20150809173415'), ('20151101191915'), ('20151105005013'), ('20151121163724'), ('20160130040411'), ('20160211022005'), ('20160818020239'), ('20160827051346');
+INSERT INTO "schema_migrations" (version) VALUES
+('20150101000000'),
+('20150102000000'),
+('20150103000000'),
+('20150104000000'),
+('20150105000000'),
+('20150313022254'),
+('20150524210447'),
+('20150524213913'),
+('20150525223100'),
+('20150530191446'),
+('20150530194400'),
+('20150530195352'),
+('20150531012734'),
+('20150630024157'),
+('20150809173415'),
+('20151101191915'),
+('20151105005013'),
+('20151121163724'),
+('20160130040411'),
+('20160211022005'),
+('20160818020239'),
+('20160827051346'),
+('20170524052019');
 
 
