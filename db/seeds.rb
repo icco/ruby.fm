@@ -5,3 +5,15 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+signup = Signup.new({
+  email:        "john@example.com",
+  password:     "password",
+  full_name:    "John Doe",
+  channel_name: "Doe Before Bro"
+})
+
+if signup.save
+  puts "Login email: john@example.com"
+  puts "Login pass:  password"
+end
