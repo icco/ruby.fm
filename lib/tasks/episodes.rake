@@ -7,6 +7,7 @@ namespace :episodes do
 
   task backfill: [:environment] do
     Channel.all.find_each(batch_size: 100) do |c|
+      puts "processing: #{c.id} #{c.name}"
       results = Keen.count("podcast.download", {
         group_by: "episode_id",
         filters: [
