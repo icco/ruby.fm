@@ -6,9 +6,9 @@ Rails.application.configure do
 
   # Replacement portion of rails_12factor:
   #   https://github.com/heroku/rails_12factor#rails-5-and-beyond
-  logger = ActiveSupport::Logger.new(STDOUT)
-  logger.formatter = config.log_formatter
-  config.logger = ActiveSupport::TaggedLogging.new(logger)
+  # logger = ActiveSupport::Logger.new(STDOUT)
+  # logger.formatter = config.log_formatter
+  # config.logger = ActiveSupport::TaggedLogging.new(logger)
 
   # In the development environment your application's code is reloaded on
   # every request. This slows down response time but is perfect for development
