@@ -10,7 +10,8 @@ signup = Signup.new({
   email:        "john@example.com",
   password:     "password",
   full_name:    "John Doe",
-  channel_name: "Doe Before Bro"
+  channel_name: "Doe Before Bro",
+  stripe_token: "fakeasstoken"
 })
 
 if signup.save
@@ -40,4 +41,7 @@ if signup.save
   puts "Login email: #{user.email}"
   puts "Login pass:  password"
   puts "==================================="
+else
+  puts "Failed to seed the database"
+  puts signup.errors.to_h
 end
