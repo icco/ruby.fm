@@ -1,38 +1,27 @@
-FROM ruby:2.4.1-alpine
+FROM simplecasual/ruby:2.4.1
 
-RUN echo "@edge http://nl.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
-RUN echo "@testing http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositories
+RUN addgroup -g 1000 rails \
+    && adduser -u 1000 -G rails -s /bin/sh -D rails
 
 RUN apk --update --upgrade add --no-cache \
-        libstdc++ \
-        tzdata \
-        bash \
-        git \
         nodejs \
-        build-base \
-        linux-headers \
-        ruby-dev \
-        libc-dev \
-        openssl-dev \
-        postgresql-dev \
+        postgresql \
         postgresql-client \
-        libxml2-dev \
-        libxslt-dev \
-        taglib-dev \
-        ca-certificates && \
+        postgresql-dev \
+        taglib-dev && \
         rm /var/cache/apk/*
-
-RUN echo 'gem: --no-document' > /etc/gemrc
-
-COPY Gemfile* /tmp/
-
-WORKDIR /tmp
-
-RUN bundle install
 
 RUN mkdir -p /app
 
 WORKDIR /app
+
+COPY Gemfile* /app/
+
+RUN bundle install
+
+RUN chown -R rails:rails /app
+
+USER rails
 
 ADD . /app
 
