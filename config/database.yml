@@ -2,16 +2,23 @@ default: &default
   adapter: postgresql
   encoding: unicode
   pool: 5
-development: &development
+
+local: &local
   <<: *default
-  database: rubyfm_development
   host: <%= ENV['DATABASE_HOST'] || 'localhost' %>
   port: <%= ENV['DATABASE_PORT'] || '5432' %>
   username: <%= ENV['DATABASE_USERNAME'] || 'postgres' %>
   password: <%= ENV['DATABASE_PASSWORD'] || '' %>
+
+
+development:
+  <<: *local
+  database: rubyfm_development
+
 test:
-  <<: *development
+  <<: *local
   database: rubyfm_test
+
 production:
   <<: *default
   url: <%= ENV['DATABASE_URL'] %>
