@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   get "/about", to: "home#about"
   get "/terms", to: "home#terms"
 
+  get "/subscription", to: "subscriptions#show"
+  put "/subscription", to: "subscriptions#update"
+
   # TODO make something intelligent
   get "/itunes", to: "channels#itunes"
   get "/stats", to: "stats#index"

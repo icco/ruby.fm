@@ -21,7 +21,31 @@
 // Enable the player
 var ready;
 
+var RubyFM = {
+  stripeResponseHandler: function(status, response) {
+    var form = $('#signup');
+    if (response.error) {
+      form.find(".errors").text(response.error.message)
+      form.find("input[name='commit']").prop("disabled", false);
+    } else {
+      var token = response.id;
+      form.append($('<input type="hidden" name="signup[stripe_token]" />').val(token));
+      form.get(0).submit();
+    }
+  },
+  initializeSignupForm: function() {
+    var form = $("#signup");
+    form.submit(function(event) {
+      form.find("input[name='commit']").prop("disabled", true);
+      Stripe.card.createToken(form, RubyFM.stripeResponseHandler);
+      return false;
+    });
+  }
+};
+
 ready = function() {
+  Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'));
+
   var player = plyr.setup(document.querySelector(".js-plyr"),
     {
       html: ["<div class='player-controls'>", "</div>"].join("\n"),

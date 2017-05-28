@@ -11,12 +11,16 @@
         }) %>
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="stripe-key" content="<%= ENV['STRIPE_PUBLIC_KEY'] %>">
     <%= yield :favicon %>
     <% if @channel %>
       <link rel="alternate" type="application/rss+xml" title="RSS" href="<%= channel_url(@channel.id, format: 'xml') %>">
       <% elsif @episode %>
       <link rel="alternate" type="application/rss+xml" title="RSS" href="<%= channel_url(@episode.channel.id, format: 'xml') %>">
     <% end %>
+    <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+    <script src="https://use.typekit.net/bqy6mrp.js"></script>
+    <script>try{Typekit.load({ async: true });}catch(e){}</script>
     <style>
       <%= render file: '../assets/stylesheets/basscss.css' %>
       body { font-size: 18px; }

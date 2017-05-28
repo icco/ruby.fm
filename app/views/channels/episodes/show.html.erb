@@ -28,6 +28,12 @@
   meta(hash)
 %>
 
+<script type="text/javascript">
+$(document).ready(function() {
+  RubyFM.initializePlayer();
+});
+</script>
+
 <% content_for :favicon do %>
   <%= favicon_link_tag(Imgix.client.path(@episode.image.s3_path).w(32).h(32).fit('crop').fm('auto').to_url) %>
 <% end %>
