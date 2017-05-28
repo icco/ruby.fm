@@ -1,0 +1,8 @@
+tmp
+log
+.bundle
+.env
+*.rdb
+.DS_Store
+*.pid*
+.git
