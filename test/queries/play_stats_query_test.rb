@@ -1,6 +1,6 @@
 require "test_helper"
 
-class OverallPlayStatsTest < ActiveSupport::TestCase
+class PlayStatsQueryTest < ActiveSupport::TestCase
   test "it returns an array of stats" do
     channel = Fabricate(:channel)
     episode = Fabricate(:episode, channel: channel)
@@ -12,7 +12,9 @@ class OverallPlayStatsTest < ActiveSupport::TestCase
       Fabricate(:play, episode: episode, bucket: played_at, total: i)
     end
 
-    result = OverallPlayStats.new(channel).call
+    query = PlayStatsQuery.new(channel)
+    query.interval = 10
+    result = query.call
 
     assert_equal(10, result.count)
 
@@ -24,5 +26,15 @@ class OverallPlayStatsTest < ActiveSupport::TestCase
 
     assert_equal(7, result[2].total)
     assert_equal(Date.today - 7.days, result[2].date)
+  end
+
+  test "when no play stats exist for a channel" do
+    channel = Fabricate(:channel)
+    episode = Fabricate(:episode, channel: channel)
+
+    query = PlayStatsQuery.new(channel)
+    result = query.call
+
+    assert_equal(30, result.count)
   end
 end

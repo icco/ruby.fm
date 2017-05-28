@@ -14,9 +14,10 @@ class StatsController < AuthorizedController
   def overall
     @channel = primary_channel
 
-    # Only want the last 30 days worth of plays
-    # TODO: We will probably need to zero fill for the days that no plays exist
-    @plays = OverallPlayStats.new(@channel).call
+    query = PlayStatsQuery.new(@channel)
+    query.interval = 30
+
+    @plays = query.call
 
     respond_to do |format|
       format.json
