@@ -9,7 +9,6 @@ class Signup
   validates :password, presence: true
   validates :full_name, presence: true
   validates :channel_name, presence: true
-  validates :stripe_token, presence: true
 
   attr_reader :user, :channel
 
@@ -53,10 +52,6 @@ class Signup
       @user = user
       @channel = channel
       result = true
-    end
-
-    if result
-      CreateStripeCustomer.perform_async(@user.id, stripe_token, 'basic')
     end
 
     result

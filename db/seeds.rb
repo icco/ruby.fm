@@ -10,8 +10,7 @@ signup = Signup.new({
   email:        "john@example.com",
   password:     "password",
   full_name:    "John Doe",
-  channel_name: "Doe Before Bro",
-  stripe_token: "fakeasstoken"
+  channel_name: "Doe Before Bro"
 })
 
 if signup.save
