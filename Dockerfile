@@ -26,3 +26,4 @@ USER rails
 ADD . /app
 
 CMD ["rails", "server", "--binding", "0.0.0.0"]
+
