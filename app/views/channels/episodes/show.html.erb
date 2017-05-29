@@ -28,16 +28,6 @@
   meta(hash)
 %>
 
-<script type="text/javascript">
-$(document).ready(function() {
-  RubyFM.initializePlayer();
-});
-</script>
-
-<% content_for :favicon do %>
-  <%= favicon_link_tag(Imgix.client.path(@episode.image.s3_path).w(32).h(32).fit('crop').fm('auto').to_url) %>
-<% end %>
-
 <div class="md-flex mxn2 mb3">
   <section class="col-12 lg-col-6 px2">
     <div class="unselectable rounded shadow square relative bg-black sticky" style="background-size: cover; background-image: url(<%= Imgix.client.path(@episode.image.s3_path).q(70).h(512).w(512).dpr(2).fit('crop').auto('format').fm('jpg').to_url %>)">
@@ -151,8 +141,3 @@ $(document).ready(function() {
 </div>
 
 <%= render "layouts/geomicons" %>
-
-<%= javascript_tag do %>
-  $(document).ready(ready);
-  $(document).on('page:load', ready);
-<% end %>

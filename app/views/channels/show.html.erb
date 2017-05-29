@@ -23,10 +23,6 @@
   meta(hash)
 %>
 
-<% content_for :favicon do %>
-  <%= favicon_link_tag(Imgix.client.path(@channel.image.s3_path).width(32).height(32).fit('crop').fm('png32').to_url, id: "favicon") %>
-<% end %>
-
 <div class="clearfix">
     <header class="col col-3 p2 sticky">
       <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(64).w(64).fit('crop').mask('ellipse').fm('png').to_url, class: 'block mb1', alt: @channel.title) %>
@@ -78,8 +74,3 @@
     <% end %>
   </section>
 </div>
-
-      <script data-turbolinks-eval=always>
-        // Change the favicon
-  $("#favicon").attr("href","<%= Imgix.client.path(@channel.image.s3_path).width(32).height(32).fit('crop').fm('png32').to_url %> ");
-</script>

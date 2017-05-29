@@ -17,10 +17,7 @@
 //= require plyr
 //= require chart.min
 
-// http://stackoverflow.com/questions/18770517/rails-4-how-to-use-document-ready-with-turbo-links
-// Enable the player
 var ready;
-
 ready = function() {
   var player = plyr.setup(document.querySelector(".js-plyr"),
     {
@@ -58,3 +55,10 @@ ready = function() {
     $(".js-play-hide").hide();
   });
 };
+
+// http://stackoverflow.com/questions/18770517/rails-4-how-to-use-document-ready-with-turbo-links
+$(document).on('turbolinks:load', function() {
+  ready();
+});
+
+
