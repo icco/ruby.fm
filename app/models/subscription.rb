@@ -20,6 +20,8 @@ class Subscription
     if params[:plan_id].present? && customer_id.present?
       return false unless subscribe(params[:plan_id])
     end
+
+    true
   end
 
   def subscription_id
