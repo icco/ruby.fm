@@ -92,24 +92,27 @@ $(document).ready(function() {
       <li>Comprehensive stats</li>
     </ul>
 
-    <%= form_tag(subscription_path, id: "payment-form", method: :patch) do %>
-      <%= hidden_field_tag("subscription[plan_id]", "regular-ol-plan") %>
-      <section class="px2 col-10 mx-auto mt3">
+    <div class="flex-auto"></div>
 
+    <section class="">
+      <%= form_tag(subscription_path, id: "payment-form", method: :patch) do %>
+        <%= hidden_field_tag("subscription[plan_id]", "regular-ol-plan") %>
+
+        <div class="px2">
         <h4 class="muted h6 mt0 caps mb2">Payment information</h4>
         <div class="col-12">
           <div id="card-element">
           </div>
           <div id="card-errors" role="alert" class="bold center mt2 h5 bg-yellow3 gray9 rounded"></div>
         </div>
-      </section>
-    <% end %>
+        </div>
+        <div class="flex-auto"></div>
+        <div class="flex">
+          <button class="mt3 white bg-cyan8 flex-auto center py2 btn btn-primary">Start subscription &rarr;</button>
+        </div>
+      <% end %>
 
-    <div class="flex-auto"></div>
-
-    <div class="flex">
-      <a class="white bg-cyan8 flex-auto center py2 btn btn-primary">Start subscription &rarr;</a>
-    </div>
+    </section>
   </div>
 
   <div class="bg-cyan29 shadow rounded col-6 mt4 mb4 flex flex-column" style="border-radius: 0 3px 3px 0;">
