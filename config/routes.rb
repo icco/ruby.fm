@@ -10,8 +10,7 @@ Rails.application.routes.draw do
   get "/about", to: "home#about"
   get "/terms", to: "home#terms"
 
-  get "/subscription", to: "subscriptions#show"
-  put "/subscription", to: "subscriptions#update"
+  resource :subscription, only: [:edit, :update]
 
   # TODO make something intelligent
   get "/itunes", to: "channels#itunes"
