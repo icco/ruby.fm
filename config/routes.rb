@@ -13,7 +13,8 @@ Rails.application.routes.draw do
   # TODO make something intelligent
   get "/itunes", to: "channels#itunes"
   get "/stats", to: "stats#index"
-  get "/stats/overall", to: 'stats#overall'
+  get "/stats/overall", to: "stats#overall"
+  get "/sitemap", to: redirect("https://rubyfm-blobs.s3.amazonaws.com/sitemaps/sitemap.xml.gz")
 
   resources :episodes, only: [:index, :show, :edit, :update, :destroy] do
     member do

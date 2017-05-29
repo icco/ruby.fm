@@ -4,4 +4,4 @@
 User-agent: *
 Disallow:
 
-Sitemap: https://rubyfm-blobs.s3.amazonaws.com/sitemaps/sitemap.xml.gz
+Sitemap: https://ruby.fm/sitemap
