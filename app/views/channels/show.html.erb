@@ -27,74 +27,59 @@
   <%= favicon_link_tag(Imgix.client.path(@channel.image.s3_path).width(32).height(32).fit('crop').fm('png32').to_url, id: "favicon") %>
 <% end %>
 
-<header class="py2 mt2">
-      <div class="flex flex-center py2">
-        <div class="flex-none">
-          <%= link_to slugged_channel_path(@channel) do %>
-            <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(128).w(128).fit('crop').mask('ellipse').fm('png').to_url, class: 'mb0 mr2', alt: @channel.title) %>
-          <% end %>
-
+<div class="clearfix">
+    <header class="col col-3 p2 sticky">
+      <%= image_tag(Imgix.client.path(@channel.image.s3_path).h(64).w(64).fit('crop').mask('ellipse').fm('png').to_url, class: 'block mb1', alt: @channel.title) %>
+      <h1 class="m0 h3"><%= @channel.title %></h1>
+      <h2 class="m0 h4 regular muted"><%= @channel.author %></h2>
+      <% if @channel.summary? %>
+        <p class="mt1 mb0"><%= @channel.summary %></p>
+      <% end %>
+      <% if @channel.summary? %>
+        <p class="mt1 mb0">
+          <%= link_to(@channel.website_url, @channel.website_url, class: "black") %>
+        </p>
+      <% end %>
+      <% if policy(@channel).update? %>
+        <div class="flex mt3">
+          <%= link_to("Upload", new_channel_episode_path(primary_channel), class: "center flex-auto btn btn-outline") %>
+          <%= link_to("Edit", edit_channel_path(primary_channel), class: "flex-none ml2 btn btn-outline") %>
         </div>
-        <div class="flex-auto sm-col col-9">
-          <h1 class="m0 h1"><%= @channel.title %></h1>
-          <h4 class="mt0 mb2 gray regular h4">
-            <% if policy(@channel).update?  %>
-              <%= pluralize(@channel.episodes.count, 'episode') %>
-            <% else %>
-              <%= pluralize(@channel.episodes.where(visible: true).count, 'episode') %>
-            <% end %>
-            <% @channel.categories.each do |c| %>
-              ∙
-              <%= c.to_s %>
-            <% end %>
-          </h4>
-          <% if @channel.summary? %>
-            <p><%= @channel.summary %></p>
+      <% end %>
+      <div class="mt3">
+        <ul class="list-style-none">
+          <li>20k listens</li>
+          <% if policy(@channel).update?  %>
+            <li><%= pluralize(@channel.episodes.count, 'episode') %></li>
+          <% else %>
+            <li><%= pluralize(@channel.episodes.where(visible: true).count, 'episode') %></li>
           <% end %>
-          <%= link_to(@channel.website_url, @channel.website_url, class: "black block") if @channel.website_url %>
-
-  <% if @channel.itunes_url? %>
-    <%= link_to("Subscribe on iTunes", @channel.itunes_url, class: "mt2 btn btn-primary") %>
-  <% end %>
-  <% if policy(@channel).update? %>
-    <%= link_to("+ Upload New Episode", new_channel_episode_path(primary_channel), class: "mt2 btn btn-outline") %>
-    <%= link_to("Edit Settings", edit_channel_path(primary_channel), class: "mt2 btn btn-outline") %>
-  <% end %>
-        </div>
+          <% @channel.categories.each do |c| %>
+            <li><%= c.to_s %></li>
+          <% end %>
+        </ul>
     </div>
 
-</header>
-
-<section class="flex flex-wrap">
-  <% @episodes.each do |t| %>
-    <% if policy(t).update? || t.visible? %>
-      <div class="flex col-6 md-col-4 lg-col-3 p2 border-box">
-        <div class="">
-          <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
-            <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'block col-12', alt: t.title) %>
-          <% end %>
-          <div class="mt1">
-            <h2 class="h4 m0 black">
-              <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'black') %>
-              <% unless t.visible? %>
-                <span class="h6 inline-block px1 white bg-red rounded">Draft</span>
-              <% end %>
-            </h2>
-            <h3 class="h6 m0 gray truncate">
-              <%= t.created_at.strftime("%b %e") %>
-              ∙
-              <%= "#{distance_of_time_in_words(t.length)}" %>
-              ∙
-              <%= pluralize(t.play_count, 'play') %>
-            </h3>
-          </div>
-        </div>
+      <% if @channel.itunes_url? %>
+        <div class="mt3">
+        <%= link_to(@channel.itunes_url) do %>
+          <%= image_tag("/apple-podcasts.svg") %>
+        <% end %>
       </div>
-    <% end %>
-  <% end %>
-</section>
+      <% end %>
 
-<script data-turbolinks-eval=always>
-  // Change the favicon
+  </header>
+
+  <section class="flex flex-wrap col col-9">
+    <% @episodes.each do |t| %>
+      <% if policy(t).update? || t.visible? %>
+        <%= render partial: "episode_card", locals: {t: t, col: 6} %>
+      <% end %>
+    <% end %>
+  </section>
+</div>
+
+      <script data-turbolinks-eval=always>
+        // Change the favicon
   $("#favicon").attr("href","<%= Imgix.client.path(@channel.image.s3_path).width(32).height(32).fit('crop').fm('png32').to_url %> ");
 </script>
