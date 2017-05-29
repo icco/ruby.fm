@@ -12,10 +12,12 @@ class SubscriptionsController < AuthorizedController
 
     if @subscription.update_attributes(subscription_params)
       flash[:notice] = I18n.t("subscription.update.successsful")
+    else
+      flash[:alert] = I18n.t("subscription.update.failed")
     end
 
     respond_to do |format|
-      format.html { redirect(subscription_url) }
+      format.html { redirect_to(edit_subscription_url) }
     end
   end
 

@@ -92,7 +92,7 @@ $(document).ready(function() {
       <li>Comprehensive stats</li>
     </ul>
 
-    <%= form_tag(subscription_path, id: "payment-form") do %>
+    <%= form_tag(subscription_path, id: "payment-form", method: :patch) do %>
       <%= hidden_field_tag("subscription[plan_id]", "regular-ol-plan") %>
       <section class="px2 col-10 mx-auto mt3">
 

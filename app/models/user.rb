@@ -34,4 +34,8 @@ class User < ApplicationRecord
   def stripe_subscription
     @stripe_subscription ||= stripe_customer.subscriptions.retrieve(self.stripe_subscription_id)
   end
+
+  def subscribed?
+    stripe_subscription_id.present?
+  end
 end
