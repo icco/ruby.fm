@@ -1,6 +1,7 @@
 class Subscription
-  def initialize(user)
+  def initialize(user, options = {})
     @user = user
+    @logger = options[:logger] || NullObject.new
   end
 
   def subscribe(plan_id)

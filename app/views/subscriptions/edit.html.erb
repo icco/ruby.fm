@@ -1,14 +1,29 @@
 <%
   hash = {
     title: "Pay me"
-    }
+  }
 
   meta(hash)
 %>
 
+<script src="https://js.stripe.com/v3/"></script>
+
 <script type="text/javascript">
 $(document).ready(function() {
-  RubyFM.initializeSignupForm();
+  var stripe = Stripe("<%= ENV['STRIPE_PUBLIC_KEY'] %>");
+  var elements = stripe.elements();
+  // Custom styling can be passed to options when creating an Element.
+  var style = {
+    base: {
+      // Add your base input styles here. For example:
+      fontSize:   '16px',
+      lineHeight: '24px'
+    }
+  };
+
+  // Create an instance of the card Element
+  var card = elements.create('card', {style: style});
+  card.mount('#card-element');
 });
 </script>
 
@@ -16,6 +31,7 @@ $(document).ready(function() {
   <h1 class="">Sign Up</h1>
   <p>You're one form away from publishing super dope things. Good luck.</p>
 </header>
+
 <section class="flex flex-auto mt4 mb4">
   <div class="bg-white shadow rounded col-6">
     <h4 class="border-bottom center h5 m0 caps p2">Just a regular ol' plan</h4>
@@ -25,6 +41,7 @@ $(document).ready(function() {
       <h1 class="flex-none h00 m0">9</h1>
       <div class="flex-auto"></div>
     </div>
+
     <p class="m0 muted center">per month</p>
     <ul class="mt3 mx-auto col-5">
       <li>Unlimited episode uploads</li>
@@ -32,50 +49,58 @@ $(document).ready(function() {
       <li>Comprehensive stats</li>
     </ul>
 
-    <section class="px2 col-10 mx-auto mt3">
-      <div class="errors">
-      </div>
-      <h4 class="muted h6 mt0 caps mb1">Payment information</h4>
-      <div class="clearfix mxn2">
-        <div class="col col-8 px2">
-          <label>Card number</label>
-          <input type="text" autocomplete: "off" class="field col-12 mb2" placeholder='5555-5555-5555-5555' data-stripe="number"/>
+    <%= form_tag(subscription_path, id: "payment-form") do %>
+      <section class="px2 col-10 mx-auto mt3">
+        <div class="errors">
         </div>
-        <div class="col col-4 px2">
-          <label>Security code</label>
-          <input type="text" autocomplete: "off" class="field col-12 mb2" placeholder='333' data-stripe="cvc"/>
-        </div>
-        </div>
+
+        <h4 class="muted h6 mt0 caps mb1">Payment information</h4>
         <div class="clearfix mxn2">
-        <div class="col col-6 px2">
-          <label>Name on card</label>
-          <input type="text" autocomplete: "off" class="field col-12 mb2" placeholder='Arya Stark' />
+          <div class="col col-8 px2">
+            <label for="card-element">Card number</label>
+            <div id="card-element">
+            </div>
+            <!-- <input type="text" autocomplete: "off" class="field col-12 mb2" placeholder='5555-5555-5555-5555' data-stripe="number"/> -->
+          </div>
+          <div class="col col-4 px2">
+            <label>Security code</label>
+            <input type="text" autocomplete: "off" class="field col-12 mb2" placeholder='333' data-stripe="cvc"/>
+          </div>
         </div>
+
+        <div class="clearfix mxn2">
+          <div class="col col-6 px2">
+            <label>Name on card</label>
+            <input type="text" autocomplete: "off" class="field col-12 mb2" placeholder='Arya Stark' />
+          </div>
+
           <div class="col col-6 px2">
             <label>Expiration</label>
             <div class="flex flex-center">
+              <select class="block flex-auto field" data-stripe="exp-month">
+                <% (1..12).each do |month| %>
+                  <option><%= month %></option>
+                <% end %>
+              </select>
 
-            <select class="block flex-auto field" data-stripe="exp-month">
-              <% (1..12).each do |month| %>
-                <option><%= month %></option>
-              <% end %>
-            </select>
-            <p class="h3 px1 m0 flex-none muted"> / </p>
+              <p class="h3 px1 m0 flex-none muted"> / </p>
 
-            <select class="block flex-auto field" data-stripe="exp-year">
-              <% (2017..2026).each do |year| %>
-                <option><%= year %></option>
-              <% end %>
-            </select>
-
+              <select class="block flex-auto field" data-stripe="exp-year">
+                <% (2017..2026).each do |year| %>
+                  <option><%= year %></option>
+                <% end %>
+              </select>
+            </div>
           </div>
-          </div>
-        </section>
-
-        <div class="flex mt3">
-          <a class="black bg-gray2 flex-auto center py2 btn btn-primary">Start subscription &rarr;</a>
         </div>
+      </section>
+    <% end %>
+
+    <div class="flex mt3">
+      <a class="black bg-gray2 flex-auto center py2 btn btn-primary">Start subscription &rarr;</a>
+    </div>
   </div>
+
   <div class="bg-cyan29 shadow rounded col-6 mt4 mb4 flex flex-column" style="border-radius: 0 3px 3px 0;">
     <h4 class="border-bottom center h5 m0 caps p2 white">Corporate elite plan</h4>
     <div class="flex-auto"></div>
@@ -94,12 +119,10 @@ $(document).ready(function() {
       <li class="white">Custom domain</li>
     </ul>
     <div class="flex-auto"></div>
-        <div class="flex mt3">
-         <a class="white bg-cyan28 flex-auto center py2 btn btn-primary" style="border-radius: 3px 3px 3px 0;">Contact sales</a>
-        </div>
-
+      <div class="flex mt3">
+        <a class="white bg-cyan28 flex-auto center py2 btn btn-primary" style="border-radius: 3px 3px 3px 0;">Contact sales</a>
+      </div>
   </div>
-
 </section>
 
 <div class="clearfix mxn2">
