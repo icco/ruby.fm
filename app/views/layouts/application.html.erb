@@ -80,8 +80,13 @@
       <footer class="p2 center">
         <p class="gray small">
           &copy; <%= Time.now.year %>
-          <%= link_to("Simple Casual", "http://simplecasual.com", class: "gray") %> LLC.
-          <%= link_to("About Us", about_path , class: "gray") %>
+          <%= link_to("Simple Casual, LLC.", "http://simplecasual.com", class: "gray") %>
+          <span class="muted gray">∙</span>
+          <%= link_to("About", about_path , class: "gray") %>
+          <span class="muted gray">∙</span>
+          <%= link_to("Terms", terms_path , class: "gray") %>
+          <span class="muted gray">∙</span>
+          <%= link_to("DMCA", terms_path(anchor: "dmca") , class: "gray") %>
         </p>
       </footer>
     </div>

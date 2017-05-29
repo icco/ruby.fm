@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get "/login", to: redirect("/users/sign_in")
   get "/users/login", to: redirect("/users/sign_in")
   get "/about", to: "home#about"
+  get "/terms", to: "home#terms"
 
   # TODO make something intelligent
   get "/itunes", to: "channels#itunes"
