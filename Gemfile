@@ -56,4 +56,5 @@ end
 group :test do
   gem "minitest-rails", "~> 3.0.0"
   gem "mocha",          "~> 1.2.0"
+  gem "webmock",        "~> 3.0.1"
 end

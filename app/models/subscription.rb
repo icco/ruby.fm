@@ -32,15 +32,22 @@ class Subscription
     @user.stripe_customer_id
   end
 
+  def subscription
+    @subscription ||= Stripe::Subscription.retrieve(subscription_id)
+  end
+
+  def customer
+    @customer ||= Stripe::Customer.retrieve(customer_id)
+  end
+
   def update_customer(token)
-    customer = Stripe::Customer.retrieve(customer_id)
     customer.description = @user.email
     customer.source = token
     customer.save
   end
 
   def create_customer(token)
-    customer = Stripe::Customer.create(source: token, description: @user.email)
+    @customer = Stripe::Customer.create(source: token, description: @user.email)
     @user.stripe_customer_id = customer.id
     @user.save
   end
@@ -54,12 +61,11 @@ class Subscription
     @user.plan_id = plan_id
 
     if @user.stripe_subscription_id.present?
-      subscription = Stripe::Subscription.retrieve(subscription_id)
       subscription.plan = plan_id
       subscription.save
     else
       # Create the subscription
-      subscription = Stripe::Subscription.create(plan: plan_id, customer: customer_id)
+      @subscription = Stripe::Subscription.create(plan: plan_id, customer: customer_id)
       @user.stripe_subscription_id = subscription.id
     end
 
@@ -70,7 +76,6 @@ class Subscription
   def unsubscribe
     return true unless @user.stripe_subscription_id.present?
 
-    subscription = Stripe::Subscription.retrieve(subscription_id)
     subscription.delete
 
     @user.stripe_subscription_id = nil
