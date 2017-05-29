@@ -67,15 +67,18 @@ $(document).ready(function() {
 });
 </script>
 
-<header class="center mt4 mb2">
-  <h1 class="">Sign Up</h1>
-  <p>You're one form away from publishing super dope things. Good luck.</p>
+<header class="mt4 center mb2">
+  <h1 class="h1 mt0 mb1">Simple and casual pricing.</h1>
+  <p class="h2 m0 regular">Hassle-free podcast publishing is a click away.</p>
 </header>
 
 <section class="flex flex-auto mt4 mb4">
-  <div class="bg-white shadow rounded col-6">
-    <h4 class="border-bottom center h5 m0 caps p2">Just a regular ol' plan</h4>
-    <div class="flex justify-center flex-center center mt3">
+  <div class="bg-white shadow rounded col-6 flex flex-column">
+    <h4 class="cyan8 border-bottom center h5 m0 caps p2">Just a regular old plan</h4>
+
+    <div class="flex-auto"></div>
+
+    <div class="flex justify-center flex-center center">
       <div class="flex-auto"></div>
       <h1 class="flex-none h1 m0">$</h1>
       <h1 class="flex-none h00 m0">9</h1>
@@ -91,25 +94,25 @@ $(document).ready(function() {
 
     <%= form_tag(subscription_path, id: "payment-form") do %>
       <section class="px2 col-10 mx-auto mt3">
-        <div id="card-errors" role="alert"></div>
 
-        <h4 class="muted h6 mt0 caps mb1">Payment information</h4>
-        <div class="clearfix mxn2">
-          <div class="col col-10 px2">
-            <div id="card-element">
-            </div>
+        <h4 class="muted h6 mt0 caps mb2">Payment information</h4>
+        <div class="col-12">
+          <div id="card-element">
           </div>
+          <div id="card-errors" role="alert" class="bold center mt2 h5 bg-yellow3 gray9 rounded"></div>
         </div>
       </section>
     <% end %>
 
-    <div class="flex mt3">
-      <a class="black bg-gray2 flex-auto center py2 btn btn-primary">Start subscription &rarr;</a>
+    <div class="flex-auto"></div>
+
+    <div class="flex">
+      <a class="white bg-cyan8 flex-auto center py2 btn btn-primary">Start subscription &rarr;</a>
     </div>
   </div>
 
   <div class="bg-cyan29 shadow rounded col-6 mt4 mb4 flex flex-column" style="border-radius: 0 3px 3px 0;">
-    <h4 class="border-bottom center h5 m0 caps p2 white">Corporate elite plan</h4>
+    <h4 class="border-bottom center h5 m0 caps p2 white">Elite plan</h4>
     <div class="flex-auto"></div>
     <div class="flex justify-center flex-center center mt2">
       <div class="flex-auto"></div>
@@ -132,18 +135,33 @@ $(document).ready(function() {
   </div>
 </section>
 
-<div class="clearfix mxn2">
-  <div class="col px2 col-12">
-    <h2>Your questions, answered</h2>
-    <h4>When will I be charged?</h4>
-    <p class="small gray">Right now, don't bust balls. Podcasting ain't cheap so you'll need to show us a little paper to hold your place.</p>
-    <h4>How much can I upload / share?</h4>
-    <p class="small gray">Everything is unlimited; subscribers, bandwidth, uploads, etc. We don't nickle and dime for the little stuff. However, if you're costing us money to keep you around we should have a chat.</p>
-    <h4>What if there's a problem?</h4>
-    <p class="small gray">It's all good, we can get things sorted out. No worries, just email us. Keep it simple, keep it casual.</p>
-    <h4>Can you schedule a quick call to walk me through this?</h4>
-    <p class="small gray">Lol, no.</p>
+<div class="clearfix mxn2 mb2">
+  <div class="col col-12 px2 center">
+  <h1 class="h2 mt0 mb1">Frequently asked questions</h1>
+</div>
+</div>
+
+<div class="clearfix mxn2 mb4">
+  <div class="col px2 col-3">
+    <h4 class="h4">Why do you charge money?</h4>
+    <p>We want Ruby.fm to be around for a long time, charging money for our service is the only way to sustain ourselves and keep giving you the best service possible.</p>
   </div>
+
+  <div class="col px2 col-3">
+    <h4 class="h4">Who owns my podcasts?</h4>
+    <p>You do. We never claim ownership over the content you worked so hard to produce. By uploading, you're giving us permission to display it on Ruby.fm with attribution.</p>
+  </div>
+
+  <div class="col px2 col-3">
+    <h4 class="h4">Can I have a free trial?</h4>
+    <p>Your account has access to all our features currently. You're only limited on the number of episodes you can publish at one time. You can delete your account at any time.</p>
+  </div>
+
+  <div class="col px2 col-3">
+    <h4 class="h4">I have more questions.</h4>
+    <p>We're available to answer them! Start a conversation using the button in the bottom right hand corner of the screen any time you're logged in. Looking forward to chatting.</p>
+  </div>
+
 </div>
 
 <%# Clearbit to Slack integration %>
