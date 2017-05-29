@@ -36,6 +36,7 @@ gem "turbolinks",         "~> 5.0.0"
 gem "uglifier",           ">= 1.3.0"
 gem "validate_url",       "~> 1.0.0"
 gem "virtus",             "~> 1.0.0"
+gem "intercom-rails"
 
 # TODO: When rails admin goes 1.0.0 officially, it can be added back in
 # gem "rails_admin",     "~> 1.0.0.rc"

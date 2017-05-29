@@ -121,6 +121,8 @@ GEM
     ice_nine (0.11.2)
     imgix (1.1.0)
       addressable
+    intercom-rails (0.3.5)
+      activesupport (> 3.0)
     ipaddress (0.8.3)
     jbuilder (2.6.4)
       activesupport (>= 3.0.0)
@@ -295,6 +297,7 @@ DEPENDENCIES
   friendly_id (~> 5.1.0)
   htmlentities (~> 4.3.4)
   imgix (~> 1.1.0)
+  intercom-rails
   jbuilder (~> 2.6.0)
   jquery-rails (~> 4.2.1)
   keen (~> 1.0.0)
