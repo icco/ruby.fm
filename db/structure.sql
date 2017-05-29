@@ -161,7 +161,10 @@ CREATE TABLE users (
     created_at timestamp without time zone DEFAULT now() NOT NULL,
     updated_at timestamp without time zone DEFAULT now() NOT NULL,
     full_name character varying,
-    admin boolean DEFAULT false
+    admin boolean DEFAULT false,
+    plan_id character varying,
+    stripe_customer_id character varying,
+    stripe_subscription_id character varying
 );
 
 
@@ -353,6 +356,9 @@ INSERT INTO "schema_migrations" (version) VALUES
 ('20151121163724'),
 ('20160130040411'),
 ('20160211022005'),
+('20160311003008'),
+('20160311005902'),
+('20160311013002'),
 ('20160818020239'),
 ('20160827051346'),
 ('20170524052019');

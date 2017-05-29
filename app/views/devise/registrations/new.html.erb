@@ -1,25 +1,112 @@
-<div class="lg-col-4 px2 py4 mx-auto">
-  <header class="center">
-    <h1 class="m0">Sign Up</h1>
-    <p>You're 30 seconds away from publishing super dope things. Good luck.</p>
-  </header>
-  <%= form_for(@signup, url: user_registration_path) do |f| %>
-    <% unless @signup.errors.empty? %>
-      <% @signup.errors.messages.each do |field, messages| %>
-      <p><%= I18n.t("signup.#{field}") %>: <%= messages.join(', ') %></p>
-      <% end %>
-    <% end %>
-    <%= f.text_field :channel_name, autofocus: true, placeholder: 'Podcast Title', class: 'field col-12 mb2' %>
-    <%= f.text_field :full_name, placeholder: 'Full Name', class: 'field col-12 mb2' %>
-    <%= f.email_field :email, placeholder: 'Email', class: 'field col-12 mb2' %>
-    <%= f.password_field :password, autocomplete: "off", placeholder: 'Password', class: 'field col-12 mb2' %>
-    <% if @validatable %>
-      <p class="h6 gray">(<%= @minimum_password_length %> characters minimum)</p>
-    <% end %>
+<%
+  hash = {
+    title: "Sign up for podcast hosting at Ruby.fm",
+    robots: "noindex"
+    }
 
-    <%= f.submit "Sign Up", class: 'btn btn-primary col-12 mb2' %>
-  <% end %>
-  <%= render "devise/shared/links" %>
+  meta(hash)
+%>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  RubyFM.initializeSignupForm();
+});
+</script>
+
+<header class="center mt4 mb2">
+  <h1 class="">Sign Up</h1>
+  <p>You're one form away from publishing super dope things. Good luck.</p>
+</header>
+
+<div class="clearfix mxn2">
+  <div class="col col-8 px2">
+    <%= form_for(@signup, url: user_registration_path, html: { id: 'signup' }) do |f| %>
+      <% unless @signup.errors.empty? %>
+        <% @signup.errors.messages.each do |field, messages| %>
+          <p><%= I18n.t("signup.#{field}") %>: <%= messages.join(', ') %></p>
+        <% end %>
+      <% end %>
+      <div class="clearfix mxn2">
+        <header class="px2">
+          <h2>Your information</h2>
+        </header>
+        <div class="col col-6 px2">
+          <label>Podcast Title</label>
+          <%= f.text_field :channel_name, autofocus: true, placeholder: 'Title', class: 'field col-12 mb2' %>
+        </div>
+        <div class="col col-6 px2">
+          <label>Your Name</label>
+          <%= f.text_field :full_name, placeholder: 'Full Name', class: 'field col-12 mb2' %>
+        </div>
+      </div>
+      <div class="clearfix mxn2">
+        <div class="col col-6 px2">
+          <label>Enter your email</label>
+          <%= f.email_field :email, placeholder: 'Email', class: 'field col-12 mb2' %>
+        </div>
+        <div class="col col-6 px2">
+          <label>Choose a password</label>
+          <%= f.password_field :password, autocomplete: "off", placeholder: 'Password', class: 'field col-12 mb2' %>
+          <% if @validatable %>
+            <p class="h6 gray">(<%= @minimum_password_length %> characters minimum)</p>
+          <% end %>
+        </div>
+      </div>
+
+      <header class="border-top mt2">
+        <h2>Payment information</h2>
+      </header>
+      <section class="clearfix mxn2">
+        <div class="errors">
+        </div>
+        <div class="col col-6 px2">
+          <label>Credit card number</label>
+          <input type="text" autocomplete: "off" class="field col-12 mb2" placeholder='5555-5555-5555-5555' data-stripe="number"/>
+        </div>
+        <div class="col col-2 px2">
+          <label>CVC</label>
+          <input type="text" autocomplete: "off" class="field col-12 mb2" placeholder='333' data-stripe="cvc"/>
+        </div>
+        <div class="col col-2 px2">
+          <label>Exp. Month</label>
+          <select class="block col-12 mb2 field" data-stripe="exp-month">
+            <% (1..12).each do |month| %>
+              <option><%= month %></option>
+            <% end %>
+          </select>
+        </div>
+        <div class="col col-2 px2">
+          <label>Exp. Year</label>
+          <select class="block col-12 mb2 field" data-stripe="exp-year">
+            <% (2016..2024).each do |year| %>
+              <option><%= year %></option>
+            <% end %>
+          </select>
+        </div>
+      </section>
+      <section class="clearfix mxn2">
+        <div class="border-top m2 py3">
+          <div class="col col-6">
+            <%= f.submit "Sign up and get going", class: 'btn btn-primary col-12' %>
+          </div>
+          <div class="col col-6 px2">
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </section>
+    <% end %>
+  </div>
+  <div class="col col-4 px2">
+    <h2>Your questions, answered</h2>
+    <h4>When will I be charged?</h4>
+    <p class="small gray">Right now, don't bust balls. Podcasting ain't cheap so you'll need to show us a little paper to hold your place.</p>
+    <h4>How much can I upload / share?</h4>
+    <p class="small gray">Everything is unlimited; subscribers, bandwidth, uploads, etc. We don't nickle and dime for the little stuff. However, if you're costing us money to keep you around we should have a chat.</p>
+    <h4>What if there's a problem?</h4>
+    <p class="small gray">It's all good, we can get things sorted out. No worries, just email us. Keep it simple, keep it casual.</p>
+    <h4>Can you schedule a quick call to walk me through this?</h4>
+    <p class="small gray">Lol, no.</p>
+  </div>
 </div>
 
 <%# Clearbit to Slack integration %>

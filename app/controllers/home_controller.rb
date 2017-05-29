@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     @channel = Channel.find_by_slug('consolefm')
 
     if @channel
-      @episodes = @channel.episodes.all.recent.limit(12)
+      @episodes = @channel.episodes.all.recent.limit(4)
     else
       @episodes = Episode.none
     end

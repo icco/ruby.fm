@@ -16,6 +16,7 @@ class RegistrationsController < Devise::RegistrationsController
           redirect_to(edit_channel_path(primary_channel))
         end
       else
+        Rails.logger.debug { "[RegistrationsController] #{@signup.errors.to_h}" }
         format.any do
           flash[:error] = I18n.t('devise.registrations.failed')
           render(action: :new, status: 400, format: :html)
@@ -25,7 +26,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
 
   def signup_params
-    params.fetch(:signup, {}).permit(:email, :password, :full_name, :channel_name)
+    params.fetch(:signup, {}).permit(:email, :password, :full_name, :channel_name, :stripe_token)
   end
 
   def update

@@ -34,3 +34,10 @@
         </div>
       <% end %>
     </div>
+    <div class="clearfix mb2">
+      <div class="mb2 py2">
+        <%= link_to("Delete Account", registration_path(resource_name), method: :delete, data: { confirm: "Are you sure?" }) %>
+      </div>
+    </div>
+  </div>
+</div>

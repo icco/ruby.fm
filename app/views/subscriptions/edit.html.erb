@@ -1,0 +1,182 @@
+<%
+  hash = {
+    title: "Subscriptions"
+  }
+
+  meta(hash)
+%>
+
+<script src="https://js.stripe.com/v3/"></script>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  var stripe = Stripe("<%= ENV['STRIPE_PUBLIC_KEY'] %>");
+
+  function stripeTokenHandler(token) {
+    // Insert the token ID into the form so it gets submitted to the server
+    var form = document.getElementById('payment-form');
+    var hiddenInput = document.createElement('input');
+    hiddenInput.setAttribute('type', 'hidden');
+    hiddenInput.setAttribute('name', 'subscription[token]');
+    hiddenInput.setAttribute('value', token.id);
+    form.appendChild(hiddenInput);
+
+    // Submit the form
+    form.submit();
+  }
+
+  var elements = stripe.elements();
+  // Custom styling can be passed to options when creating an Element.
+  var style = {
+    base: {
+      // Add your base input styles here. For example:
+      fontSize:   '16px',
+      lineHeight: '24px'
+    }
+  };
+
+  // Create an instance of the card Element
+  var card = elements.create('card', { style: style });
+  card.addEventListener("change", function(event) {
+    var displayError = document.getElementById("card-errors");
+
+    if (event.error) {
+      displayError.textContent = event.error.message;
+    } else {
+      displayError.textContent = "";
+    }
+  });
+
+  var form = document.getElementById('payment-form');
+  form.addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    stripe.createToken(card).then(function(result) {
+      if (result.error) {
+        // Inform the user if there was an error
+        var errorElement = document.getElementById('card-errors');
+        errorElement.textContent = result.error.message;
+      } else {
+        // Send the token to your server
+        stripeTokenHandler(result.token);
+      }
+    });
+  });
+
+  card.mount('#card-element');
+});
+</script>
+
+<header class="mt4 center mb2">
+  <h1 class="h1 mt0 mb1">Simple and casual pricing.</h1>
+  <p class="h2 m0 regular">Hassle-free podcast publishing is a click away.</p>
+</header>
+
+<section class="flex flex-auto mt4 mb4">
+  <div class="bg-white shadow rounded col-6 flex flex-column">
+    <h4 class="cyan8 border-bottom center h5 m0 caps p2">Just a regular old plan</h4>
+
+    <div class="flex-auto"></div>
+
+    <div class="flex justify-center flex-center center">
+      <div class="flex-auto"></div>
+      <h1 class="flex-none h1 m0">$</h1>
+      <h1 class="flex-none h00 m0">9</h1>
+      <div class="flex-auto"></div>
+    </div>
+
+    <p class="m0 muted center">per month</p>
+    <ul class="mt3 mx-auto col-5">
+      <li>Unlimited episode uploads</li>
+      <li>20GB monthly bandwidth</li>
+      <li>Comprehensive stats</li>
+    </ul>
+
+    <div class="flex-auto"></div>
+
+    <section class="">
+
+      <% if current_user.subscribed? %>
+        <div class="bg-gray1 rounded p2 col-8 mx-auto center">
+          <p class="m0 cyan8">Success! You're subscribed.</p>
+         </div>
+          <p class="mt1 mb3 center h5 regular"><a href="mailto:alex@simplecasual.com" class="muted">Downgrade plan?</a></p>
+      <% else %>
+      <%= form_tag(subscription_path, id: "payment-form", method: :patch) do %>
+        <%= hidden_field_tag("subscription[plan_id]", "regular-ol-plan") %>
+
+        <div class="px2">
+        <h4 class="muted h6 mt0 caps mb2">Payment information</h4>
+        <div class="col-12">
+          <div id="card-element">
+          </div>
+          <div id="card-errors" role="alert" class="bold center mt2 h5 bg-yellow3 gray9 rounded"></div>
+        </div>
+        </div>
+        <div class="flex-auto"></div>
+        <div class="flex">
+          <button class="mt3 white bg-cyan8 flex-auto center py2 btn btn-primary">Start subscription &rarr;</button>
+        </div>
+      <% end %>
+      <% end %>
+
+    </section>
+  </div>
+
+  <div class="bg-cyan29 shadow rounded col-6 mt4 mb4 flex flex-column" style="border-radius: 0 3px 3px 0;">
+    <h4 class="border-bottom center h5 m0 caps p2 white">Elite plan</h4>
+    <div class="flex-auto"></div>
+    <div class="flex justify-center flex-center center mt2">
+      <div class="flex-auto"></div>
+      <h1 class="flex-none h1 m0 white">$</h1>
+      <h1 class="flex-none h00 m0 white">59</h1>
+      <div class="flex-auto"></div>
+    </div>
+    <p class="m0 muted center white">per month</p>
+    <ul class="mt2 mx-auto col-6">
+      <li class="white">Unlimited episode uploads</li>
+      <li class="white">1TB monthly bandwidth</li>
+      <li class="white">Early access to new features</li>
+      <li class="white">Priority development requests</li>
+      <li class="white">Custom domain</li>
+    </ul>
+    <div class="flex-auto"></div>
+      <div class="flex mt3">
+        <a class="white bg-cyan28 flex-auto center py2 btn btn-primary" style="border-radius: 3px 3px 3px 0;" href="mailto:alex@simplecasual.com">Contact sales</a>
+      </div>
+  </div>
+</section>
+
+<div class="clearfix mxn2 mb2">
+  <div class="col col-12 px2 center">
+  <h1 class="h2 mt0 mb1">Frequently asked questions</h1>
+</div>
+</div>
+
+<div class="clearfix mxn2 mb4">
+  <div class="col px2 col-3">
+    <h4 class="h4">Why do you charge money?</h4>
+    <p>We want Ruby.fm to be around for a long time, charging money for our service is the only way to sustain ourselves and keep giving you the best service possible.</p>
+  </div>
+
+  <div class="col px2 col-3">
+    <h4 class="h4">Who owns my podcasts?</h4>
+    <p>You do. We never claim ownership over the content you worked so hard to produce. By uploading, you're giving us permission to display it on Ruby.fm with attribution.</p>
+  </div>
+
+  <div class="col px2 col-3">
+    <h4 class="h4">Can I have a free trial?</h4>
+    <p>Your account has access to all our features currently. You're only limited on the number of episodes you can publish at one time. You can delete your account at any time.</p>
+  </div>
+
+  <div class="col px2 col-3">
+    <h4 class="h4">I have more questions.</h4>
+    <p>We're available to answer them! Start a conversation using the button in the bottom right hand corner of the screen any time you're logged in. Looking forward to chatting.</p>
+  </div>
+
+</div>
+
+<%# Clearbit to Slack integration %>
+<% if Rails.env.production? %>
+  <script src="https://slack.clearbit.com/v1/notify.js" data-cb-account="de29d12e-1204-441f-b088-fb183828055d" ></script>
+<% end %>

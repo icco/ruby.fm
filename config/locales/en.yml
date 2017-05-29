@@ -54,3 +54,7 @@ en:
     destroy:
       successful: Channel removed
       failed: Channel could not be removed
+  subscription:
+    update:
+      successful: Subscription updated
+      failed: Subscription could not be updated

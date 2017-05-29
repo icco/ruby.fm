@@ -40,4 +40,7 @@ if signup.save
   puts "Login email: #{user.email}"
   puts "Login pass:  password"
   puts "==================================="
+else
+  puts "Failed to seed the database"
+  puts signup.errors.to_h
 end

@@ -28,41 +28,19 @@
   meta(hash)
 %>
 
+<script type="text/javascript">
+$(document).ready(function() {
+  RubyFM.initializePlayer();
+});
+</script>
+
 <% content_for :favicon do %>
   <%= favicon_link_tag(Imgix.client.path(@episode.image.s3_path).w(32).h(32).fit('crop').fm('auto').to_url) %>
 <% end %>
 
-
-<div class="container">
-  <div class="sm-col-12 md-col-6 mx-auto">
-  <header class="clearfix">
-    <div class="flex flex-center p2 md-px-reset">
-      <div class="flex-none">
-        <%= link_to slugged_channel_path(@channel) do %>
-          <%= image_tag(@channel.resized_image_url, width: 48, height: 48, class: 'mb0 mr2', alt: @channel.title) %>
-        <% end %>
-      </div>
-      <div class="flex-auto">
-        <div class="mr2">
-          <h2 class="black block h3 m0 truncate"><%= link_to @channel.title, slugged_channel_path(@channel), class: 'black' %></h2>
-          <h3 class="h4 m0 gray truncate">
-            Published <%= @episode.created_at.strftime("%b %e") %>
-            ∙
-            <%= "#{distance_of_time_in_words(@episode.length)} long" %>
-            ∙
-            <%= pluralize(@episode.play_count, 'play') %>
-          </h3>
-      </div>
-      </div>
-      <div class="flex-none md-show">
-        <% if policy(@channel).update? %>
-          <%= link_to 'Edit', edit_episode_path(@episode.id), class: 'gray h5 btn btn-outline'  %>
-        <% end %>
-      </div>
-    </div>
-
-  </header>
-    <div class="unselectable square relative bg-black" style="background-size: cover; background-image: url(<%= Imgix.client.path(@episode.image.s3_path).q(70).h(512).w(512).dpr(2).fit('crop').auto('format').fm('jpg').to_url %>)">
+<div class="md-flex mxn2 mb3">
+  <section class="col-12 lg-col-6 px2">
+    <div class="unselectable rounded shadow square relative bg-black" style="background-size: cover; background-image: url(<%= Imgix.client.path(@episode.image.s3_path).q(70).h(512).w(512).dpr(2).fit('crop').auto('format').fm('jpg').to_url %>)">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" class="episode-play js-play-hide white p3">
         <use xlink:href="#play"></use>
       </svg>
@@ -111,41 +89,64 @@
         </div>
     </div>
   </div>
+</section>
 
-  <h1 class="black block h1 mb0 mt2 px2 md-px-reset">
+<header class="col-12 lg-col-6 px2 flex flex-column">
+  <h2 class="h6 mt0 mb1 muted caps">
+    <%= @episode.created_at.strftime("%b %e") %>
+  </h2>
+  <div class="flex flex-center">
+  <h1 class="black h1 mt0 mb1 flex-auto">
     <%= @episode.title %>
     <% unless @episode.visible? %>
       <span class="h6 inline-block px1 white bg-red rounded">Draft</span>
     <% end %>
   </h1>
-  <% if @episode.notes.present? %>
-    <div class="p2 md-px-reset">
-      <%= markdown(@episode.notes) %>
+    <div class="flex-none ml2">
+      <% if policy(@channel).update? %>
+        <%= link_to 'Edit', edit_episode_path(@episode.id), class: 'btn btn-outline'  %>
+      <% end %>
     </div>
+    </div>
+  <h3 class="h4 regular muted mt0 mb2 truncate">
+    <%= pluralize(@episode.play_count, 'play') %>
+    ∙
+    <%= "#{distance_of_time_in_words(@episode.length)} long" %>
+  </h3>
+  <% if @episode.notes.present? %>
+    <%= markdown(@episode.notes) %>
   <% end %>
+  <div class="flex flex-center mt2 border-top py2">
+    <div class="flex-none">
+      <%= link_to slugged_channel_path(@channel) do %>
+        <%= image_tag(@channel.resized_image_url, width: 48, height: 48, class: 'mb0 mr2', alt: @channel.title) %>
+      <% end %>
+    </div>
+    <div class="flex-auto">
+        <h2 class="m0 h3"><%= link_to @channel.title, slugged_channel_path(@channel), class: 'black' %></h2>
+      <h2 class="m0 h4 regular muted"><%= @channel.author %></h2>
+    </div>
+  </div>
+</header>
+</div>
+
+  <div class="clearfix">
 
   <% if @channel.episodes.visible.count > 1 %>
-    <h4 class="caps gray h4 p2 md-px-reset m0">More from <%= link_to @channel.title, slugged_channel_path(@channel), class: 'gray' %></h4>
-    <section class="flex flex-wrap mb2">
-      <% @channel.episodes.visible.where.not(id: @episode.id).order(created_at: :desc).first(3).each do |t| %>
-        <div class="flex col-4 md-col-4 lg-col-4 border-box">
-          <div class="flex-stretch">
-            <%= link_to(slugged_channel_episode_path(@channel.slug, t.slug)) do %>
-              <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'col-12', alt: t.title) %>
-            <% end %>
-            <div class="p1">
-              <h2 class="h3 m0">
-                <%= link_to( t.title, slugged_channel_episode_path(@channel.slug, t.slug), class: 'regular black') %>
-              </h2>
-              <h4 class="h4 regular gray m0">
-                <%= "#{time_ago_in_words(t.created_at)} ago" %>
-              </h4>
-            </div>
-          </div>
-        </div>
+    <div class="flex flex-center border-bottom py2 mb2">
+    <h4 class="flex-auto h6 m0 caps">Keep listening</h4>
+    <h4 class="flex-none ml2 h6 m0 muted caps"><%= link_to "More #{@channel.title} →", slugged_channel_path(@channel), class: 'black' %></h4>
+  </div>
+  <section class="flex flex-wrap mxn2">
+    <% @channel.episodes.visible.where.not(id: @episode.id).order(created_at: :desc).     first(3).each do |t| %>
+      <% if policy(t).update? || t.visible? %>
+        <%= render partial: "channels/episode_card", locals: {t: t, col: 4, preview: true} %>
       <% end %>
-    </section>
-  <% end %>
+    <% end %>
+  </section>
+    <% end %>
+
+
 </div>
 
 <%= render "layouts/geomicons" %>

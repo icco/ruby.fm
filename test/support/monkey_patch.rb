@@ -1,13 +1,7 @@
 class ActionController::TestCase
-  include Devise::TestHelpers
-  include Warden::Test::Helpers
-  include DatabaseHelpers
-
-  Warden.test_mode!
   fixtures :all
 
   def teardown
-    Warden.test_reset!
   end
 
   def options(action, *args)
@@ -22,8 +16,4 @@ end
 
 class ActiveSupport::TestCase
   fixtures :all
-
-  class << self
-    alias :context :describe
-  end
 end
