@@ -73,7 +73,7 @@
   <section class="flex flex-wrap col col-9">
     <% @episodes.each do |t| %>
       <% if policy(t).update? || t.visible? %>
-        <%= render partial: "episode_card", locals: {t: t, col: 6} %>
+        <%= render partial: "channels/episode_card", locals: {t: t, col: 6, preview: true} %>
       <% end %>
     <% end %>
   </section>

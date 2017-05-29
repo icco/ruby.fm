@@ -4,7 +4,7 @@
       <%= image_tag(Imgix.client.path(t.image.s3_path).fit('crop').width(400).height(400).to_url, class: 'block col-12', style: 'border-radius: 3px 3px 0 0', alt: t.title) %>
     <% end %>
     <div class="bg-white p3 rounded flex flex-column flex-auto">
-      <div class="mb4">
+      <div class="mb2">
         <h2 class="h6 mt0 mb1 muted caps">
           <%= t.created_at.strftime("%b %e") %>
         </h2>
@@ -14,8 +14,10 @@
             <span class="h6 inline-block px1 white bg-red rounded">Draft</span>
           <% end %>
         </h1>
+        <% unless preview == false %>
         <% if t.notes.present? %>
           <p><%= truncate(markdown(t.notes), length: 100, escape: false) %></p>
+        <% end %>
         <% end %>
       </div>
       <div class="flex-auto"></div>

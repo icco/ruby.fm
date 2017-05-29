@@ -134,13 +134,13 @@ $(document).ready(function() {
 
   <% if @channel.episodes.visible.count > 1 %>
     <div class="flex flex-center border-bottom py2 mb2">
-    <h4 class="flex-auto h6 m0 muted caps">Keep listening</h4>
-    <h4 class="flex-none ml2 h6 m0 muted caps"><%= link_to "More →", slugged_channel_path(@channel), class: 'black' %></h4>
+    <h4 class="flex-auto h6 m0 caps">Keep listening</h4>
+    <h4 class="flex-none ml2 h6 m0 muted caps"><%= link_to "More #{@channel.title} →", slugged_channel_path(@channel), class: 'black' %></h4>
   </div>
   <section class="flex flex-wrap mxn2">
     <% @channel.episodes.visible.where.not(id: @episode.id).order(created_at: :desc).     first(3).each do |t| %>
       <% if policy(t).update? || t.visible? %>
-        <%= render partial: "channels/episode_card", locals: {t: t, col: 4} %>
+        <%= render partial: "channels/episode_card", locals: {t: t, col: 4, preview: true} %>
       <% end %>
     <% end %>
   </section>
