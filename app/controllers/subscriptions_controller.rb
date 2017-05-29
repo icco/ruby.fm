@@ -11,7 +11,7 @@ class SubscriptionsController < AuthorizedController
     @subscription = Subscription.new(current_user, logger: Rails.logger)
 
     if @subscription.update_attributes(subscription_params)
-      flash[:notice] = I18n.t("subscription.update.successsful")
+      flash[:notice] = I18n.t("subscription.update.successful")
     else
       flash[:alert] = I18n.t("subscription.update.failed")
     end
