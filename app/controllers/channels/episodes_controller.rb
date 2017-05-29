@@ -16,8 +16,10 @@ module Channels
 
     # GET - /channels/{slug_or_id}/episodes
     def show
-      @channel = Channel.friendly.find(params[:channel_id])
-      @episode = @channel.episodes.friendly.find(params[:id])
+      @channel  = Channel.friendly.find(params[:channel_id])
+      @episode  = @channel.episodes.friendly.find(params[:id])
+      @episodes = @channel.episodes.visible.where.not(id: @episode.id).order(created_at: :desc).first(4)
+
       authorize(@episode, :read?)
 
       respond_to do |format|

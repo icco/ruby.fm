@@ -23,6 +23,10 @@ class Channel < ApplicationRecord
 
   before_validation :scrub_categories
 
+  def episodes_visible_present?
+    episodes.visible.count > 1
+  end
+
   def total_plays
     episodes.sum(:play_count)
   end
