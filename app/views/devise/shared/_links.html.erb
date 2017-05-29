@@ -1,6 +1,6 @@
 <%- if controller_name != 'sessions' %>
   <p class="small gray">
-  By continuing, you agree to our terms, which at this point are completely unspecified. Already have an account? <%= link_to "Log in", new_session_path(resource_name) %>.<br />
+    By continuing, you agree to our <%= link_to 'terms', terms_path %>. Already have an account? <%= link_to "Log in", new_session_path(resource_name) %>.<br />
 </p>
 <% end -%>
 
