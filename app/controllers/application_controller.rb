@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     rescue_from(ActiveRecord::RecordNotFound, with: :not_found)
   end
 
+  def s3_bucket
+    @s3_bucket ||= Aws::S3::Resource.new.bucket(ENV['S3_BUCKET'])
+  end
+
   def primary_channel
     if user_signed_in?
       current_user.channels.first

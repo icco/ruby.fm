@@ -9,8 +9,11 @@ module Channels
 
       @episode = @channel.episodes.build
 
+      @uploader = @episode.audio.s3_post
+
       respond_to do |format|
         format.html
+        format.json
       end
     end
 
@@ -37,6 +40,9 @@ module Channels
 
     # POST - /channels/{slug_or_id}/episodes
     def create
+      render text: params
+      return
+
       @channel = Channel.friendly.find(params[:channel_id])
       authorize(@channel, :update?)
 
@@ -47,6 +53,7 @@ module Channels
       respond_to do |format|
         if @episode.save
           format.html { redirect_to(edit_episode_url(@episode.id)) }
+          format.json { render json: @episode }
         else
           format.html { render(action: :new, status: 400) }
         end

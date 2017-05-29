@@ -11,19 +11,59 @@
   screen.
 </p>
 
-<%= form_for(@episode, url: channel_episodes_path(@channel.slug)) do |f| %>
-  <% if @episode.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@episode.errors.count, "error") %> prohibited this episode from being saved:</h2>
-      <ul>
-        <% @episode.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
-    </div>
+<%= form_tag(@uploader.url, {
+  multipart: true,
+  id: "new_episode",
+  enforce_utf8: false,
+  authenticity_token: false,
+  class: "dropzone",
+  data: {
+    host: URI.parse(@uploader.url).host,
+    fields: @uploader.fields,
+  }
+}) do %>
+  <% @uploader.fields.each do |name, value| %>
+    <%= hidden_field_tag(name, value) %>
   <% end %>
+<% end %>
 
-  <%= f.file_field(:audio, class: 'mb2 col-12 block border border-light-gray py4') %>
-  <%= f.submit('Upload episode', class: 'btn btn-primary col-12 mb2') %>
+
+<%= form_tag(channel_episodes_url(@channel.slug),
+  style: "display: none;",
+  id: "save_episode") do |f| %>
+  <%= hidden_field_tag("episode[s3_key]", "", id: "s3_key") %>
+  <%= submit_tag("Save") %>
 <% end %>
 </div>
+
+<script type="text/javascript">
+  $(document).on('ready page:load', function() {
+    Dropzone.options.newEpisode = {
+      paramName: "file",
+      acceptedFiles: "audio/*",
+      uploadMultiple: false,
+      init: function() {
+        this.on("sending", function(file, xhr, form) {
+          console.log("Starting upload");
+        });
+
+        this.on("uploadprogress", function(file, progress, bytesSent) {
+          console.log(progress + " " + bytesSent);
+        });
+
+        this.on("error", function(file, xhr, form) {
+          console.error("failed to upload");
+        });
+
+        this.on("success", function(file, xhr, form) {
+          var response = $(xhr);
+          var key = response.find("Key").text();
+
+          $("input#s3_key").val(key);
+          $("form#new_episode").hide();
+          $("form#save_episode").show();
+        });
+      }
+    };
+  });
+</script>
