@@ -95,6 +95,13 @@ $(document).ready(function() {
     <div class="flex-auto"></div>
 
     <section class="">
+
+      <% if current_user.subscribed? %>
+        <div class="bg-gray1 rounded p2 col-8 mx-auto center">
+          <p class="m0 cyan8">Success! You're subscribed.</p>
+         </div>
+          <p class="mt1 mb3 center h5 regular"><a href="mailto:alex@simplecasual.com" class="muted">Downgrade plan?</a></p>
+      <% else %>
       <%= form_tag(subscription_path, id: "payment-form", method: :patch) do %>
         <%= hidden_field_tag("subscription[plan_id]", "regular-ol-plan") %>
 
@@ -110,6 +117,7 @@ $(document).ready(function() {
         <div class="flex">
           <button class="mt3 white bg-cyan8 flex-auto center py2 btn btn-primary">Start subscription &rarr;</button>
         </div>
+      <% end %>
       <% end %>
 
     </section>
