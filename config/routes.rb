@@ -13,8 +13,7 @@ Rails.application.routes.draw do
   # TODO make something intelligent
   get "/itunes", to: "channels#itunes"
   get "/stats", to: "stats#index"
-  get "/stats/overall", to: "stats#overall"
-  get "/sitemap.xml.gz", to: "sitemap#index"
+  get "/stats/overall", to: 'stats#overall'
 
   resources :episodes, only: [:index, :show, :edit, :update, :destroy] do
     member do
