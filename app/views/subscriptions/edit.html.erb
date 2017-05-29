@@ -6,8 +6,6 @@
   meta(hash)
 %>
 
-<script src="https://js.stripe.com/v3/"></script>
-
 <script type="text/javascript">
 $(document).ready(function() {
   var stripe = Stripe("<%= ENV['STRIPE_PUBLIC_KEY'] %>");
