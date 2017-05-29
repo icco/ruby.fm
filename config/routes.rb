@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  # mount RailsAdmin::Engine => '/swag', as: 'rails_admin'
+  mount ForestLiana::Engine => '/forest'
   root "home#index"
 
   # Authentication
