@@ -3,7 +3,7 @@ Rails.application.routes.draw do
   root "home#index"
 
   # Authentication
-  devise_for :users, controllers: { registrations: 'registrations' }
+  devise_for :users, controllers: { registrations: 'registrations', sessions: "sessions" }
 
   get "/login", to: redirect("/users/sign_in")
   get "/users/login", to: redirect("/users/sign_in")
