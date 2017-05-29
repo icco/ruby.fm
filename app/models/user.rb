@@ -27,15 +27,15 @@ class User < ApplicationRecord
     current_user && current_user.is_admin
   end
 
-  def stripe_customer
-    @stripe_customer ||= Stripe::Customer.retrieve(self.stripe_customer_id)
-  end
-
-  def stripe_subscription
-    @stripe_subscription ||= stripe_customer.subscriptions.retrieve(self.stripe_subscription_id)
+  def subscription
+    @subscription ||= Subscription.new(self)
   end
 
   def subscribed?
-    stripe_subscription_id.present?
+    subscription.subscribed?
+  end
+
+  def unsubscribe
+    subscription.unsubscribe
   end
 end
