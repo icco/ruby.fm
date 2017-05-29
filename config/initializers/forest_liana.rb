@@ -9,6 +9,6 @@ ForestLiana.integrations = {
   },
   stripe: {
     api_key: ENV['STRIPE_SECRET_KEY'],
-    mapping: 'User.stripe_id'
+    mapping: 'User.stripe_subscription_id'
   }
 }
