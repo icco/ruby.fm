@@ -100,6 +100,10 @@ p a:focus, li a:focus {
   }
 }
 
+.h00 {
+  font-size: 4rem;
+}
+
 .sticky {
   position: -webkit-sticky;
   position: -moz-sticky;
@@ -111,6 +115,11 @@ p a:focus, li a:focus {
 
 .caps {
   letter-spacing: 0.5px;
+}
+
+.border-top, .border, .border-bottom {
+  border-top-color: rgba(0, 0, 0, 0.05);
+  border-bottom-color: rgba(0, 0, 0, 0.05);
 }
 
 /* https://palx.jxnblk.com/FF0036 */

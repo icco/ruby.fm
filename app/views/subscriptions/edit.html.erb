@@ -1,0 +1,122 @@
+<%
+  hash = {
+    title: "Pay me"
+    }
+
+  meta(hash)
+%>
+
+<script type="text/javascript">
+$(document).ready(function() {
+  RubyFM.initializeSignupForm();
+});
+</script>
+
+<header class="center mt4 mb2">
+  <h1 class="">Sign Up</h1>
+  <p>You're one form away from publishing super dope things. Good luck.</p>
+</header>
+<section class="flex flex-auto mt4 mb4">
+  <div class="bg-white shadow rounded col-6">
+    <h4 class="border-bottom center h5 m0 caps p2">Just a regular ol' plan</h4>
+    <div class="flex justify-center flex-center center mt3">
+      <div class="flex-auto"></div>
+      <h1 class="flex-none h1 m0">$</h1>
+      <h1 class="flex-none h00 m0">9</h1>
+      <div class="flex-auto"></div>
+    </div>
+    <p class="m0 muted center">per month</p>
+    <ul class="mt3 mx-auto col-5">
+      <li>Unlimited episode uploads</li>
+      <li>20GB monthly bandwidth</li>
+      <li>Comprehensive stats</li>
+    </ul>
+
+    <section class="px2 col-10 mx-auto mt3">
+      <div class="errors">
+      </div>
+      <h4 class="muted h6 mt0 caps mb1">Payment information</h4>
+      <div class="clearfix mxn2">
+        <div class="col col-8 px2">
+          <label>Card number</label>
+          <input type="text" autocomplete: "off" class="field col-12 mb2" placeholder='5555-5555-5555-5555' data-stripe="number"/>
+        </div>
+        <div class="col col-4 px2">
+          <label>Security code</label>
+          <input type="text" autocomplete: "off" class="field col-12 mb2" placeholder='333' data-stripe="cvc"/>
+        </div>
+        </div>
+        <div class="clearfix mxn2">
+        <div class="col col-6 px2">
+          <label>Name on card</label>
+          <input type="text" autocomplete: "off" class="field col-12 mb2" placeholder='Arya Stark' />
+        </div>
+          <div class="col col-6 px2">
+            <label>Expiration</label>
+            <div class="flex flex-center">
+
+            <select class="block flex-auto field" data-stripe="exp-month">
+              <% (1..12).each do |month| %>
+                <option><%= month %></option>
+              <% end %>
+            </select>
+            <p class="h3 px1 m0 flex-none muted"> / </p>
+
+            <select class="block flex-auto field" data-stripe="exp-year">
+              <% (2017..2026).each do |year| %>
+                <option><%= year %></option>
+              <% end %>
+            </select>
+
+          </div>
+          </div>
+        </section>
+
+        <div class="flex mt3">
+          <a class="black bg-gray2 flex-auto center py2 btn btn-primary">Start subscription &rarr;</a>
+        </div>
+  </div>
+  <div class="bg-cyan29 shadow rounded col-6 mt4 mb4 flex flex-column">
+    <h4 class="border-bottom center h5 m0 caps p2 white">Corporate elite plan</h4>
+    <div class="flex-auto"></div>
+    <div class="flex justify-center flex-center center mt2">
+      <div class="flex-auto"></div>
+      <h1 class="flex-none h1 m0 white">$</h1>
+      <h1 class="flex-none h00 m0 white">59</h1>
+      <div class="flex-auto"></div>
+    </div>
+    <p class="m0 muted center white">per month</p>
+    <ul class="mt2 mx-auto col-6">
+      <li class="white">Unlimited episode uploads</li>
+      <li class="white">1TB monthly bandwidth</li>
+      <li class="white">Early access to new features</li>
+      <li class="white">Priority development requests</li>
+      <li class="white">Custom domain</li>
+    </ul>
+    <div class="flex-auto"></div>
+        <div class="flex mt3">
+         <a class="white bg-cyan28 flex-auto center py2 btn btn-primary">Contact sales</a>
+        </div>
+
+  </div>
+
+</section>
+
+<div class="clearfix mxn2">
+  <div class="col px2 col-12">
+    <h2>Your questions, answered</h2>
+    <h4>When will I be charged?</h4>
+    <p class="small gray">Right now, don't bust balls. Podcasting ain't cheap so you'll need to show us a little paper to hold your place.</p>
+    <h4>How much can I upload / share?</h4>
+    <p class="small gray">Everything is unlimited; subscribers, bandwidth, uploads, etc. We don't nickle and dime for the little stuff. However, if you're costing us money to keep you around we should have a chat.</p>
+    <h4>What if there's a problem?</h4>
+    <p class="small gray">It's all good, we can get things sorted out. No worries, just email us. Keep it simple, keep it casual.</p>
+    <h4>Can you schedule a quick call to walk me through this?</h4>
+    <p class="small gray">Lol, no.</p>
+  </div>
+</div>
+
+<%# Clearbit to Slack integration %>
+<% if Rails.env.production? %>
+  <script src="https://slack.clearbit.com/v1/notify.js" data-cb-account="de29d12e-1204-441f-b088-fb183828055d" ></script>
+<% end %>
