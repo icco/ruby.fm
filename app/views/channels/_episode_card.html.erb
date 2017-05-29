@@ -16,7 +16,7 @@
         </h1>
         <% unless preview == false %>
         <% if t.notes.present? %>
-          <p><%= truncate(markdown(t.notes), length: 100, escape: false) %></p>
+          <p><%# truncate(markdown(t.notes), length: 100, escape: false) %></p>
         <% end %>
         <% end %>
       </div>

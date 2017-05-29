@@ -40,7 +40,7 @@ $(document).ready(function() {
 
 <div class="md-flex mxn2 mb3">
   <section class="col-12 lg-col-6 px2">
-    <div class="unselectable rounded shadow square relative bg-black" style="background-size: cover; background-image: url(<%= Imgix.client.path(@episode.image.s3_path).q(70).h(512).w(512).dpr(2).fit('crop').auto('format').fm('jpg').to_url %>)">
+    <div class="unselectable rounded shadow square relative bg-black sticky" style="background-size: cover; background-image: url(<%= Imgix.client.path(@episode.image.s3_path).q(70).h(512).w(512).dpr(2).fit('crop').auto('format').fm('jpg').to_url %>)">
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="16" height="16" class="episode-play js-play-hide white p3">
         <use xlink:href="#play"></use>
       </svg>
@@ -116,7 +116,8 @@ $(document).ready(function() {
   <% if @episode.notes.present? %>
     <%= markdown(@episode.notes) %>
   <% end %>
-  <div class="flex flex-center mt2 border-top py2">
+  <div class="block border-top col-12 lg-col-2 mt2"></div>
+  <div class="flex flex-center py2">
     <div class="flex-none">
       <%= link_to slugged_channel_path(@channel) do %>
         <%= image_tag(@channel.resized_image_url, width: 48, height: 48, class: 'mb0 mr2', alt: @channel.title) %>
@@ -138,9 +139,9 @@ $(document).ready(function() {
     <h4 class="flex-none ml2 h6 m0 muted caps"><%= link_to "More #{@channel.title} →", slugged_channel_path(@channel), class: 'black' %></h4>
   </div>
   <section class="flex flex-wrap mxn2">
-    <% @channel.episodes.visible.where.not(id: @episode.id).order(created_at: :desc).     first(3).each do |t| %>
+    <% @channel.episodes.visible.where.not(id: @episode.id).order(created_at: :desc).     first(4).each do |t| %>
       <% if policy(t).update? || t.visible? %>
-        <%= render partial: "channels/episode_card", locals: {t: t, col: 4, preview: true} %>
+        <%= render partial: "channels/episode_card", locals: {t: t, col: 3, preview: true} %>
       <% end %>
     <% end %>
   </section>
