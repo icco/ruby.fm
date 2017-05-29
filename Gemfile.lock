@@ -244,6 +244,8 @@ GEM
       connection_pool (~> 2.2, >= 2.2.0)
       rack-protection (>= 1.5.0)
       redis (~> 3.3, >= 3.3.3)
+    sitemap_generator (5.3.1)
+      builder (~> 3.0)
     slack-notifier (1.5.1)
     sprockets (3.7.1)
       concurrent-ruby (~> 1.0)
@@ -318,6 +320,7 @@ DEPENDENCIES
   redis-rails (~> 5.0.2)
   sass-rails (~> 5.0.4)
   sidekiq (~> 5.0.0)
+  sitemap_generator
   slack-notifier (~> 1.5.1)
   taglib-ruby (~> 0.7.0)
   timeliness (~> 0.3.7)
