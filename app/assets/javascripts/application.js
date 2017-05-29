@@ -22,8 +22,6 @@
 var ready;
 
 ready = function() {
-  Stripe.setPublishableKey($('meta[name="stripe-key"]').attr('content'));
-
   var player = plyr.setup(document.querySelector(".js-plyr"),
     {
       html: ["<div class='player-controls'>", "</div>"].join("\n"),
