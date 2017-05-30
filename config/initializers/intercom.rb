@@ -55,7 +55,7 @@ IntercomRails.config do |config|
     :admin => Proc.new { |current_user| current_user.admin },
     :plan => Proc.new { |current_user| current_user.plan_id },
     :episode_count => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).episodes.count },
-    :last_episode_created_at => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).episodes.first.created_at },
+    :last_episode_created_at => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).episodes.first&.created_at },
     :channel => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).slug },
     :channel_website => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).website_url },
     :channel_author => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).author },
