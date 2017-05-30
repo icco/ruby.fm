@@ -23,6 +23,7 @@ class ChannelsController < ApplicationController
 
   def show
     @channel = Channel.friendly.find(params[:id])
+    @play_count = @channel.episodes.sum(:play_count)
     authorize(@channel, :read?)
 
     @episodes = []

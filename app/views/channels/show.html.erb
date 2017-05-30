@@ -44,7 +44,7 @@
       <% end %>
       <div class="mt3">
         <ul class="list-style-none">
-          <li>20k listens</li>
+          <li><%= number_with_delimiter(@play_count) %> listens</li>
           <% if policy(@channel).update?  %>
             <li><%= pluralize(@channel.episodes.count, 'episode') %></li>
           <% else %>

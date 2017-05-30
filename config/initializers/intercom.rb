@@ -61,7 +61,8 @@ IntercomRails.config do |config|
     :channel_author => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).author },
     :channel_summary => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).summary },
     :channel_categories => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).categories },
-    :channel_itunes_url => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).itunes_url }
+    :channel_itunes_url => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).itunes_url },
+    :channel_plays => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).episodes.sum(:play_count) }
   }
 
   # == Current company method/variable
