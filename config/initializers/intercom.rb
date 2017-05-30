@@ -15,7 +15,7 @@ IntercomRails.config do |config|
   # == Enabled Environments
   # Which environments is auto inclusion of the Javascript enabled for
   #
-  config.enabled_environments = ["production"]
+  config.enabled_environments = ["development", "production"]
 
   # == Current user method/variable
   # The method/variable that contains the logged in user in your controllers.
@@ -32,7 +32,7 @@ IntercomRails.config do |config|
   # == User model class
   # The class which defines your user model
   #
-  # config.user.model = Proc.new { User }
+  config.user.model = Proc.new { User }
 
   # == Lead/custom attributes for non-signed up users
   # Pass additional attributes to for potential leads or
@@ -51,11 +51,18 @@ IntercomRails.config do |config|
   # A hash of additional data you wish to send about your users.
   # You can provide either a method name which will be sent to the current
   # user object, or a Proc which will be passed the current user.
-  #
-  # config.user.custom_data = {
-  #   :plan => Proc.new { |current_user| current_user.plan.name },
-  #   :favorite_color => :favorite_color
-  # }
+  config.user.custom_data = {
+    :admin => Proc.new { |current_user| current_user.admin },
+    :plan => Proc.new { |current_user| current_user.plan_id },
+    :episode_count => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).episodes.count },
+    :last_episode_created_at => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).episodes.first.created_at },
+    :channel => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).slug },
+    :channel_website => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).website_url },
+    :channel_author => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).author },
+    :channel_summary => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).summary },
+    :channel_categories => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).categories },
+    :channel_itunes_url => Proc.new { |current_user| Channel.find_by_user_id(current_user.id).itunes_url }
+  }
 
   # == Current company method/variable
   # The method/variable that contains the current company for the current user,
