@@ -144,8 +144,7 @@
 <script type="text/javascript">
 // http://stackoverflow.com/questions/18770517/rails-4-how-to-use-document-ready-with-turbo-links
 document.addEventListener('turbolinks:load', function() {
-  var players = plyr.setup(
-    document.querySelector(".js-plyr"),
+  var player = plyr.setup(document.querySelector(".js-plyr"),
     {
       html: ["<div class='player-controls'>", "</div>"].join("\n"),
       seekTime: 30,
@@ -154,35 +153,33 @@ document.addEventListener('turbolinks:load', function() {
     }
   );
 
-  if (players[0]) {
-    var player = players[0];
+  // Easily access the player
+  player = player[0]
+  var media = player.media
 
-    if (player.media) {
-      var media = player.media;
+  if (media) {
+    $("[data-plyr='pause']").hide();
 
+    // Toggle play pause button
+    media.addEventListener("playing", function() {
+      $("[data-plyr='play']").hide();
+      $("[data-plyr='pause']").show();
+    });
+
+    media.addEventListener("pause", function() {
+      $("[data-plyr='play']").show();
       $("[data-plyr='pause']").hide();
+    });
 
-      // Toggle play pause button
-      media.addEventListener("playing", function() {
-        $("[data-plyr='play']").hide();
-        $("[data-plyr='pause']").show();
-      });
+    // Toggle play on click of player background
+    $('.js-toggle-play').on("click", function(){
+      player.togglePlay();
+    });
 
-      media.addEventListener("pause", function() {
-        $("[data-plyr='play']").show();
-        $("[data-plyr='pause']").hide();
-      });
-
-      // Toggle play on click of player background
-      $('.js-toggle-play').on("click", function(){
-        player.togglePlay();
-      });
-
-      // Hide play button on first play
-      media.addEventListener("play", function() {
-        $(".js-play-hide").hide();
-      });
-    }
+    // Hide play button on first play
+    media.addEventListener("play", function() {
+      $(".js-play-hide").hide();
+    });
   }
 });
 </script>
