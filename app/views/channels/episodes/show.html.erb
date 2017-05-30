@@ -156,26 +156,29 @@ document.addEventListener('turbolinks:load', function() {
 
   if (players[0]) {
     var player = players[0];
+    var media = player.media;
 
     $("[data-plyr='pause']").hide();
 
-    player.on("playing", function() {
+    // Toggle play pause button
+    media.addEventListener("playing", function() {
       $("[data-plyr='play']").hide();
       $("[data-plyr='pause']").show();
     });
 
-    player.on("pause", function() {
+    media.addEventListener("pause", function() {
       $("[data-plyr='play']").show();
       $("[data-plyr='pause']").hide();
-    });
-
-    player.on("play", function() {
-      $(".js-play-hide").hide();
     });
 
     // Toggle play on click of player background
     $('.js-toggle-play').on("click", function(){
       player.togglePlay();
+    });
+
+    // Hide play button on first play
+    media.addEventListener("play", function() {
+      $(".js-play-hide").hide();
     });
   }
 });
