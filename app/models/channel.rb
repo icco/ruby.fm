@@ -31,6 +31,27 @@ class Channel < ApplicationRecord
     episodes.sum(:play_count)
   end
 
+  def cover_art_url!
+    if image.present?
+      Imgix.client
+           .path(channel.image.s3_path)
+           .q(80)
+           .fm('jpg')
+           .fit('crop')
+           .width(2048)
+           .height(2048)
+           .to_url
+    else
+      @channel.image.url
+    end
+  end
+
+  def cover_art_url
+    Rails.cache.fetch("channel-#{self.id}-cover_art_url-#{self.updated_at.to_i}") do
+      cover_art_url!
+    end
+  end
+
   def resized_image_url!
     Imgix.client
          .path(image.s3_path)
