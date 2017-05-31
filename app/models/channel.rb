@@ -34,7 +34,7 @@ class Channel < ApplicationRecord
   def cover_art_url!
     if image.present?
       Imgix.client
-           .path(channel.image.s3_path)
+           .path(image.s3_path)
            .q(80)
            .fm('jpg')
            .fit('crop')
@@ -42,7 +42,7 @@ class Channel < ApplicationRecord
            .height(2048)
            .to_url
     else
-      @channel.image.url
+      image.url
     end
   end
 
