@@ -24,6 +24,16 @@ module Channels
 
       respond_to do |format|
         format.html
+        # JPEG or PNG, RGB color space, minimum size of 1400 x 1400 pixels and
+        # a maximum size of 2048 x 2048 pixels
+        # https://www.apple.com/itunes/podcasts/specs.html#image
+        format.jpg {
+          image_url = Imgix.client.path(@episode.image.s3_path).q(80).fm('jpg').fit('crop').width(2048).height(2048).to_url
+          response.headers['Cache-Control'] = "public, max-age=#{84.hours.to_i}"
+          response.headers['Content-Type'] = 'image/png'
+          response.headers['Content-Disposition'] = 'inline'
+          render :text => open(image_url, "rb").read
+        }
       end
     end
 
