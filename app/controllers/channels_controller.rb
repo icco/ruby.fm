@@ -37,6 +37,13 @@ class ChannelsController < ApplicationController
     respond_to do |format|
       format.html
       format.xml
+      format.jpg do
+        image_url = Imgix.client.path(@channel.image.s3_path).q(80).fm('jpg').fit('crop').width(2048).height(2048).to_url
+        response.headers['Cache-Control'] = "public, max-age=#{84.hours.to_i}"
+        response.headers['Content-Type'] = 'image/png'
+        response.headers['Content-Disposition'] = 'inline'
+        render :text => open(image_url, "rb").read
+      end
     end
   end
 
