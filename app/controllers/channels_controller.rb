@@ -41,7 +41,7 @@ class ChannelsController < ApplicationController
         response.headers['Cache-Control'] = "public, max-age=#{84.hours.to_i}"
         response.headers['Content-Type'] = 'image/png'
         response.headers['Content-Disposition'] = 'inline'
-        render :text => open(@channel.cover_art_url, "rb").read
+        send_data open(@channel.cover_art_url, "rb").read
       end
     end
   end
