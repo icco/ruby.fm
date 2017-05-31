@@ -62,6 +62,18 @@ class EpisodesController < ApplicationController
     end
   end
 
+  # GET - /episodes/:id/card
+  #
+  # @return [void]
+  def card
+    @episode = Episode.find(params[:id])
+
+    respond_to do |format|
+      render :layout => false
+      format.html
+    end
+  end
+
   # GET - /episodes/:id/play
   #
   # @return [void]

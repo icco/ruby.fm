@@ -23,6 +23,7 @@ Rails.application.routes.draw do
       get :download
       get :play
       get :image
+      get :card
     end
   end
 

@@ -2,8 +2,7 @@
   hash = {
     title: "#{@episode.title} — #{@channel.title}",
     og: {
-      title: @episode.title,
-      type: 'website',
+      title: "#{@episode.title} — #{@channel.title}",
       image: Imgix.client.path(@episode.image.s3_path).w(1200).h(1200).fit('crop').q(50).fm('auto').to_url,
       url: slugged_channel_episode_url(@channel.slug, @episode.slug),
       audio: {
@@ -13,7 +12,18 @@
       },
       site_name: "Ruby.fm"
     },
+    'twitter:player': "https://overcast.fm/podcasts/episode_card/11406576030341?t=0",
     twitter: {
+      card: "player",
+      site: "@rubyfm",
+      'player:stream': play_episode_url(@episode.id, format: @episode.audio_ext),
+      player: {
+        width: 290,
+        height: 48,
+        stream: {
+          content_type: "audio/mpeg"
+        }
+      }
     }
   }
 
