@@ -39,7 +39,7 @@ class ChannelsController < ApplicationController
       format.xml
       format.jpg do
         response.headers['Cache-Control'] = "public, max-age=#{84.hours.to_i}"
-        send_file open(@channel.cover_art_url, "rb").read, type: "image/png", disposition: "inline"
+        send_data open(@channel.cover_art_url, "rb").read, type: "image/png", disposition: "inline"
       end
     end
   end
