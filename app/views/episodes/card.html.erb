@@ -108,8 +108,13 @@ document.addEventListener('turbolinks:load', function() {
       $(".js-play-hide").hide();
     });
   }
-});
+  <% if @autoplay == "true" %>
+    // Auto play the media if ?auto_play == true
+    player.play();
+  });
+<% end  %>
 </script>
+
 
     </body>
   </html>

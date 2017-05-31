@@ -66,7 +66,9 @@ class EpisodesController < ApplicationController
   #
   # @return [void]
   def card
+    response.headers["X-FRAME-OPTIONS"] = "ALLOW-FROM https://twitter.com"
     @episode = Episode.find(params[:id])
+    @autoplay = params[:auto_play]
 
     respond_to do |format|
       render :layout => false
