@@ -99,6 +99,7 @@ GEM
     fabrication (2.15.2)
     faraday (0.12.1)
       multipart-post (>= 1.2, < 3)
+    ffi (1.11.3)
     fog-aws (0.12.0)
       fog-core (~> 1.38)
       fog-json (~> 1.0)
@@ -126,7 +127,8 @@ GEM
     formatador (0.2.5)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
-    get_process_mem (0.2.1)
+    get_process_mem (0.2.5)
+      ffi (~> 1.0)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
     groupdate (3.2.0)
@@ -194,10 +196,10 @@ GEM
     orm_adapter (0.5.0)
     pg (0.20.0)
     public_suffix (2.0.5)
-    puma (3.6.2)
-    puma_worker_killer (0.1.0)
+    puma (3.12.2)
+    puma_worker_killer (0.1.1)
       get_process_mem (~> 0.2)
-      puma (>= 2.7, < 4)
+      puma (>= 2.7, < 5)
     pundit (1.1.0)
       activesupport (>= 3.0.0)
     rack (2.0.3)
@@ -344,7 +346,7 @@ DEPENDENCIES
   nokogiri (~> 1.7.2)
   obscenity (~> 1.0.2)
   pg (~> 0.20.0)
-  puma (~> 3.6.2)
+  puma (~> 3.12.2)
   puma_worker_killer (~> 0.1.0)
   pundit (~> 1.1.0)
   rails (~> 5.1.0)
@@ -368,4 +370,4 @@ RUBY VERSION
    ruby 2.4.1p111
 
 BUNDLED WITH
-   1.15.0
+   1.17.3
