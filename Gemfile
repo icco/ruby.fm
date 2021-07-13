@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "2.4.1"
 
-gem "addressable",        "~> 2.5.1"
+gem "addressable",        "~> 2.8.0"
 gem "bugsnag",            "~> 5.3.2"
 gem "carrierwave-aws",    "~> 1.0.0"
 gem "coffee-rails",       "~> 4.2.0"
